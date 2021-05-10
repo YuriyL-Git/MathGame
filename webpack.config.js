@@ -31,7 +31,7 @@ const jsLoaders = (preset) => {
     options: {
       presets: ['@babel/preset-env'],
       plugins: [
-        ['@babel/plugin-proposal-decorators', {legacy: true }],
+        ['@babel/plugin-proposal-decorators', {legacy: true}],
       ],
     },
   }];
@@ -49,7 +49,7 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
   entry: {
-    main: ['@babel/polyfill', './app.ts'],
+    main: ['@babel/polyfill', './index.ts'],
   },
   /* to exclude extensions from the paths, and for
   possibility to write shorthand paths */
@@ -107,6 +107,7 @@ module.exports = {
           'css-loader',
         ],
       },
+      /* { test: /\.json$/, loader: 'json-loader' }, */
       {
         test: /\.scss$/,
         use: [
@@ -134,7 +135,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
-            }
+            },
           },
         ],
       },
