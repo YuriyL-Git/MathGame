@@ -42,17 +42,12 @@ const jsLoaders = preset => {
 };
 
 module.exports = {
-  /* context points to the folder with source files,
-  if context is defined, source folder should be removed
-  from the rest paths */
   target: 'web',
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
   entry: {
     main: ['@babel/polyfill', './index.ts'],
   },
-  /* to exclude extensions from the paths, and for
-  possibility to write shorthand paths */
   resolve: {
     extensions: ['.ts', '.js', '.png'],
     alias: {
@@ -63,7 +58,6 @@ module.exports = {
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
-    // sourceMapFilename: "[name].js.map"
   },
   devtool: isDev ? 'source-map' : false,
   /* to exclude bundling the same libraries into several
@@ -81,14 +75,14 @@ module.exports = {
       minify: isProd,
     }),
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, 'public'),
-          to: path.resolve(__dirname, 'dist'),
-        },
-      ],
-    }),
+    /*  new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: path.resolve(__dirname, 'public'),
+            to: path.resolve(__dirname, 'dist'),
+          },
+        ],
+      }),*/
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
     }),
@@ -107,7 +101,6 @@ module.exports = {
           'css-loader',
         ],
       },
-      /* { test: /\.json$/, loader: 'json-loader' }, */
       {
         test: /\.scss$/,
         use: [
