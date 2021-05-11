@@ -3,14 +3,14 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserWebpackPlugin = require('terser-webpack-plugin');
 const CssMimimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
-const esLintPlugin = (isDevevelopment) => (isDevevelopment ? [new ESLintPlugin({extensions: ['ts', 'js']})] : []);
+const esLintPlugin = isDevevelopment =>
+    isDevevelopment ? [new ESLintPlugin({extensions: ['ts', 'js']})] : [];
 console.log('esLintPlugin = ', esLintPlugin(isDev));
 const optimization = () => {
   const config = {
@@ -25,16 +25,16 @@ const optimization = () => {
   }
   return config;
 };
-const jsLoaders = (preset) => {
-  const loaders = [{
-    loader: 'babel-loader',
-    options: {
-      presets: ['@babel/preset-env'],
-      plugins: [
-        ['@babel/plugin-proposal-decorators', {legacy: true}],
-      ],
+const jsLoaders = preset => {
+  const loaders = [
+    {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env'],
+        plugins: [['@babel/plugin-proposal-decorators', {legacy: true}]],
+      },
     },
-  }];
+  ];
 
   if (preset) loaders[0].options.presets.push(preset);
 
@@ -54,7 +54,7 @@ module.exports = {
   /* to exclude extensions from the paths, and for
   possibility to write shorthand paths */
   resolve: {
-    extensions: ['.ts', '.js', '.json', '.png'],
+    extensions: ['.ts', '.js', '.png'],
     alias: {
       '@scripts': path.resolve(__dirname, 'src/scripts'),
       '@': path.resolve(__dirname, 'src'),
@@ -81,14 +81,14 @@ module.exports = {
       minify: isProd,
     }),
     new CleanWebpackPlugin(),
-    /* new CopyWebpackPlugin({
-       patterns: [
-         {
-           from: path.resolve(__dirname, 'src/user-oskar-icon.png'),
-           to: path.resolve(__dirname, 'dist')
-         }
-       ]
-     }), */
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'public'),
+          to: path.resolve(__dirname, 'dist'),
+        },
+      ],
+    }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
     }),

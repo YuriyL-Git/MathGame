@@ -3,7 +3,7 @@ import { Card } from '../card/card';
 import { CardsField } from '../card-field/cards-field';
 import { delay } from '../../shared/delay';
 
-const FLIP_DELAY = 3000;
+const FLIP_DELAY = 800;
 
 export class Game extends BaseComponent {
   private readonly cardsField = new CardsField();
@@ -20,6 +20,7 @@ export class Game extends BaseComponent {
 
   newGame(images: string[]) {
     this.cardsField.clear();
+    console.log('images=', images);
 
     const cards = images
       .concat(images)
@@ -37,11 +38,13 @@ export class Game extends BaseComponent {
 
   private async cardHandler(card: Card) {
     if (this.isAnimation) return;
+    if (!card.isFlipped) return;
     this.isAnimation = true;
     await card.flipToFront();
 
     if (!this.activeCard) {
       this.activeCard = card;
+      this.isAnimation = false;
       return;
     }
     if (this.activeCard.image !== card.image) {

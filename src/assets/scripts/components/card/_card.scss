@@ -9,13 +9,23 @@
 
   &__flipped > .card {
     transform: rotateY(180deg) translateX(-100%);
+    transition: all 0.2s;
     transform-origin: left;
+  }
+
+  &:hover {
+    transform: translateZ(100px);
+    transform-style: preserve-3d;
+    transition: all 0.2s;
+    transform-origin: left;
+
+
   }
 
   &:hover > .card {
     /* transform: rotateY(180deg) translateX(-100%);
      transform-origin: left;*/
-    transform: translateZ(20px);
+
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.6);
   }
 }
@@ -40,19 +50,19 @@
     left: 0;
     width: 100%;
     height: 100%;
+    background-position: center;
+    background-size: cover;
   }
 
   &__front {
     background-color: crimson;
-    background-image: url('../../../img/playing-card.jpg');
+    // background-image: url('../../../img/playing-card.jpg');
     background-position: center;
     background-size: cover;
   }
 
   &__back {
-    background-image: url('../../../img/dog1.jpg');
-    background-position: center;
-    background-size: cover;
+    background-image: url('../../../img/playing-card.jpg');
     transform: rotateY(180deg);
   }
 }
