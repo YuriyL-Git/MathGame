@@ -1,5 +1,4 @@
 .card-container {
-  margin: 1%;
   flex: 1 0 25%;
   display: flex;
   align-items: center;
@@ -25,13 +24,12 @@
 .card {
   position: relative;
   width: 10rem;
-  height: 15rem;
+  height: 10rem;
   transform-style: preserve-3d;
   transition: all 0.2s;
   transform-origin: right;
   border-radius: 10px;
   box-shadow: 0 0 .25rem black;
-
 
   &__front,
   &__back {
@@ -48,9 +46,6 @@
 
   &__front {
     background-color: crimson;
-    // background-image: url('../../../img/playing-card.jpg');
-    background-position: center;
-    background-size: cover;
   }
 
   &__back {
