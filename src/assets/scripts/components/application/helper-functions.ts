@@ -1,4 +1,4 @@
-import { ImageCategoryModel } from '../../../models/image-category-model';
+import { ImageCategoryModel } from '../../../../models/image-category-model';
 
 async function getImagesList(
   category: string,

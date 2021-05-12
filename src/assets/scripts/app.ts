@@ -1,18 +1,22 @@
 import { Game } from './components/game/game';
-import Settings from './components/settings';
+import Settings from './components/application/settings';
+import { Header } from './components/header/header';
 
 export class App {
   private readonly game: Game;
 
   constructor(private readonly rootElement: HTMLElement) {
     this.game = new Game();
+    const header = new Header();
+    this.rootElement.appendChild(header.element);
     this.rootElement.appendChild(this.game.element);
   }
 
   start(): void {
-    // const settings = new Settings('unsorted', 4);
-    Settings.imageList
-      .then(images => this.game.newGame(images))
-      .catch(err => new Error(err));
+    if (Settings.imageList) {
+      Settings.imageList
+        .then(images => this.game.newGame(images))
+        .catch(err => new Error(err));
+    }
   }
 }

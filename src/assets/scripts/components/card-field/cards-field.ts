@@ -1,4 +1,4 @@
-import { BaseComponent } from '../base-component';
+import { BaseComponent } from '../application/base-component';
 import './_cards-field.scss';
 import { Card } from '../card/card';
 

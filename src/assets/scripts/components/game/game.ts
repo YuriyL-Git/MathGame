@@ -1,7 +1,7 @@
-import { BaseComponent } from '../base-component';
+import { BaseComponent } from '../application/base-component';
 import { Card } from '../card/card';
 import { CardsField } from '../card-field/cards-field';
-import { delay } from '../helper-functions';
+import { delay } from '../application/helper-functions';
 
 const FLIP_BACK_DELAY = 800;
 

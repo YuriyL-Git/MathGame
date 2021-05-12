@@ -1,9 +1,15 @@
 import { getImagesList } from './helper-functions';
 
+const DEFAULT_CATEGORY = 'unsorted';
+const DEFAULT_IMAGE_QTY = 4;
+
 class Settings {
   public imageList: Promise<string[]> | undefined;
 
-  constructor(imagesCategory = 'unsorted', imagesQuantity = 8) {
+  constructor(
+    imagesCategory = DEFAULT_CATEGORY,
+    imagesQuantity = DEFAULT_IMAGE_QTY,
+  ) {
     this.updateImageList(imagesCategory, imagesQuantity);
   }
 
