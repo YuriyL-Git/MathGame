@@ -1,9 +1,15 @@
 import { getImagesList } from './helper-functions';
 
-export default class Settings {
-  public imageList: Promise<string[]>;
+class Settings {
+  public imageList: Promise<string[]> | undefined;
 
-  constructor(imagesCategory: string, imagesQuantity: number) {
+  constructor(imagesCategory = 'unsorted', imagesQuantity = 8) {
+    this.updateImageList(imagesCategory, imagesQuantity);
+  }
+
+  updateImageList(imagesCategory: string, imagesQuantity: number) {
     this.imageList = getImagesList(imagesCategory, imagesQuantity);
   }
 }
+
+export default new Settings();

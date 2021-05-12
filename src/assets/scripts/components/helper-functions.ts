@@ -15,4 +15,10 @@ async function getImagesList(
   return images;
 }
 
-export { getImagesList };
+function delay(timeout: number): Promise<void> {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
+
+export { getImagesList, delay };

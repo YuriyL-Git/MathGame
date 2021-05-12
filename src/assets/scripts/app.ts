@@ -10,8 +10,8 @@ export class App {
   }
 
   start(): void {
-    const settings = new Settings('unsorted', 4);
-    settings.imageList
+    // const settings = new Settings('unsorted', 4);
+    Settings.imageList
       .then(images => this.game.newGame(images))
       .catch(err => new Error(err));
   }
