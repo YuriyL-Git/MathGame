@@ -15,15 +15,14 @@ export class Card extends BaseComponent {
        <div class="card__back">Back</div>
      </div>
     `;
-    console.log('new Card, Image = ', this.element.innerHTML);
   }
 
-  flipToBack() {
+  flipToBack(): Promise<void> {
     this.isFlipped = true;
     return this.flip(true);
   }
 
-  flipToFront() {
+  flipToFront(): Promise<void> {
     this.isFlipped = false;
     return this.flip(false);
   }

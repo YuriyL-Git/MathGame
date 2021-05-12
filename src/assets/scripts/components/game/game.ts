@@ -18,9 +18,8 @@ export class Game extends BaseComponent {
     this.element.appendChild(this.cardsField.element);
   }
 
-  newGame(images: string[]) {
-    this.cardsField.clear();
-    console.log('images=', images);
+  newGame(images: string[]): void {
+    this.cardsField.clearField();
 
     const cards = images
       .concat(images)
@@ -29,7 +28,7 @@ export class Game extends BaseComponent {
 
     cards.forEach(card =>
       card.element.addEventListener('click', () => {
-        this.cardHandler(card);
+        this.cardHandler(card).catch(err => new Error(err));
       }),
     );
 

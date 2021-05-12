@@ -11,7 +11,7 @@ const isProd = !isDev;
 
 const esLintPlugin = isDevevelopment =>
     isDevevelopment ? [new ESLintPlugin({extensions: ['ts', 'js']})] : [];
-console.log('esLintPlugin = ', esLintPlugin(isDev));
+
 const optimization = () => {
   const config = {
     splitChunks: {chunks: 'all'},
@@ -37,7 +37,6 @@ const jsLoaders = preset => {
   ];
 
   if (preset) loaders[0].options.presets.push(preset);
-
   return loaders;
 };
 
@@ -60,8 +59,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   devtool: isDev ? 'source-map' : false,
-  /* to exclude bundling the same libraries into several
-  entry points */
   optimization: optimization(),
   devServer: {
     port: 4200,
@@ -73,26 +70,25 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: './index.html',
       minify: isProd,
+      favicon: "./assets/img/favicon.ico"
     }),
     new CleanWebpackPlugin(),
-    /*  new CopyWebpackPlugin({
-        patterns: [
-          {
-            from: path.resolve(__dirname, 'public'),
-            to: path.resolve(__dirname, 'dist'),
-          },
-        ],
-      }),*/
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/public'),
+          to: path.resolve(__dirname, 'dist'),
+        },
+      ],
+    }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
     }),
   ],
-  /* connect loaders */
   module: {
     rules: [
       {
         test: /\.css$/,
-        /* webpack runs loaders from right to left! */
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -132,21 +128,17 @@ module.exports = {
           },
         ],
       },
-      {
+      /* {
         test: /\.(ico|png|jpg|jpeg|svg|gif)/,
         use: ['file-loader'],
+      }, */
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,
+        type: 'asset/resource',
       },
       {
         test: /\.(ttf|woff|woff2|eot)$/,
         use: ['file-loader'],
-      },
-      {
-        test: /\.xml$/,
-        use: ['xml-loader'],
-      },
-      {
-        test: /\.csv$/,
-        use: ['csv-loader'],
       },
       {
         test: /\.m?js$/,

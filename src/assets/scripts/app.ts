@@ -1,8 +1,6 @@
 import { Game } from './components/game/game';
 import { ImageCategoryModel } from '../../models/image-category-model';
 
-// import resources from '../../../public/images.json';
-
 export class App {
   private readonly game: Game;
 
@@ -11,17 +9,13 @@ export class App {
     this.rootElement.appendChild(this.game.element);
   }
 
-  async start() {
-    // const categories: ImageCategoryModel[] = resources;
-
+  async start(): Promise<void> {
     const res = await fetch('./images.json');
-    console.log(res);
-    const categories: ImageCategoryModel[] = await res.json();
+    const categories: ImageCategoryModel[] = (await res.json()) as ImageCategoryModel[];
     const category = categories[0];
 
     const images = category.images.map(
-      // name => `./images/${category.category}/${name}`,
-      name => `./${category.category}/${name}`,
+      name => `./images/${category.category}/${name}`,
     );
     this.game.newGame(images);
   }

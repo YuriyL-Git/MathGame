@@ -8,6 +8,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
@@ -15,11 +16,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": [
-    "@typescript-eslint",
-    "eslint-comments",
-    "jest",
-    "promise",
-    "unicorn"
+    "@typescript-eslint"
   ],
   "rules": {
     "no-shadow": "off",
