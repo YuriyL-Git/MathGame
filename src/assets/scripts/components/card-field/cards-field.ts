@@ -8,7 +8,7 @@ export class CardsField extends BaseComponent {
   private cards: Card[] = [];
 
   constructor() {
-    super('div', ['cards-field']);
+    super('section', ['cards-field']);
   }
 
   clearField(): void {

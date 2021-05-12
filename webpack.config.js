@@ -20,11 +20,11 @@ const optimization = () => {
     config.minimize = true;
     config.minimizer = [
       new CssMimimizerWebpackPlugin(),
-      new TerserWebpackPlugin(),
     ];
   }
   return config;
 };
+
 const jsLoaders = preset => {
   const loaders = [
     {
@@ -50,7 +50,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.png'],
     alias: {
-      '@scripts': path.resolve(__dirname, 'src/scripts'),
+      '@Scripts': path.resolve(__dirname, 'src/assets/scripts'),
       '@': path.resolve(__dirname, 'src'),
     },
   },

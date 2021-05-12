@@ -3,17 +3,17 @@ import { Card } from '../card/card';
 import { CardsField } from '../card-field/cards-field';
 import { delay } from '../../shared/delay';
 
-const FLIP_DELAY = 800;
+const FLIP_BACK_DELAY = 800;
 
 export class Game extends BaseComponent {
-  private readonly cardsField = new CardsField();
+  private readonly cardsField: CardsField;
 
   private activeCard?: Card;
 
   private isAnimation = false;
 
   constructor() {
-    super();
+    super('div', ['cards-field-container']);
     this.cardsField = new CardsField();
     this.element.appendChild(this.cardsField.element);
   }
@@ -28,14 +28,14 @@ export class Game extends BaseComponent {
 
     cards.forEach(card =>
       card.element.addEventListener('click', () => {
-        this.cardHandler(card).catch(err => new Error(err));
+        this.cardClickHandler(card).catch(err => new Error(err));
       }),
     );
 
     this.cardsField.addCards(cards);
   }
 
-  private async cardHandler(card: Card) {
+  private async cardClickHandler(card: Card) {
     if (this.isAnimation) return;
     if (!card.isFlipped) return;
     this.isAnimation = true;
@@ -47,7 +47,7 @@ export class Game extends BaseComponent {
       return;
     }
     if (this.activeCard.image !== card.image) {
-      await delay(FLIP_DELAY);
+      await delay(FLIP_BACK_DELAY);
       await Promise.all([this.activeCard.flipToBack(), card.flipToBack()]);
     }
     this.activeCard = undefined;

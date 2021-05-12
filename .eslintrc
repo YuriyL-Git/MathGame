@@ -23,7 +23,6 @@
     "@typescript-eslint/no-shadow": [
       "error"
     ],
-    "@typescript-eslint/no-non-null-assertion": "off",
     "no-plusplus": "off",
     "no-console": "warn",
     "max-len": [

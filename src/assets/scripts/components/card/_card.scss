@@ -14,18 +14,10 @@
   }
 
   &:hover {
-    transform: translateZ(100px);
-    transform-style: preserve-3d;
     transition: all 0.2s;
-    transform-origin: left;
-
-
   }
 
   &:hover > .card {
-    /* transform: rotateY(180deg) translateX(-100%);
-     transform-origin: left;*/
-
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.6);
   }
 }
