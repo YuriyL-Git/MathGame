@@ -1,6 +1,7 @@
 import { BaseComponent } from '../application/base-component';
 import './_cards-field.scss';
 import { Card } from '../card/card';
+import Settings from '../application/settings';
 
 const SHOW_TIME = 3;
 
@@ -14,6 +15,25 @@ export class CardsField extends BaseComponent {
   clearField(): void {
     this.cards = [];
     this.element.innerHTML = '';
+  }
+
+  setupField(): void {
+    const fieldHeight = this.element.clientHeight;
+    const gridColumns = Math.ceil(Math.sqrt(Settings.imagesQuantity));
+    const gridRows = Settings.imagesQuantity / gridColumns;
+    const cardSize = (fieldHeight - gridRows * (20 - gridRows)) / gridRows;
+
+    const rowGap = (fieldHeight - cardSize * gridRows) / (gridRows - 1);
+    const width = cardSize * gridColumns + rowGap * (gridColumns - 1) - 20;
+
+    Settings.cardSize = `${cardSize}px`;
+
+    /* setup card-field width */
+    this.element.style.width = `${width}px`;
+
+    /* setup grid-template columns */
+    this.element.style.gridTemplateColumns = `repeat(
+      ${gridColumns}, 1fr)`;
   }
 
   addCards(cards: Card[]): void {

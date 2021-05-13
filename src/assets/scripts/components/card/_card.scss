@@ -30,6 +30,7 @@
   border-radius: 10px;
   box-shadow: 0 0 .25rem black;
 
+
   &__front,
   &__back {
     border-radius: inherit;
@@ -41,6 +42,7 @@
     height: 100%;
     background-position: center;
     background-size: cover;
+    cursor: pointer;
   }
 
   &__front {

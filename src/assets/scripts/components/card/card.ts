@@ -6,13 +6,13 @@ const FLIP_CLASS = 'card-container__flipped';
 export class Card extends BaseComponent {
   isFlipped = false;
 
-  constructor(readonly image: string, height = '10rem', width = '10rem') {
+  constructor(readonly image: string, size = '10rem') {
     super('div', ['card-container']);
 
     this.element.innerHTML = `
-     <div class="card" style="height: ${height}; width: ${width}">
-       <div class="card__front" style="background-image: url('${image}')">Front</div>
-       <div class="card__back">Back</div>
+     <div class="card" style="height: ${size}; width: ${size}">
+       <div class="card__front" style="background-image: url('${image}')"></div>
+       <div class="card__back"></div>
      </div>
     `;
   }

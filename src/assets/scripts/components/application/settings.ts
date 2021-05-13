@@ -1,7 +1,5 @@
-import { getImagesList } from './helper-functions';
-
-const DEFAULT_CATEGORY = 'unsorted';
-const DEFAULT_IMAGE_QTY = 8;
+const DEFAULT_CATEGORY = 'animals';
+const DEFAULT_IMAGE_QTY = 12;
 
 class Settings {
   public imageList: Promise<string[]> | undefined;
@@ -10,17 +8,14 @@ class Settings {
 
   public imagesQuantity: number;
 
+  public cardSize = '20px';
+
   constructor(
     imagesCategory = DEFAULT_CATEGORY,
     imagesQuantity = DEFAULT_IMAGE_QTY,
   ) {
     this.imagesCategory = imagesCategory;
     this.imagesQuantity = imagesQuantity;
-    this.updateImageList();
-  }
-
-  updateImageList() {
-    this.imageList = getImagesList(this.imagesCategory, this.imagesQuantity);
   }
 }
 

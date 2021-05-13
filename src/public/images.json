@@ -9,7 +9,31 @@
       "005-parrot.png",
       "006-panda.png",
       "007-boar.png",
-      "008-giraffe.png"
+      "008-giraffe.png",
+      "nature2.jpg"
+    ]
+  },
+  {
+    "category": "animals",
+    "images": [
+      "1.Animals.jpeg",
+      "2.Animals.jpeg",
+      "3.Animals.jpeg",
+      "4.Animals.jpeg",
+      "5.Animals.jpeg",
+      "6.Animals.jpeg",
+      "7.Animals.jpeg",
+      "8.Animals.jpeg",
+      "9.Animals.jpeg",
+      "10.Animals.jpeg",
+      "11.Animals.jpeg",
+      "12.Animals.jpeg",
+      "13.Animals.jpeg",
+      "14.Animals.jpeg",
+      "15.Animals.jpeg",
+      "16.Animals.jpeg",
+      "17.Animals.jpeg",
+      "18.Animals.jpeg"
     ]
   }
 ]

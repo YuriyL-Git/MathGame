@@ -31,13 +31,11 @@ export class GameController extends BaseComponent {
   async newGame(): Promise<void> {
     await this.updateImageList();
     this.cardsField.clearField();
-    const cardWidth = `${this.cardsField.element.clientWidth / 80}rem`;
-    const cardHeight = `${this.cardsField.element.clientHeight / 80}rem`;
+    this.cardsField.setupField();
 
-    const cards = this.imageList
-      .concat(this.imageList)
-      .map(image => new Card(image, cardHeight, cardWidth))
-      .sort(() => Math.random() - 0.5);
+    const cards = this.imageList.map(
+      image => new Card(image, Settings.cardSize),
+    );
 
     cards.forEach(card =>
       card.element.addEventListener('click', () => {
