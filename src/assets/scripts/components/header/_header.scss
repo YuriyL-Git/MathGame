@@ -1,18 +1,33 @@
 .header {
   background: rgb(2, 0, 36);
   background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 0%, rgba(0, 207, 255, 1) 100%);
+  width: 100%;
   display: grid;
-  grid-template-columns: 18% 40% 42%;
+  grid-template-columns: 25rem 1fr 1fr;
   padding-top: 0.6rem;
-
-
+  padding-bottom: 0.6rem;
+  
   &__logo {
     padding-left: 1rem;
+    padding-right: 0.6rem;
     display: flex;
     justify-content: space-between;
     border: 1px dashed white;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-left: 1rem;
+    margin-right: 1rem;
+
+    &:hover {
+      border: 1px dashed hsl(32, 93%, 54%);
+
+      & > .header__logo-title {
+        color: hsl(32, 93%, 54%);
+      }
+    }
+  }
+
+  .header__logo:hover .header__logo-title {
+    color: hsl(32, 93%, 54%);
   }
 
   &__logo-link {
@@ -20,6 +35,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    text-decoration: none;
   }
 
   &__logo-title {

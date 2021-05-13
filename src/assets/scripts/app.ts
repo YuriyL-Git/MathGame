@@ -1,22 +1,13 @@
-import { Game } from './components/game/game';
-import Settings from './components/application/settings';
+import { GameController } from './components/game-controller/game-controller';
 import { Header } from './components/header/header';
 
 export class App {
-  private readonly game: Game;
+  public readonly game: GameController;
 
   constructor(private readonly rootElement: HTMLElement) {
-    this.game = new Game();
+    this.game = new GameController();
     const header = new Header();
     this.rootElement.appendChild(header.element);
     this.rootElement.appendChild(this.game.element);
-  }
-
-  start(): void {
-    if (Settings.imageList) {
-      Settings.imageList
-        .then(images => this.game.newGame(images))
-        .catch(err => new Error(err));
-    }
   }
 }

@@ -1,10 +1,9 @@
 .card-container {
-  flex: 1 0 25%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  perspective: 25rem;
+  perspective: 120rem;
 
   &__flipped > .card {
     transform: rotateY(180deg) translateX(-100%);

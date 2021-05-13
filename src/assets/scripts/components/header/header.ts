@@ -1,9 +1,6 @@
 import './_header.scss';
 import { BaseComponent } from '../application/base-component';
-
-const headerTemplate = `
-
-`;
+import { headerTemplate } from './header-template';
 
 export class Header extends BaseComponent {
   constructor() {

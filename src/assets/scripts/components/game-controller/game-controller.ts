@@ -1,29 +1,42 @@
 import { BaseComponent } from '../application/base-component';
 import { Card } from '../card/card';
 import { CardsField } from '../card-field/cards-field';
-import { delay } from '../application/helper-functions';
+import { delay, getImagesList } from '../application/helper-functions';
+import Settings from '../application/settings';
 
 const FLIP_BACK_DELAY = 800;
 
-export class Game extends BaseComponent {
+export class GameController extends BaseComponent {
   private readonly cardsField: CardsField;
 
   private activeCard?: Card;
 
   private isAnimation = false;
 
+  private imageList: string[] = [];
+
   constructor() {
-    super('div', ['cards-field-container']);
+    super('div', ['main-container']);
     this.cardsField = new CardsField();
     this.element.appendChild(this.cardsField.element);
   }
 
-  newGame(images: string[]): void {
-    this.cardsField.clearField();
+  async updateImageList(): Promise<void> {
+    this.imageList = await getImagesList(
+      Settings.imagesCategory,
+      Settings.imagesQuantity,
+    );
+  }
 
-    const cards = images
-      .concat(images)
-      .map(url => new Card(url))
+  async newGame(): Promise<void> {
+    await this.updateImageList();
+    this.cardsField.clearField();
+    const cardWidth = `${this.cardsField.element.clientWidth / 80}rem`;
+    const cardHeight = `${this.cardsField.element.clientHeight / 80}rem`;
+
+    const cards = this.imageList
+      .concat(this.imageList)
+      .map(image => new Card(image, cardHeight, cardWidth))
       .sort(() => Math.random() - 0.5);
 
     cards.forEach(card =>
