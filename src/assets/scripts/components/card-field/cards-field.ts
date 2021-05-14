@@ -3,7 +3,7 @@ import './_cards-field.scss';
 import { Card } from '../card/card';
 import Settings from '../application/settings';
 
-const SHOW_TIME = 3;
+// const SHOW_TIME = 3;
 
 export class CardsField extends BaseComponent {
   private cards: Card[] = [];
@@ -43,7 +43,7 @@ export class CardsField extends BaseComponent {
     });
     setTimeout(async () => {
       await this.flipCardsToBack();
-    }, SHOW_TIME * 1000);
+    }, Settings.showTime);
   }
 
   async flipCardsToBack(): Promise<void> {

@@ -1,20 +1,11 @@
-const DEFAULT_CATEGORY = 'animals';
-const DEFAULT_IMAGE_QTY = 12;
-
 class Settings {
-  public imagesCategory: string;
+  public imagesCategory = 'animals';
 
-  public imagesQuantity: number;
+  public imagesQuantity = 12;
 
   public cardSize = '';
 
-  constructor(
-    imagesCategory = DEFAULT_CATEGORY,
-    imagesQuantity = DEFAULT_IMAGE_QTY,
-  ) {
-    this.imagesCategory = imagesCategory;
-    this.imagesQuantity = imagesQuantity;
-  }
+  public showTime = 8000;
 }
 
 export default new Settings();

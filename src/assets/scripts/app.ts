@@ -14,6 +14,7 @@ export class App {
     this.header = new Header();
     this.form = new FormRegister();
     this.form.hide();
+    // this.game.hide();
 
     this.rootElement.appendChild(this.header.element);
     this.rootElement.appendChild(this.game.element);
