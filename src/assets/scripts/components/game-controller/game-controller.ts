@@ -16,7 +16,7 @@ export class GameController extends BaseComponent {
   private imageList: string[] = [];
 
   constructor() {
-    super('div', ['main-container']);
+    super('div', ['field-container']);
     this.cardsField = new CardsField();
     this.element.appendChild(this.cardsField.element);
   }

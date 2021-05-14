@@ -5,7 +5,7 @@ class Settings {
 
   public cardSize = '';
 
-  public showTime = 8000;
+  public showTime = 3000;
 }
 
 export default new Settings();
