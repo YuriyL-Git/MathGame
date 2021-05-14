@@ -30,8 +30,7 @@ const jsLoaders = preset => {
     {
       loader: 'babel-loader',
       options: {
-        presets: ['@babel/preset-env'],
-        plugins: [['@babel/plugin-proposal-decorators', {legacy: true}]],
+        presets: ['@babel/preset-env']
       },
     },
   ];

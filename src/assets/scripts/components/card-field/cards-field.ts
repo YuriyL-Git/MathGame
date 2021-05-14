@@ -24,12 +24,12 @@ export class CardsField extends BaseComponent {
     const cardSize = (fieldHeight - gridRows * (20 - gridRows)) / gridRows;
 
     const rowGap = (fieldHeight - cardSize * gridRows) / (gridRows - 1);
-    const width = cardSize * gridColumns + rowGap * (gridColumns - 1) - 20;
+    const fieldWidht = cardSize * gridColumns + rowGap * (gridColumns - 1) - 20;
 
     Settings.cardSize = `${cardSize}px`;
 
     /* setup card-field width */
-    this.element.style.width = `${width}px`;
+    this.element.style.width = `${fieldWidht}px`;
 
     /* setup grid-template columns */
     this.element.style.gridTemplateColumns = `repeat(
