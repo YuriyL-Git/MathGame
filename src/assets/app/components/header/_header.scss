@@ -2,10 +2,11 @@
   background: rgb(2, 0, 36);
   background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 0%, rgba(0, 207, 255, 1) 100%);
   width: 100%;
+  height: 7.4rem;
+
   display: grid;
   grid-template-columns: 25rem 1fr 1fr 0.5fr;
-  padding-top: 0.6rem;
-  padding-bottom: 0.6rem;
+
 
   &__logo {
     padding-left: 1rem;
@@ -16,18 +17,23 @@
     border-radius: 5px;
     margin-left: 1rem;
     margin-right: 1rem;
+    height: 6rem;
+    margin-top: 0.6rem;
 
     &:hover {
-      border: 1px dashed hsl(32, 93%, 54%);
+      // border: 1px dashed hsl(32, 93%, 54%);
 
       & > .header__logo-title {
-        color: hsl(32, 93%, 54%);
+        // color: hsl(32, 93%, 54%);
       }
+    }
+
+    &:hover img {
     }
   }
 
   .header__logo:hover .header__logo-title {
-    color: hsl(32, 93%, 54%);
+    // color: hsl(32, 93%, 54%);
   }
 
   &__logo-link {
@@ -63,8 +69,15 @@
     justify-content: space-between;
   }
 
-  &__nav-item:hover {
-    transform: scale(1.05);
+  &__nav-item {
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__nav-item {
+    filter: brightness(1);
   }
 
   &__nav-item:active {
@@ -93,10 +106,11 @@
     margin-right: 3%;
   }
 
-  &__btn-register {
+  &__btn {
+    text-decoration: none;
     font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
     background: linear-gradient(80deg, #ebca1a 0%, #f53803 100%);
-
     outline: none;
     border: 1px solid rgb(200, 147, 30);
     border-radius: 20px;
@@ -105,6 +119,8 @@
     width: 100%;
     height: 4rem;
     cursor: pointer;
+    display: grid;
+    place-items: center;
 
     &:hover {
       background: linear-gradient(0deg, #ebca1a 0%, #f53803 120%);

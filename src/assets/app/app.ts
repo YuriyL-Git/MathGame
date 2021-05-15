@@ -7,30 +7,32 @@ import { Timer } from './components/timer/timer';
 export class App {
   public readonly game: GameController;
 
-  private header: Header;
+  public header: Header;
 
-  private form: FormRegister;
+  public form: FormRegister;
 
-  private about: About;
+  public about: About;
 
-  private timer: Timer;
+  public timer: Timer;
 
   constructor(private readonly rootElement: HTMLElement) {
-    // TODO insert timer element here
     this.game = new GameController();
     this.timer = new Timer();
-    this.header = new Header(this.timer.element);
-    // this.header.hide();
+    this.header = new Header(this.timer);
     this.form = new FormRegister();
     this.about = new About();
+
+    // this.header.hide();
     this.form.hide();
-    this.game.hide();
+    //  this.game.hide();
     this.about.hide();
 
-    this.rootElement.appendChild(this.header.element);
-    this.rootElement.appendChild(this.about.element);
-    this.rootElement.appendChild(this.game.element);
-    this.rootElement.appendChild(this.form.element);
+    this.rootElement.append(
+      this.header.element,
+      this.about.element,
+      this.game.element,
+      this.form.element,
+    );
 
     this.timer.setTimer('0', '12');
     this.timer.startTimer();
@@ -40,7 +42,7 @@ export class App {
   }
 
   async start(): Promise<void> {
-    // TODO implement application functionality
+    // TODO implement shared functionality
     await this.game.newGame();
   }
 }

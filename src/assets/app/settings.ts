@@ -1,7 +1,7 @@
 class Settings {
   public imagesCategory = 'animals';
 
-  public imagesQuantity = 12;
+  public imagesQuantity = 20;
 
   public cardSize = '';
 

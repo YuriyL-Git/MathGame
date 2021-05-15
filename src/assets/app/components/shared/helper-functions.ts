@@ -20,10 +20,12 @@ async function getImagesList(
     name => `./images/${currentCategory.category}/${name}`,
   );
   if (images.length > quantity / 2) images = images.slice(0, quantity / 2);
+
+  const reversed = [...images].reverse();
+  shuffleArray(reversed);
+  images = images.concat(reversed);
   shuffleArray(images);
-  images = images.concat(images.reverse());
-  shuffleArray(images);
-  return images.sort(() => Math.random() - 0.5);
+  return images;
 }
 
 function delay(timeout: number): Promise<void> {

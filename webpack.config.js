@@ -49,7 +49,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.png'],
     alias: {
-      '@Scripts': path.resolve(__dirname, 'src/assets/scripts'),
+      '@Scripts': path.resolve(__dirname, 'src/assets/app'),
       '@': path.resolve(__dirname, 'src'),
     },
   },

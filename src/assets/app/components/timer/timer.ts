@@ -1,25 +1,25 @@
 import './_timer.scss';
-import { Component } from '../application/component';
+import { ComponentClass } from '../shared/component-class';
 
-export class Timer extends Component {
-  private minutes: Component;
+export class Timer extends ComponentClass {
+  private minutes: ComponentClass;
 
-  private seconds: Component;
+  private seconds: ComponentClass;
 
   private timerId = 0;
 
   constructor() {
     super('div', ['timer']);
 
-    const minutesSection = new Component('div', []);
-    this.minutes = new Component('span', ['minutes']);
+    const minutesSection = new ComponentClass('div', []);
+    this.minutes = new ComponentClass('span', ['minutes']);
     minutesSection.element.append(this.minutes.element);
 
-    const secondsSection = new Component('div', []);
-    this.seconds = new Component('span', ['seconds']);
+    const secondsSection = new ComponentClass('div', []);
+    this.seconds = new ComponentClass('span', ['seconds']);
     secondsSection.element.append(this.seconds.element);
 
-    const semicolon = new Component('div', []);
+    const semicolon = new ComponentClass('div', []);
     semicolon.element.append(':');
 
     this.element.append(
