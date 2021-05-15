@@ -32,7 +32,11 @@ export class App {
     this.rootElement.appendChild(this.game.element);
     this.rootElement.appendChild(this.form.element);
 
-    this.timer.setTimer('12', '12');
+    this.timer.setTimer('0', '12');
+    this.timer.startTimer();
+    this.timer.element.addEventListener('timerstop', () => {
+      console.log('stopped');
+    });
   }
 
   async start(): Promise<void> {
