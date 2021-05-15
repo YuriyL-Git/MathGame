@@ -1,4 +1,4 @@
-const template = `
+export const headerTemplateOld = (timer: string): string => `
   <div class="header__logo">
     <a href="#" class="header__logo-link">
       <img src="./icons/game-logo.png" alt="game logo" class="header__logo-image">
@@ -7,19 +7,19 @@ const template = `
   </div>
   <nav class="header__nav">
     <ul class="header__nav-list">
-      <li class="header__nav-item item-help">
+      <li class="header__nav-item">
         <a class="header__nav-link" href="#">
           <img class="header__nav-icon" src="./icons/help.svg" alt="help">
           <p>About</p>
         </a>
       </li>
-      <li class="header__nav-item item-score">
+      <li class="header__nav-item">
         <a class="header__nav-link" href="#">
           <img class="header__nav-icon" src="./icons/score.svg" alt="help">
           <p>Best Score</p>
         </a>
       </li>
-      <li class="header__nav-item item-settings">
+      <li class="header__nav-item">
         <a class="header__nav-link" href="#">
           <img class="header__nav-icon" src="./icons/settings.svg" alt="help">
           <p>Settings</p>
@@ -27,14 +27,8 @@ const template = `
       </li>
     </ul>
   </nav>
-  <!-- timer -->
-<!--  <div class="header__btn-wrapper">
+  ${timer}
+  <div class="header__btn-wrapper">
     <button class="header__btn-register">Register new player</button>
-  </div>-->
+  </div>
 `;
-
-export const headerTemplate = (): DocumentFragment => {
-  const element = document.createElement('template');
-  element.innerHTML = template;
-  return element.content;
-};

@@ -2,6 +2,7 @@ import { GameController } from './components/game-controller/game-controller';
 import { Header } from './components/header/header';
 import { FormRegister } from './components/form-register/form-register';
 import { About } from './components/about-page/about';
+import { Timer } from './components/timer/timer';
 
 export class App {
   public readonly game: GameController;
@@ -12,19 +13,26 @@ export class App {
 
   private about: About;
 
+  private timer: Timer;
+
   constructor(private readonly rootElement: HTMLElement) {
+    // TODO insert timer element here
     this.game = new GameController();
-    this.header = new Header();
-    this.header.hide();
+    this.timer = new Timer();
+    this.header = new Header(this.timer.element);
+    // this.header.hide();
     this.form = new FormRegister();
     this.about = new About();
     this.form.hide();
     this.game.hide();
+    this.about.hide();
 
     this.rootElement.appendChild(this.header.element);
     this.rootElement.appendChild(this.about.element);
     this.rootElement.appendChild(this.game.element);
     this.rootElement.appendChild(this.form.element);
+
+    this.timer.setTimer('12', '12');
   }
 
   async start(): Promise<void> {

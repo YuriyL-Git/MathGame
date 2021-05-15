@@ -1,8 +1,8 @@
 import { formTemplate } from './form-template';
 import './_register-form.scss';
-import { BaseComponent } from '../application/base-component';
+import { Component } from '../application/component';
 
-export class FormRegister extends BaseComponent {
+export class FormRegister extends Component {
   constructor() {
     super('div', ['form-wrapper']);
     this.element.innerHTML = formTemplate;

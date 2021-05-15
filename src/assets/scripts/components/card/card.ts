@@ -1,9 +1,9 @@
-import { BaseComponent } from '../application/base-component';
+import { Component } from '../application/component';
 import './_card.scss';
 
 const FLIP_CLASS = 'card-container__flipped';
 
-export class Card extends BaseComponent {
+export class Card extends Component {
   isFlipped = false;
 
   constructor(readonly image: string, size = '10rem') {
