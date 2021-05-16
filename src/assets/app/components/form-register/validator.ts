@@ -26,8 +26,8 @@ export class Validator {
       }
     });
 
-    if (!/[a-zA-Z]/g.test(this.value)) {
-      this.errorMessage = `Field cant contain only numbers`;
+    if (/^\d+$/.test(this.value)) {
+      this.errorMessage = `Field can't contain only numbers`;
       result = false;
     }
 
@@ -69,7 +69,7 @@ export class Validator {
       });
     }
     if (!/^[0-9A-Za-z.-]+$/.test(domain)) {
-      this.errorMessage = `Only numbers, letters, hyphens and periods are allowed in domain name`;
+      this.errorMessage = `Only numbers, letters, hyphens and periods are allowed in a domain name`;
       return false;
     }
     return result;
