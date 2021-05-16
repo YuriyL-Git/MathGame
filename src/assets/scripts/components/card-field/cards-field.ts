@@ -1,11 +1,11 @@
-import { Component } from '../shared/component';
+import { BaseComponent } from '../application/base-component';
 import './_cards-field.scss';
 import { Card } from '../card/card';
-import Settings from '../../settings';
+import Settings from '../application/settings';
 
 // const SHOW_TIME = 3;
 
-export class CardsField extends Component {
+export class CardsField extends BaseComponent {
   private cards: Card[] = [];
 
   constructor() {

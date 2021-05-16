@@ -1,0 +1,35 @@
+import { ImageCategoryModel } from '../../../../models/image-category-model';
+
+function shuffleArray(array: string[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+async function getImagesList(
+  category: string,
+  quantity: number,
+): Promise<string[]> {
+  const res = await fetch('./images.json');
+  const categories: ImageCategoryModel[] = (await res.json()) as ImageCategoryModel[];
+  const currentCategory = categories.find(cat => cat.category === category);
+
+  if (!currentCategory) throw new Error('Category is not found!');
+  let images = currentCategory.images.map(
+    name => `./images/${currentCategory.category}/${name}`,
+  );
+  if (images.length > quantity / 2) images = images.slice(0, quantity / 2);
+  shuffleArray(images);
+  images = images.concat(images.reverse());
+  shuffleArray(images);
+  return images.sort(() => Math.random() - 0.5);
+}
+
+function delay(timeout: number): Promise<void> {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
+
+export { getImagesList, delay };

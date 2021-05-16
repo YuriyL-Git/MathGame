@@ -1,10 +1,10 @@
 import './_header.scss';
-import { ComponentClass } from '../shared/component-class';
+import { Component } from '../shared/component';
 import { headerTemplate } from './header-template';
 import { Timer } from '../timer/timer';
 import { Button } from '../shared/button-class';
 
-export class Header extends ComponentClass {
+export class Header extends Component {
   private readonly btnRegister: Button;
 
   private btnStartNewGame: Button;
@@ -13,7 +13,7 @@ export class Header extends ComponentClass {
     super('header', ['header']);
 
     /* create header buttons */
-    const btnsWrapper = new ComponentClass('div', ['header__btn-wrapper']);
+    const btnWrapper = new Component('div', ['header__btn-wrapper']);
 
     this.btnRegister = new Button(
       ['header__btn', 'btn-register'],
@@ -27,15 +27,15 @@ export class Header extends ComponentClass {
       '#newgame',
     );
 
-    // this.btnStartNewGame.hide();
-    this.btnRegister.hide();
+    this.btnStartNewGame.hide();
+    // this.btnRegister.hide();
 
-    btnsWrapper.element.append(
+    btnWrapper.element.append(
       this.btnRegister.element,
       this.btnStartNewGame.element,
     );
 
     /* append button and timer */
-    this.element.append(headerTemplate(), timer.element, btnsWrapper.element);
+    this.element.append(headerTemplate(), timer.element, btnWrapper.element);
   }
 }

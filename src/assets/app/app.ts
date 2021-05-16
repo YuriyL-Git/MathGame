@@ -20,10 +20,11 @@ export class App {
     this.timer = new Timer();
     this.header = new Header(this.timer);
     this.form = new FormRegister();
+    this.form.start();
     this.about = new About();
 
     // this.header.hide();
-    this.form.hide();
+    // this.form.hide();
     //  this.game.hide();
     this.about.hide();
 

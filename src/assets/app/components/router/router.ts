@@ -17,6 +17,13 @@ export class Router {
       },
     },
     {
+      name: 'register',
+      render: () => {
+        this.hideAll();
+        this.app.form.show();
+      },
+    },
+    {
       name: 'default',
       render: () => this.app.about.show(),
     },

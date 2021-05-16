@@ -1,12 +1,12 @@
-import { Component } from '../shared/component';
+import { BaseComponent } from '../application/base-component';
 import { Card } from '../card/card';
 import { CardsField } from '../card-field/cards-field';
-import { delay, getImagesList } from '../shared/helper-functions';
-import Settings from '../../settings';
+import { delay, getImagesList } from '../application/helper-functions';
+import Settings from '../application/settings';
 
 const FLIP_BACK_DELAY = 800;
 
-export class GameController extends Component {
+export class GameController extends BaseComponent {
   private readonly cardsField: CardsField;
 
   private activeCard?: Card;
