@@ -1,6 +1,6 @@
 import './assets/SCSS/style.scss';
-import { App } from './assets/app/app';
-import { Router } from './assets/app/components/router/router';
+import { App } from './app/app';
+import { Router } from './app/components/router/router';
 
 window.onload = async () => {
   const appElement = document.getElementById('app') as HTMLElement;
