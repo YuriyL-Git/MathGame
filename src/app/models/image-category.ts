@@ -1,4 +1,4 @@
-export interface ImageCategoryModel {
+export interface ImageCategory {
   category: string;
   images: string[];
 }

@@ -1,4 +1,4 @@
-import { ImageCategoryModel } from '../../models/image-category-model';
+import { ImageCategory } from '../../models/image-category';
 
 function shuffleArray(array: string[]) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -12,7 +12,7 @@ async function getImagesList(
   quantity: number,
 ): Promise<string[]> {
   const res = await fetch('./images.json');
-  const categories: ImageCategoryModel[] = (await res.json()) as ImageCategoryModel[];
+  const categories: ImageCategory[] = (await res.json()) as ImageCategory[];
   const currentCategory = categories.find(cat => cat.category === category);
 
   if (!currentCategory) throw new Error('Category is not found!');
