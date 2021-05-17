@@ -8,7 +8,7 @@
 }
 
 .register {
-  position: absolute;
+  position: relative;
   width: 50rem;
   height: 30rem;
   left: 50%;
@@ -66,6 +66,15 @@
     font-family: 'Roboto', sans-serif;
     font-size: 2rem;
     padding-left: 1.5rem;
+
+    &::after {
+      content: 'test';
+      position: absolute;
+      width: 10rem;
+      height: 10rem;
+      top: 0;
+      z-index: 20;
+    }
 
     &::placeholder {
       font-size: 1.5rem;
@@ -132,6 +141,15 @@
       transform: scale(0.95);
     }
 
+    &:disabled {
+      background-color: gray;
+      cursor: auto;
+    }
+
+    &:disabled:hover {
+      background-color: gray;
+    }
+
     &--add {
       background-color: green;
 
@@ -148,4 +166,18 @@
       }
     }
   }
+}
+
+.form__error-field {
+  position: absolute;
+  content: 'fjdslk';
+}
+
+.validation-message {
+  position: absolute;
+  color: red;
+  transform: translateY(3.4rem);
+  font-size: 1.3rem;
+  font-family: 'Roboto', sans-serif;
+  width: 24rem;
 }

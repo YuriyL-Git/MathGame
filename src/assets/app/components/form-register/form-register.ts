@@ -1,7 +1,9 @@
 import { formTemplate } from './form-template';
-import './_register-form.scss';
+import './_form-register.scss';
 import { Component } from '../shared/component';
 import { Validator } from './validator';
+import { Indexdb } from '../indexdb/indexdb';
+import { UserData } from '../../models/user-data';
 
 export class FormRegister extends Component {
   private readonly btnAdd: HTMLButtonElement | null;
@@ -12,7 +14,11 @@ export class FormRegister extends Component {
 
   private validator: Validator;
 
-  constructor() {
+  private db: Indexdb;
+
+  private messageField: HTMLElement | undefined;
+
+  constructor(db: Indexdb) {
     super('div', ['form-wrapper']);
     this.element.append(formTemplate());
 
@@ -20,15 +26,18 @@ export class FormRegister extends Component {
     this.btnCancel = this.element.querySelector('.register__btn--cancel');
     this.inputs = this.element.querySelectorAll('.register__input');
     this.validator = new Validator();
-    // this.hide();
+    this.db = db;
+
+    this.hide();
   }
 
   start(): void {
-    this.activateButtons();
+    this.setupButtons();
 
     this.inputs.forEach(input => {
       const message = new Component('div', ['validation-message']);
       input.after(message.element);
+      this.messageField = message.element;
 
       input.addEventListener('input', () => {
         message.element.innerText = '';
@@ -53,10 +62,33 @@ export class FormRegister extends Component {
     return result;
   }
 
-  activateButtons(): void {
+  setupButtons(): void {
     if (this.btnAdd) this.btnAdd.disabled = true;
+
     this.btnAdd?.addEventListener('click', (event: Event) => {
       if (event) event.preventDefault();
+      const user = this.getUser();
+      this.db.add(user, this.informResult.bind(this));
     });
+
+    this.btnCancel?.addEventListener('click', () => {
+      this.hide();
+    });
+  }
+
+  getUser(): UserData {
+    return {
+      firstName: this.inputs[0].value,
+      lastName: this.inputs[1].value,
+      email: this.inputs[2].value,
+      score: 0,
+    };
+  }
+
+  informResult(message: string): void {
+    if (this.messageField) this.messageField.innerHTML = message;
+
+    /* if no errors clear form fields and close the form */
+    if (message.length === 0) this.btnCancel?.click();
   }
 }

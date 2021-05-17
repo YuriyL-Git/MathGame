@@ -1,4 +1,4 @@
-import { ImageCategoryModel } from '../../../../models/image-category-model';
+import { ImageCategoryModel } from '../../models/image-category-model';
 
 function shuffleArray(array: string[]) {
   for (let i = array.length - 1; i > 0; i--) {

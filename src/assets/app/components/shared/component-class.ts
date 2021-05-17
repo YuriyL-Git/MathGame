@@ -1,4 +1,4 @@
-export class BaseComponent {
+export class ComponentClass {
   readonly element: HTMLElement;
 
   constructor(

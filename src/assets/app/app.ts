@@ -3,6 +3,7 @@ import { Header } from './components/header/header';
 import { FormRegister } from './components/form-register/form-register';
 import { About } from './components/about-page/about';
 import { Timer } from './components/timer/timer';
+import { Indexdb } from './components/indexdb/indexdb';
 
 export class App {
   public readonly game: GameController;
@@ -15,17 +16,16 @@ export class App {
 
   public timer: Timer;
 
+  private database: Indexdb;
+
   constructor(private readonly rootElement: HTMLElement) {
+    this.database = new Indexdb();
     this.game = new GameController();
     this.timer = new Timer();
     this.header = new Header(this.timer);
-    this.form = new FormRegister();
+    this.form = new FormRegister(this.database);
     this.form.start();
     this.about = new About();
-
-    // this.header.hide();
-    // this.form.hide();
-    //  this.game.hide();
     this.about.hide();
 
     this.rootElement.append(
