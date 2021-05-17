@@ -127,10 +127,6 @@ module.exports = {
           },
         ],
       },
-      /* {
-        test: /\.(ico|png|jpg|jpeg|svg|gif)/,
-        use: ['file-loader'],
-      }, */
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,
         type: 'asset/resource',
