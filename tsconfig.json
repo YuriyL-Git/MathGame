@@ -14,8 +14,7 @@
       "webworker.iterable",
       "es6",
       "dom.iterable",
-      "scripthost",
-      "ESNext.String"
+      "scripthost"
     ],
     /* Specify library files to be included in the compilation. */
     "allowJs": true,
