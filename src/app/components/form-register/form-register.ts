@@ -68,7 +68,7 @@ export class FormRegister extends Component {
     this.btnAdd?.addEventListener('click', (event: Event) => {
       if (event) event.preventDefault();
       const user = this.getUser();
-      this.db.add(user, this.informResult.bind(this));
+      this.db.addRecord(user, this.informResult.bind(this));
     });
 
     this.btnCancel?.addEventListener('click', () => {

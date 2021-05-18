@@ -1,5 +1,10 @@
 import { UserData } from '../../models/user-data';
 
+interface Transaction {
+  transaction: IDBTransaction | undefined;
+  objectStore: IDBObjectStore | undefined;
+}
+
 export class Indexdb {
   public DBOpenReq: IDBOpenDBRequest;
 
@@ -25,9 +30,14 @@ export class Indexdb {
     });
   }
 
-  add(value: UserData, callbackResult: (m: string) => void): void {
-    const transaction = this.db?.transaction(['MathGameStore'], 'readwrite');
+  getTransaction(): Transaction {
+    const transaction = this.db?.transaction('MathGameStore', 'readwrite');
     const objectStore = transaction?.objectStore('MathGameStore');
+    return { transaction, objectStore };
+  }
+
+  addRecord(value: UserData, callbackResult: (m: string) => void): void {
+    const { transaction, objectStore } = this.getTransaction();
     const request = objectStore?.add(value);
 
     request?.addEventListener('success', () => {
@@ -37,6 +47,34 @@ export class Indexdb {
     transaction?.addEventListener('error', event => {
       event.preventDefault();
       callbackResult('Email is already present in the base!');
+    });
+  }
+
+  updateRecord(value: UserData): void {
+    const { objectStore } = this.getTransaction();
+
+    const indexEmail = objectStore?.index('email');
+    const getKeyRequest = indexEmail?.getKey(value.email);
+    getKeyRequest?.addEventListener('success', () => {
+      objectStore?.put(value, getKeyRequest.result);
+    });
+  }
+
+  async getTopPlayers(): Promise<Array<UserData>> {
+    return new Promise((resolve, reject) => {
+      const { transaction, objectStore } = this.getTransaction();
+      const playersRequest = objectStore?.getAll();
+      playersRequest?.addEventListener('success', () => {
+        resolve(
+          playersRequest?.result
+            .sort((a: UserData, b: UserData) => b.score - a.score)
+            .slice(0, 10),
+        );
+      });
+
+      transaction?.addEventListener('error', error => {
+        reject(error);
+      });
     });
   }
 }
