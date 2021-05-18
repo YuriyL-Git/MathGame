@@ -21,7 +21,8 @@ const template = `
     </div>
 
     <div class="register__avatar-wrapper">
-      <div class="register__avatar"></div>
+      <canvas class="register__avatar"></canvas>
+      <p class="register__tooltip">change the avatar</p>
     </div>
 
     <div class="register__buttons">

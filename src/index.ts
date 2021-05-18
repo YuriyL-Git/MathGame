@@ -6,6 +6,7 @@ window.onload = async () => {
   const appBody = document.body;
   const app = new App(appBody);
   const router = new Router(app);
-  await app.start();
   router.start();
+
+  await app.start();
 };

@@ -5,8 +5,6 @@ import { About } from './components/about-page/about';
 import { Timer } from './components/timer/timer';
 import { Indexdb } from './components/indexdb/indexdb';
 
-import { UserData } from './models/user-data';
-
 export class App {
   public readonly game: GameController;
 
@@ -42,22 +40,11 @@ export class App {
     this.timer.element.addEventListener('timerstop', () => {
       console.log('stopped');
     });
-    const data: UserData = {
-      firstName: 'yy',
-      lastName: 'yy',
-      email: '1malak16@gmail.com',
-      score: 8,
-    };
-
-    setTimeout(() => {
-      this.database.updateRecord(data);
-    }, 2000);
   }
 
   async start(): Promise<void> {
     // TODO implement shared functionality
     await this.game.newGame();
-    const users = await this.database.getTopPlayers();
-    console.log(users);
+    //  const users = await this.database.getTopPlayers();
   }
 }

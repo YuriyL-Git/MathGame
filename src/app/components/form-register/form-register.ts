@@ -4,6 +4,7 @@ import { Component } from '../shared/component';
 import { Validator } from './validator';
 import { Indexdb } from '../indexdb/indexdb';
 import { UserData } from '../../models/user-data';
+import { ImageHandler } from './image-handler';
 
 export class FormRegister extends Component {
   private readonly btnAdd: HTMLButtonElement | null;
@@ -18,6 +19,10 @@ export class FormRegister extends Component {
 
   private messageField: HTMLElement | undefined;
 
+  private canvas: HTMLCanvasElement | null;
+
+  private imageHandler: ImageHandler;
+
   constructor(db: Indexdb) {
     super('div', ['form-wrapper']);
     this.element.append(formTemplate());
@@ -25,9 +30,11 @@ export class FormRegister extends Component {
     this.btnAdd = this.element.querySelector('.register__btn--add');
     this.btnCancel = this.element.querySelector('.register__btn--cancel');
     this.inputs = this.element.querySelectorAll('.register__input');
+    this.canvas = this.element.querySelector('canvas');
     this.validator = new Validator();
     this.db = db;
 
+    this.imageHandler = new ImageHandler(this.canvas);
     this.hide();
   }
 
@@ -78,6 +85,7 @@ export class FormRegister extends Component {
 
   getUser(): UserData {
     return {
+      avatar: this.imageHandler.getImage(),
       firstName: this.inputs[0].value,
       lastName: this.inputs[1].value,
       email: this.inputs[2].value,
