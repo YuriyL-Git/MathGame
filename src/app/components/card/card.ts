@@ -1,10 +1,10 @@
 import { Component } from '../shared/component';
 import './_card.scss';
 
-const FLIP_CLASS = 'card-container__flipped';
+const FLIP_TO_BACK_CLASS = 'card-container__card-on-back';
 
 export class Card extends Component {
-  isFlipped = false;
+  backIsShown = false;
 
   constructor(readonly image: string, size = '10rem') {
     super('div', ['card-container']);
@@ -18,18 +18,20 @@ export class Card extends Component {
   }
 
   flipToBack(): Promise<void> {
-    this.isFlipped = true;
+    this.backIsShown = true;
     return this.flip(true);
   }
 
   flipToFront(): Promise<void> {
-    this.isFlipped = false;
+    this.backIsShown = false;
     return this.flip(false);
   }
 
-  private flip(isFront = false): Promise<void> {
+  private flip(frontIsShown = false): Promise<void> {
     return new Promise(resolve => {
-      this.element.classList.toggle(FLIP_CLASS, isFront);
+      /* if front is not shown remove flip-to-back class
+       * else add flip to back class */
+      this.element.classList.toggle(FLIP_TO_BACK_CLASS, frontIsShown);
       this.element.addEventListener('transitionend', () => resolve(), {
         once: true,
       });

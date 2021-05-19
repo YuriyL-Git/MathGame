@@ -6,5 +6,6 @@ export class About extends Component {
   constructor() {
     super('div', ['about__wrapper']);
     this.element.innerHTML = aboutTemplate;
+    this.hide();
   }
 }

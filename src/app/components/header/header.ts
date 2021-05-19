@@ -2,12 +2,13 @@ import './_header.scss';
 import { Component } from '../shared/component';
 import { headerTemplate } from './header-template';
 import { Timer } from '../timer/timer';
-import { Button } from '../shared/button-class';
+import { ButtonLink } from '../shared/button-link';
+import { Button } from '../shared/button';
 
 export class Header extends Component {
-  private readonly btnRegister: Button;
+  private readonly btnRegister: ButtonLink;
 
-  private btnStartNewGame: Button;
+  public btnStartNewGame: Button;
 
   constructor(timer: Timer) {
     super('header', ['header']);
@@ -15,7 +16,7 @@ export class Header extends Component {
     /* create header buttons */
     const btnWrapper = new Component('div', ['header__btn-wrapper']);
 
-    this.btnRegister = new Button(
+    this.btnRegister = new ButtonLink(
       ['header__btn', 'btn-register'],
       'Register new player',
       '#register',
@@ -24,7 +25,6 @@ export class Header extends Component {
     this.btnStartNewGame = new Button(
       ['header__btn', 'btn-new-game'],
       'New Game',
-      '#newgame',
     );
 
     this.btnStartNewGame.hide();
@@ -35,7 +35,11 @@ export class Header extends Component {
       this.btnStartNewGame.element,
     );
 
-    /* append button and timer */
     this.element.append(headerTemplate(), timer.element, btnWrapper.element);
+  }
+
+  showBtnNewGame(): void {
+    this.btnStartNewGame.show();
+    this.btnRegister.hide();
   }
 }

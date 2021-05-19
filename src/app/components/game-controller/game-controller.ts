@@ -4,7 +4,7 @@ import { CardsField } from '../card-field/cards-field';
 import { delay, getImagesList } from '../shared/helper-functions';
 import Settings from '../../settings';
 
-const FLIP_BACK_DELAY = 800;
+const FLIP_BACK_DELAY = 600;
 
 export class GameController extends Component {
   private readonly cardsField: CardsField;
@@ -29,8 +29,9 @@ export class GameController extends Component {
   }
 
   async newGame(): Promise<void> {
+    this.isAnimation = false;
+    this.activeCard = undefined;
     await this.updateImageList();
-    this.cardsField.clearField();
     this.cardsField.setupField();
 
     const cards = this.imageList.map(
@@ -48,10 +49,10 @@ export class GameController extends Component {
 
   private async cardClickHandler(card: Card) {
     if (this.isAnimation) return;
-    if (!card.isFlipped) return;
+    if (!card.backIsShown) return;
     this.isAnimation = true;
-    await card.flipToFront();
 
+    await card.flipToFront();
     if (!this.activeCard) {
       this.activeCard = card;
       this.isAnimation = false;

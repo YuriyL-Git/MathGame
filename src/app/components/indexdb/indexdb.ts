@@ -1,4 +1,4 @@
-import { UserData } from '../../models/user-data';
+import { User } from '../../models/user';
 
 interface Transaction {
   transaction: IDBTransaction | undefined;
@@ -36,7 +36,7 @@ export class Indexdb {
     return { transaction, objectStore };
   }
 
-  addRecord(value: UserData, callbackResult: (m: string) => void): void {
+  addRecord(value: User, callbackResult: (m: string) => void): void {
     const { transaction, objectStore } = this.getTransaction();
     const request = objectStore?.add(value);
 
@@ -50,7 +50,7 @@ export class Indexdb {
     });
   }
 
-  updateRecord(value: UserData): void {
+  updateRecord(value: User): void {
     const { objectStore } = this.getTransaction();
 
     const indexEmail = objectStore?.index('email');
@@ -60,14 +60,14 @@ export class Indexdb {
     });
   }
 
-  async getTopPlayers(): Promise<Array<UserData>> {
+  async getTopPlayers(): Promise<Array<User>> {
     return new Promise((resolve, reject) => {
       const { transaction, objectStore } = this.getTransaction();
       const playersRequest = objectStore?.getAll();
       playersRequest?.addEventListener('success', () => {
         resolve(
           playersRequest?.result
-            .sort((a: UserData, b: UserData) => b.score - a.score)
+            .sort((a: User, b: User) => b.score - a.score)
             .slice(0, 10),
         );
       });

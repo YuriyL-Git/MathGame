@@ -3,13 +3,12 @@ export class ImageHandler {
 
   private readonly canvas: HTMLCanvasElement | null;
 
-  private imageIsUpdated: boolean;
+  private imageIsUpdated = false;
 
   constructor(canvas: HTMLCanvasElement | null) {
     this.canvas = canvas;
     this.input = document.createElement('input');
     this.setupInput();
-    this.imageIsUpdated = false;
 
     canvas?.addEventListener('click', () => {
       this.input.click();
@@ -40,9 +39,10 @@ export class ImageHandler {
     const RATIO = 1;
     const img = new Image();
     const { canvas } = this;
+    const ctx = canvas?.getContext('2d');
+
     if (canvas) canvas.style.backgroundImage = 'none';
 
-    const ctx = canvas?.getContext('2d');
     img.setAttribute('crossOrigin', 'anonymous');
     img.src = src;
 
@@ -68,8 +68,9 @@ export class ImageHandler {
   }
 
   getImage(): string {
-    let result = '';
-    if (this.canvas) result = this.canvas.toDataURL();
+    let result = 'none';
+    if (this.canvas && this.imageIsUpdated)
+      result = this.canvas.toDataURL('image/jpeg', 0.6);
     return result;
   }
 }

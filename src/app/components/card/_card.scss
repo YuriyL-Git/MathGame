@@ -5,7 +5,7 @@
   cursor: pointer;
   perspective: 120rem;
 
-  &__flipped > .card {
+  &__card-on-back > .card {
     transform: rotateY(180deg) translateX(-100%);
     transition: all 0.2s;
     transform-origin: left;

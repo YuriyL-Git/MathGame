@@ -24,9 +24,7 @@ export class App {
     this.timer = new Timer();
     this.header = new Header(this.timer);
     this.form = new FormRegister(this.database);
-    this.form.start();
     this.about = new About();
-    this.about.hide();
 
     this.rootElement.append(
       this.header.element,
@@ -40,11 +38,18 @@ export class App {
     this.timer.element.addEventListener('timerstop', () => {
       console.log('stopped');
     });
-  }
 
-  async start(): Promise<void> {
-    // TODO implement shared functionality
-    await this.game.newGame();
-    //  const users = await this.database.getTopPlayers();
+    this.form.start();
+    /* listen until new user is created */
+    this.form.element.addEventListener('userAdded', () => {
+      this.header.showBtnNewGame();
+    });
+
+    this.header.btnStartNewGame.element.addEventListener('click', () => {
+      this.game.show();
+      this.game.newGame().catch(() => {
+        throw new Error('Failed to start game');
+      });
+    });
   }
 }

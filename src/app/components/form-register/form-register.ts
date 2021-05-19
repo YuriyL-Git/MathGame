@@ -3,8 +3,9 @@ import './_form-register.scss';
 import { Component } from '../shared/component';
 import { Validator } from './validator';
 import { Indexdb } from '../indexdb/indexdb';
-import { UserData } from '../../models/user-data';
+import { User } from '../../models/user';
 import { ImageHandler } from './image-handler';
+import Settings from '../../settings';
 
 export class FormRegister extends Component {
   private readonly btnAdd: HTMLButtonElement | null;
@@ -19,14 +20,13 @@ export class FormRegister extends Component {
 
   private messageField: HTMLElement | undefined;
 
-  private canvas: HTMLCanvasElement | null;
+  private readonly canvas: HTMLCanvasElement | null;
 
   private imageHandler: ImageHandler;
 
   constructor(db: Indexdb) {
     super('div', ['form-wrapper']);
     this.element.append(formTemplate());
-
     this.btnAdd = this.element.querySelector('.register__btn--add');
     this.btnCancel = this.element.querySelector('.register__btn--cancel');
     this.inputs = this.element.querySelectorAll('.register__input');
@@ -40,7 +40,6 @@ export class FormRegister extends Component {
 
   start(): void {
     this.setupButtons();
-
     this.inputs.forEach(input => {
       const message = new Component('div', ['validation-message']);
       input.after(message.element);
@@ -55,7 +54,6 @@ export class FormRegister extends Component {
           if (this.btnAdd) this.btnAdd.disabled = true;
           input.style.backgroundColor = '#fff';
         }
-
         if (this.validateAll() && this.btnAdd) this.btnAdd.disabled = false;
       });
     });
@@ -74,8 +72,10 @@ export class FormRegister extends Component {
 
     this.btnAdd?.addEventListener('click', (event: Event) => {
       if (event) event.preventDefault();
-      const user = this.getUser();
-      this.db.addRecord(user, this.informResult.bind(this));
+      Settings.user = this.getUser();
+      this.db.addRecord(Settings.user, this.informResult.bind(this));
+      this.element.dispatchEvent(new CustomEvent('userAdded'));
+      this.btnCancel?.click();
     });
 
     this.btnCancel?.addEventListener('click', () => {
@@ -83,7 +83,7 @@ export class FormRegister extends Component {
     });
   }
 
-  getUser(): UserData {
+  getUser(): User {
     return {
       avatar: this.imageHandler.getImage(),
       firstName: this.inputs[0].value,
@@ -95,8 +95,5 @@ export class FormRegister extends Component {
 
   informResult(message: string): void {
     if (this.messageField) this.messageField.innerHTML = message;
-
-    /* if no errors clear form fields and close the form */
-    if (message.length === 0) this.btnCancel?.click();
   }
 }

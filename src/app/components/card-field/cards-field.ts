@@ -18,18 +18,19 @@ export class CardsField extends Component {
   }
 
   setupField(): void {
+    this.clearField();
     const fieldHeight = this.element.clientHeight;
     const gridColumns = Math.ceil(Math.sqrt(Settings.imagesQuantity));
     const gridRows = Settings.imagesQuantity / gridColumns;
     const cardSize = (fieldHeight - gridRows * (20 - gridRows)) / gridRows;
 
     const rowGap = (fieldHeight - cardSize * gridRows) / (gridRows - 1);
-    const fieldWidht = cardSize * gridColumns + rowGap * (gridColumns - 1) - 20;
+    const fieldWidth = cardSize * gridColumns + rowGap * (gridColumns - 1) - 20;
 
     Settings.cardSize = `${cardSize}px`;
 
     /* setup card-field width */
-    this.element.style.width = `${fieldWidht}px`;
+    this.element.style.width = `${fieldWidth}px`;
 
     /* setup grid-template columns */
     this.element.style.gridTemplateColumns = `repeat(

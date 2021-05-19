@@ -10,13 +10,6 @@ export class Router {
       },
     },
     {
-      name: 'newgame',
-      render: () => {
-        this.hideAll();
-        this.app.game.show();
-      },
-    },
-    {
       name: 'register',
       render: () => {
         this.hideAll();

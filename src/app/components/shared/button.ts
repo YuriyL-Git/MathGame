@@ -1,10 +1,9 @@
 export class Button {
-  readonly element: HTMLAnchorElement;
+  readonly element: HTMLButtonElement;
 
-  constructor(classes: string[], text: string, link: string) {
-    this.element = document.createElement('a');
+  constructor(classes: string[], text: string) {
+    this.element = document.createElement('button');
     this.element.classList.add(...classes);
-    this.element.href = link;
     this.element.append(text);
   }
 
