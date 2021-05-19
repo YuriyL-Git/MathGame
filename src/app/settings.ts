@@ -9,13 +9,7 @@ class Settings {
 
   public showTime = 3000;
 
-  public user: User = {
-    avatar: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    score: 0,
-  };
+  public user?: User;
 }
 
 export default new Settings();

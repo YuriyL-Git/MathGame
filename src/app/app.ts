@@ -43,13 +43,25 @@ export class App {
     /* listen until new user is created */
     this.form.element.addEventListener('userAdded', () => {
       this.header.showBtnNewGame();
+      this.header.showUser();
+      this.hideAll();
+      this.game.show();
+    });
+
+    this.form.btnCancel?.addEventListener('click', () => {
+      // this.about.show();
     });
 
     this.header.btnStartNewGame.element.addEventListener('click', () => {
+      this.hideAll();
       this.game.show();
       this.game.newGame().catch(() => {
         throw new Error('Failed to start game');
       });
     });
+  }
+
+  hideAll(): void {
+    this.about.hide();
   }
 }

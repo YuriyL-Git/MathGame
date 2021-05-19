@@ -10,7 +10,7 @@ import Settings from '../../settings';
 export class FormRegister extends Component {
   private readonly btnAdd: HTMLButtonElement | null;
 
-  private btnCancel: HTMLButtonElement | null;
+  public btnCancel: HTMLButtonElement | null;
 
   private inputs: NodeListOf<HTMLInputElement>;
 
