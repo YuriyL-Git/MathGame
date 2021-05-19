@@ -5,7 +5,7 @@ import { delay, getImagesList } from '../shared/helper-functions';
 import Settings from '../../settings';
 
 const FLIP_BACK_DELAY = 600;
-const ANIMATION_DELAY = 100;
+const ANIMATION_DELAY = 200;
 
 export class GameController extends Component {
   private readonly cardsField: CardsField;
@@ -53,11 +53,13 @@ export class GameController extends Component {
   }
 
   async startGame(): Promise<void> {
-    this.gameIsStarted = true;
-    await this.createGame();
     this.cardsField.flipCardsToBack();
+    // TODO if no cards are turned skip following delay
+    await delay(ANIMATION_DELAY);
+    await this.createGame();
     await delay(ANIMATION_DELAY);
     this.cardsField.flipCardsToFront();
+    this.gameIsStarted = true;
   }
 
   private async cardClickHandler(card: Card) {
