@@ -33,11 +33,11 @@ export class App {
       this.form.element,
     );
 
-    this.timer.setTimer('0', '12');
+    /*  this.timer.setTimer('0', '12');
     this.timer.startTimer();
     this.timer.element.addEventListener('timerstop', () => {
       console.log('stopped');
-    });
+    }); */
 
     this.form.start();
     /* listen until new user is created */
@@ -45,6 +45,10 @@ export class App {
       this.header.showBtnNewGame();
       this.header.showUser();
       this.hideAll();
+      this.game
+        .createGame()
+        .then()
+        .catch(err => new Error(err));
       this.game.show();
     });
 
@@ -54,10 +58,12 @@ export class App {
 
     this.header.btnStartNewGame.element.addEventListener('click', () => {
       this.hideAll();
+
       this.game.show();
-      this.game.newGame().catch(() => {
-        throw new Error('Failed to start game');
-      });
+      this.game
+        .startGame()
+        .then()
+        .catch(err => new Error(err));
     });
   }
 

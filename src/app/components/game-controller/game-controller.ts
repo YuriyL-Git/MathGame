@@ -5,15 +5,20 @@ import { delay, getImagesList } from '../shared/helper-functions';
 import Settings from '../../settings';
 
 const FLIP_BACK_DELAY = 600;
+const ANIMATION_DELAY = 100;
 
 export class GameController extends Component {
   private readonly cardsField: CardsField;
 
-  private activeCard?: Card;
+  private activeCard: Card | null = null;
 
   private isAnimation = false;
 
+  private gameIsStarted = false;
+
   private imageList: string[] = [];
+
+  private cards?: Card[];
 
   constructor() {
     super('div', ['field-container']);
@@ -28,31 +33,40 @@ export class GameController extends Component {
     );
   }
 
-  async newGame(): Promise<void> {
+  async createGame(): Promise<void> {
     this.isAnimation = false;
-    this.activeCard = undefined;
+    this.activeCard = null;
     await this.updateImageList();
     this.cardsField.setupField();
 
-    const cards = this.imageList.map(
+    this.cards = this.imageList.map(
       image => new Card(image, Settings.cardSize),
     );
 
-    cards.forEach(card =>
+    this.cards.forEach(card =>
       card.element.addEventListener('click', () => {
         this.cardClickHandler(card).catch(err => new Error(err));
       }),
     );
 
-    this.cardsField.addCards(cards);
+    this.cardsField.addCards(this.cards);
+  }
+
+  async startGame(): Promise<void> {
+    this.gameIsStarted = true;
+    await this.createGame();
+    this.cardsField.flipCardsToBack();
+    await delay(ANIMATION_DELAY);
+    this.cardsField.flipCardsToFront();
   }
 
   private async cardClickHandler(card: Card) {
+    if (!this.gameIsStarted) return;
     if (this.isAnimation) return;
     if (!card.backIsShown) return;
     this.isAnimation = true;
 
-    await card.flipToFront();
+    card.flipToFront();
     if (!this.activeCard) {
       this.activeCard = card;
       this.isAnimation = false;
@@ -60,9 +74,10 @@ export class GameController extends Component {
     }
     if (this.activeCard.image !== card.image) {
       await delay(FLIP_BACK_DELAY);
-      await Promise.all([this.activeCard.flipToBack(), card.flipToBack()]);
+      this.activeCard.flipToBack();
+      card.flipToBack();
     }
-    this.activeCard = undefined;
+    this.activeCard = null;
     this.isAnimation = false;
   }
 }

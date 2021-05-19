@@ -4,10 +4,10 @@ import './_card.scss';
 const FLIP_TO_BACK_CLASS = 'card-container__card-on-back';
 
 export class Card extends Component {
-  backIsShown = false;
+  backIsShown = true;
 
   constructor(readonly image: string, size = '10rem') {
-    super('div', ['card-container']);
+    super('div', ['card-container', FLIP_TO_BACK_CLASS]);
 
     this.element.innerHTML = `
      <div class="card" style="height: ${size}; width: ${size}">
@@ -17,24 +17,13 @@ export class Card extends Component {
     `;
   }
 
-  flipToBack(): Promise<void> {
+  flipToBack(): void {
     this.backIsShown = true;
-    return this.flip(true);
+    this.element.classList.add(FLIP_TO_BACK_CLASS);
   }
 
-  flipToFront(): Promise<void> {
+  flipToFront(): void {
     this.backIsShown = false;
-    return this.flip(false);
-  }
-
-  private flip(frontIsShown = false): Promise<void> {
-    return new Promise(resolve => {
-      /* if front is not shown remove flip-to-back class
-       * else add flip to back class */
-      this.element.classList.toggle(FLIP_TO_BACK_CLASS, frontIsShown);
-      this.element.addEventListener('transitionend', () => resolve(), {
-        once: true,
-      });
-    });
+    this.element.classList.remove(FLIP_TO_BACK_CLASS);
   }
 }

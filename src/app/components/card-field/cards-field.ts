@@ -3,8 +3,6 @@ import './_cards-field.scss';
 import { Card } from '../card/card';
 import Settings from '../../settings';
 
-// const SHOW_TIME = 3;
-
 export class CardsField extends Component {
   private cards: Card[] = [];
 
@@ -42,12 +40,16 @@ export class CardsField extends Component {
     this.cards.forEach(card => {
       this.element.appendChild(card.element);
     });
-    setTimeout(async () => {
-      await this.flipCardsToBack();
+  }
+
+  flipCardsToFront(): void {
+    this.cards.map(card => card.flipToFront());
+    setTimeout(() => {
+      this.flipCardsToBack();
     }, Settings.showTime);
   }
 
-  async flipCardsToBack(): Promise<void> {
-    await Promise.all(this.cards.map(card => card.flipToBack()));
+  flipCardsToBack(): void {
+    this.cards.map(card => card.flipToBack());
   }
 }
