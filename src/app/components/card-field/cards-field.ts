@@ -50,6 +50,6 @@ export class CardsField extends Component {
   }
 
   flipCardsToBack(): void {
-    this.cards.map(card => card.flipToBack());
+    this.cards.map(card => card.flipToBack(() => {}));
   }
 }

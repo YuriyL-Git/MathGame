@@ -1,10 +1,23 @@
 import { Component } from '../shared/component';
 import './_card.scss';
+import { delay } from '../shared/helper-functions';
+
+interface Counter {
+  success: number;
+  fails: number;
+  previousCard: Card | null;
+}
 
 const FLIP_TO_BACK_CLASS = 'card-container__card-on-back';
 
+const FLIP_BACK_DELAY = 600;
+
 export class Card extends Component {
-  backIsShown = true;
+  private backIsShown = true;
+
+  private animationInProcess = false;
+
+  public isSecondOpen = false;
 
   constructor(readonly image: string, size = '10rem') {
     super('div', ['card-container', FLIP_TO_BACK_CLASS]);
@@ -17,13 +30,56 @@ export class Card extends Component {
     `;
   }
 
-  flipToBack(): void {
+  flipToBack(callback: () => void): void {
     this.backIsShown = true;
+    this.element.addEventListener('transitionend', callback);
     this.element.classList.add(FLIP_TO_BACK_CLASS);
   }
 
   flipToFront(): void {
     this.backIsShown = false;
     this.element.classList.remove(FLIP_TO_BACK_CLASS);
+  }
+
+  public async cardClickHandler(
+    counter: Counter,
+    gameIsStarted: boolean,
+  ): Promise<void> {
+    if (!gameIsStarted) return;
+    if (!this.backIsShown || this.animationInProcess) return;
+    if (counter.previousCard?.isSecondOpen) return;
+    if (counter.previousCard === this) return;
+    this.flipToFront();
+
+    if (!counter.previousCard) {
+      counter.previousCard = this;
+      return;
+    }
+
+    //  this.isSecondOpen = true;
+    if (counter.previousCard.image !== this.image) {
+      counter.previousCard.isSecondOpen = true;
+      const previous = counter.previousCard;
+      previous.animationInProcess = true;
+      this.animationInProcess = true;
+      counter.fails += 2;
+      await delay(FLIP_BACK_DELAY);
+      previous.flipToBack(previous.animationEnd.bind(previous));
+      this.flipToBack(this.animationEnd.bind(this));
+      counter.previousCard = null;
+    } else {
+      counter.success += 2;
+      counter.previousCard.isSecondOpen = true;
+      await delay(FLIP_BACK_DELAY);
+      counter.previousCard = null;
+      this.isSecondOpen = false;
+    }
+  }
+
+  animationEnd(): void {
+    if (this.backIsShown) {
+      this.isSecondOpen = false;
+      this.animationInProcess = false;
+    }
   }
 }
