@@ -9,10 +9,6 @@ const ANIMATION_DELAY = 200;
 export class GameController extends Component {
   private readonly cardsField: CardsField;
 
-  private activeCard: Card | null = null;
-
-  private isAnimation = false;
-
   private gameIsStarted = false;
 
   private imageList: Array<string> = [];
@@ -39,8 +35,6 @@ export class GameController extends Component {
   }
 
   async createGame(): Promise<void> {
-    this.isAnimation = false;
-    this.activeCard = null;
     await this.updateImageList();
     this.cardsField.setupField();
     this.counter = {
@@ -56,7 +50,7 @@ export class GameController extends Component {
     this.cards.forEach(card =>
       card.element.addEventListener('click', () => {
         card
-          .cardClickHandler(this.counter, this.gameIsStarted)
+          .clickHandler(this.counter, this.gameIsStarted)
           .catch(err => new Error(err));
       }),
     );
@@ -73,25 +67,4 @@ export class GameController extends Component {
     this.cardsField.flipCardsToFront();
     this.gameIsStarted = true;
   }
-
-  /*  private async cardClickHandler(card: Card) {
-    if (!this.gameIsStarted) return;
-    if (this.isAnimation) return;
-    if (!card.backIsShown) return;
-    this.isAnimation = true;
-
-    card.flipToFront();
-    if (!this.activeCard) {
-      this.activeCard = card;
-      this.isAnimation = false;
-      return;
-    }
-    if (this.activeCard.image !== card.image) {
-      await delay(FLIP_BACK_DELAY);
-      this.activeCard.flipToBack();
-      card.flipToBack();
-    }
-    this.activeCard = null;
-    this.isAnimation = false;
-  } */
 }

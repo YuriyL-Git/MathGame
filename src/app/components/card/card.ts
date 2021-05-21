@@ -17,7 +17,7 @@ export class Card extends Component {
 
   private animationInProcess = false;
 
-  public isSecondOpen = false;
+  public isSecondOpened = false;
 
   constructor(readonly image: string, size = '10rem') {
     super('div', ['card-container', FLIP_TO_BACK_CLASS]);
@@ -41,13 +41,14 @@ export class Card extends Component {
     this.element.classList.remove(FLIP_TO_BACK_CLASS);
   }
 
-  public async cardClickHandler(
+  public async clickHandler(
     counter: Counter,
     gameIsStarted: boolean,
   ): Promise<void> {
     if (!gameIsStarted) return;
+
     if (!this.backIsShown || this.animationInProcess) return;
-    if (counter.previousCard?.isSecondOpen) return;
+    if (counter.previousCard?.isSecondOpened) return;
     if (counter.previousCard === this) return;
     this.flipToFront();
 
@@ -55,30 +56,27 @@ export class Card extends Component {
       counter.previousCard = this;
       return;
     }
+    counter.previousCard.isSecondOpened = true;
 
-    //  this.isSecondOpen = true;
-    if (counter.previousCard.image !== this.image) {
-      counter.previousCard.isSecondOpen = true;
+    if (this.image !== counter.previousCard.image) {
       const previous = counter.previousCard;
       previous.animationInProcess = true;
       this.animationInProcess = true;
-      counter.fails += 2;
+
       await delay(FLIP_BACK_DELAY);
       previous.flipToBack(previous.animationEnd.bind(previous));
       this.flipToBack(this.animationEnd.bind(this));
-      counter.previousCard = null;
+      counter.fails += 2;
     } else {
+      this.isSecondOpened = false;
       counter.success += 2;
-      counter.previousCard.isSecondOpen = true;
-      await delay(FLIP_BACK_DELAY);
-      counter.previousCard = null;
-      this.isSecondOpen = false;
     }
+    counter.previousCard = null;
   }
 
   animationEnd(): void {
     if (this.backIsShown) {
-      this.isSecondOpen = false;
+      this.isSecondOpened = false;
       this.animationInProcess = false;
     }
   }
