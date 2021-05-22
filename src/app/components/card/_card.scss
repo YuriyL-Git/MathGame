@@ -4,6 +4,7 @@
   justify-content: center;
   cursor: pointer;
   perspective: 120rem;
+  position: relative;
 
   &__card-on-back > .card {
     transform: rotateY(180deg) translateX(-100%);

@@ -1,6 +1,7 @@
 import { Component } from '../shared/component';
 import './_card.scss';
 import { delay } from '../shared/helper-functions';
+import { CardSign } from '../card-sign/card-sign';
 
 interface Counter {
   success: number;
@@ -19,21 +20,28 @@ export class Card extends Component {
 
   public isSecondOpened = false;
 
+  public signSuccess: CardSign;
+
+  public signFail: CardSign;
+
   constructor(readonly image: string, size = '10rem') {
     super('div', ['card-container', FLIP_TO_BACK_CLASS]);
-
     this.element.innerHTML = `
      <div class="card" style="height: ${size}; width: ${size}">
        <div class="card__front" style="background-image: url('${image}')"></div>
        <div class="card__back"></div>
      </div>
     `;
+    this.signSuccess = new CardSign('success');
+    this.signFail = new CardSign('fail');
+    this.element.append(this.signSuccess.element, this.signFail.element);
   }
 
   flipToBack(callback: () => void): void {
     this.backIsShown = true;
     this.element.addEventListener('transitionend', callback);
     this.element.classList.add(FLIP_TO_BACK_CLASS);
+    this.hideSigns();
   }
 
   flipToFront(): void {
@@ -62,12 +70,16 @@ export class Card extends Component {
       const previous = counter.previousCard;
       previous.animationInProcess = true;
       this.animationInProcess = true;
+      this.signFail.show();
+      previous.signFail.show();
 
       await delay(FLIP_BACK_DELAY);
       previous.flipToBack(previous.animationEnd.bind(previous));
       this.flipToBack(this.animationEnd.bind(this));
       counter.fails += 2;
     } else {
+      this.signSuccess.show();
+      counter.previousCard.signSuccess.show();
       this.isSecondOpened = false;
       counter.success += 2;
     }
@@ -79,5 +91,10 @@ export class Card extends Component {
       this.isSecondOpened = false;
       this.animationInProcess = false;
     }
+  }
+
+  hideSigns(): void {
+    this.signFail.hide();
+    this.signSuccess.hide();
   }
 }
