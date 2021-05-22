@@ -17,9 +17,9 @@ export class Header extends Component {
 
   public timer: Timer;
 
-  constructor(timer: Timer) {
+  constructor() {
     super('header', ['header']);
-    this.timer = timer;
+    this.timer = new Timer();
 
     /* create header buttons */
     const btnWrapper = new Component('div', ['header__btn-wrapper']);
@@ -44,7 +44,11 @@ export class Header extends Component {
       this.avatarWrapper.element,
     );
 
-    this.element.append(headerTemplate(), timer.element, btnWrapper.element);
+    this.element.append(
+      headerTemplate(),
+      this.timer.element,
+      btnWrapper.element,
+    );
   }
 
   showNewGameOption(): void {

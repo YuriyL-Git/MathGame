@@ -2,7 +2,6 @@ import { GameController } from './components/game-controller/game-controller';
 import { Header } from './components/header/header';
 import { FormRegister } from './components/form-register/form-register';
 import { About } from './components/about-page/about';
-import { Timer } from './components/timer/timer';
 import { Indexdb } from './components/indexdb/indexdb';
 import Settings from './settings';
 
@@ -15,15 +14,12 @@ export class App {
 
   public about: About;
 
-  public timer: Timer;
-
   readonly db: Indexdb;
 
   constructor(private readonly rootElement: HTMLElement) {
     this.about = new About();
     this.db = new Indexdb();
-    this.timer = new Timer();
-    this.header = new Header(this.timer);
+    this.header = new Header();
     this.game = new GameController(this.header, this.db);
     this.formRegister = new FormRegister(this.db);
 
@@ -51,7 +47,7 @@ export class App {
     });
 
     this.header.btnStopGame.element.addEventListener('click', () => {
-      this.timer.stopTimer();
+      this.header.timer.stopTimer();
       this.game.cardsField.flipCardsToBack();
       this.header.showNewGameBtn();
     });
