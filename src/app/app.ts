@@ -23,8 +23,8 @@ export class App {
     this.about = new About();
     this.db = new Indexdb();
     this.timer = new Timer();
-    this.game = new GameController(this.timer, this.db);
     this.header = new Header(this.timer);
+    this.game = new GameController(this.header, this.db);
     this.formRegister = new FormRegister(this.db);
 
     this.rootElement.append(
@@ -34,17 +34,11 @@ export class App {
       this.formRegister.element,
     );
 
-    // this.form.start();
-    /* listen until new user is created */
+    /* wait until new user is created */
     this.formRegister.element.addEventListener('userAdded', () => {
       this.header.showNewGameOption();
-      this.hideAll();
-      this.game
-        .createGame()
-        .then()
-        .catch(err => new Error(err));
+      this.showGame();
       Settings.user = this.formRegister.getUser();
-      this.game.show();
     });
 
     this.formRegister.btnCancel?.addEventListener('click', () => {
@@ -52,17 +46,36 @@ export class App {
     });
 
     this.header.btnStartNewGame.element.addEventListener('click', () => {
-      this.hideAll();
+      this.startGame();
+      this.header.showStopGameBtn();
+    });
 
-      this.game.show();
-      this.game
-        .startGame()
-        .then()
-        .catch(err => new Error(err));
+    this.header.btnStopGame.element.addEventListener('click', () => {
+      this.timer.stopTimer();
+      this.game.cardsField.flipCardsToBack();
+      this.header.showNewGameBtn();
     });
   }
 
   hideAll(): void {
     this.about.hide();
+  }
+
+  startGame(): void {
+    this.hideAll();
+    this.game.show();
+    this.game
+      .startGame()
+      .then()
+      .catch(err => new Error(err));
+  }
+
+  showGame(): void {
+    this.hideAll();
+    this.game.show();
+    this.game
+      .createGame()
+      .then()
+      .catch(err => new Error(err));
   }
 }

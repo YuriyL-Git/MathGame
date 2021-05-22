@@ -5,11 +5,12 @@ import { delay, getImagesList } from '../shared/helper-functions';
 import Settings from '../../settings';
 import { Timer } from '../timer/timer';
 import { Indexdb } from '../indexdb/indexdb';
+import { Header } from '../header/header';
 
 const ANIMATION_DELAY = 200;
 
 export class GameController extends Component {
-  private readonly cardsField: CardsField;
+  public cardsField: CardsField;
 
   private gameIsStarted = false;
 
@@ -27,9 +28,12 @@ export class GameController extends Component {
 
   private db: Indexdb;
 
-  constructor(timer: Timer, db: Indexdb) {
+  private header: Header;
+
+  constructor(header: Header, db: Indexdb) {
     super('div', ['field-container']);
-    this.timer = timer;
+    this.header = header;
+    this.timer = header.timer;
     this.db = db;
     this.cardsField = new CardsField();
     this.element.appendChild(this.cardsField.element);
@@ -85,6 +89,7 @@ export class GameController extends Component {
   private userWin(): void {
     // TODO show pop up window
     this.timer.stopTimer();
+    this.header.showNewGameBtn();
     if (Settings.user && this.getScore() > Settings.user.score) {
       Settings.user.score = this.getScore();
       this.db.updateRecord(Settings.user);

@@ -13,31 +13,34 @@ export class Header extends Component {
 
   private avatarWrapper: Component;
 
+  public btnStopGame: Button;
+
+  public timer: Timer;
+
   constructor(timer: Timer) {
     super('header', ['header']);
+    this.timer = timer;
 
     /* create header buttons */
     const btnWrapper = new Component('div', ['header__btn-wrapper']);
     this.avatarWrapper = new Component('div', ['header__avatar-wrapper']);
-    // this.avatarWrapper.hide();
 
     this.btnRegister = new ButtonLink(
-      ['header__btn', 'btn-register'],
+      ['header__btn'],
       'Register new player',
       '#register',
     );
 
-    this.btnStartNewGame = new Button(
-      ['header__btn', 'btn-new-game'],
-      'New Game',
-    );
+    this.btnStartNewGame = new Button(['header__btn'], 'New Game');
+    this.btnStopGame = new Button(['header__btn'], 'Stop Game');
 
     this.btnStartNewGame.hide();
-    //  this.btnRegister.hide();
+    this.btnStopGame.hide();
 
     btnWrapper.element.append(
       this.btnRegister.element,
       this.btnStartNewGame.element,
+      this.btnStopGame.element,
       this.avatarWrapper.element,
     );
 
@@ -46,8 +49,18 @@ export class Header extends Component {
 
   showNewGameOption(): void {
     this.showUser();
+    this.showNewGameBtn();
+  }
+
+  showNewGameBtn(): void {
     this.btnStartNewGame.show();
     this.btnRegister.hide();
+    this.btnStopGame.hide();
+  }
+
+  showStopGameBtn(): void {
+    this.btnStartNewGame.hide();
+    this.btnStopGame.show();
   }
 
   showUser(): void {
