@@ -44,7 +44,8 @@ export class Header extends Component {
     this.element.append(headerTemplate(), timer.element, btnWrapper.element);
   }
 
-  showBtnNewGame(): void {
+  showNewGameOption(): void {
+    this.showUser();
     this.btnStartNewGame.show();
     this.btnRegister.hide();
   }

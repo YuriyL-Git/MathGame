@@ -4,6 +4,7 @@ import { FormRegister } from './components/form-register/form-register';
 import { About } from './components/about-page/about';
 import { Timer } from './components/timer/timer';
 import { Indexdb } from './components/indexdb/indexdb';
+import Settings from './settings';
 
 export class App {
   public readonly game: GameController;
@@ -16,15 +17,15 @@ export class App {
 
   public timer: Timer;
 
-  readonly database: Indexdb;
+  readonly db: Indexdb;
 
   constructor(private readonly rootElement: HTMLElement) {
     this.about = new About();
-    this.database = new Indexdb();
+    this.db = new Indexdb();
     this.timer = new Timer();
-    this.game = new GameController(this.timer);
+    this.game = new GameController(this.timer, this.db);
     this.header = new Header(this.timer);
-    this.formRegister = new FormRegister(this.database);
+    this.formRegister = new FormRegister(this.db);
 
     this.rootElement.append(
       this.header.element,
@@ -33,22 +34,16 @@ export class App {
       this.formRegister.element,
     );
 
-    /*  this.timer.setTimer('0', '12');
-    this.timer.startTimer();
-    this.timer.element.addEventListener('timerstop', () => {
-      console.log('stopped');
-    }); */
-
     // this.form.start();
     /* listen until new user is created */
     this.formRegister.element.addEventListener('userAdded', () => {
-      this.header.showBtnNewGame();
-      this.header.showUser();
+      this.header.showNewGameOption();
       this.hideAll();
       this.game
         .createGame()
         .then()
         .catch(err => new Error(err));
+      Settings.user = this.formRegister.getUser();
       this.game.show();
     });
 

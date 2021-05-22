@@ -4,6 +4,7 @@ import { CardsField } from '../card-field/cards-field';
 import { delay, getImagesList } from '../shared/helper-functions';
 import Settings from '../../settings';
 import { Timer } from '../timer/timer';
+import { Indexdb } from '../indexdb/indexdb';
 
 const ANIMATION_DELAY = 200;
 
@@ -24,9 +25,12 @@ export class GameController extends Component {
     previousCard: null as Card | null,
   };
 
-  constructor(timer: Timer) {
+  private db: Indexdb;
+
+  constructor(timer: Timer, db: Indexdb) {
     super('div', ['field-container']);
     this.timer = timer;
+    this.db = db;
     this.cardsField = new CardsField();
     this.element.appendChild(this.cardsField.element);
   }
@@ -65,7 +69,6 @@ export class GameController extends Component {
 
   async startGame(): Promise<void> {
     this.cardsField.flipCardsToBack();
-    // TODO if no cards are turned skip following delay
     await delay(ANIMATION_DELAY);
     await this.createGame();
     await delay(ANIMATION_DELAY);
@@ -74,9 +77,17 @@ export class GameController extends Component {
     this.gameIsStarted = true;
   }
 
-  // private calculateScore(): number {}
+  private getScore(): number {
+    // TODO update formula
+    return this.counter.success * 100 - this.timer.currentTime * 10;
+  }
 
   private userWin(): void {
+    // TODO show pop up window
     this.timer.stopTimer();
+    if (Settings.user && this.getScore() > Settings.user.score) {
+      Settings.user.score = this.getScore();
+      this.db.updateRecord(Settings.user);
+    }
   }
 }

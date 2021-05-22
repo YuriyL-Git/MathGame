@@ -8,6 +8,8 @@ export class Timer extends Component {
 
   private timerId = 0;
 
+  public currentTime = 0;
+
   constructor() {
     super('div', ['timer']);
 
@@ -31,11 +33,6 @@ export class Timer extends Component {
     this.setTimer(10);
   }
 
-  /*  setTimer(minutes: string, seconds: string): void {
-    this.minutes.element.innerText = minutes;
-    this.seconds.element.innerText = seconds;
-  } */
-
   setTimer(seconds: number): void {
     const minutesValue = Math.floor(seconds / 60);
     const secondsValue = seconds - 60 * minutesValue;
@@ -49,9 +46,6 @@ export class Timer extends Component {
     clearInterval(this.timerId);
     let countDownTime = countDown;
     this.setTimer(countDownTime);
-    /*  const minutes = parseInt(this.minutes.element.innerText, 10);
-    const seconds = parseInt(this.seconds.element.innerText, 10);
-    let countDownTime = minutes * 60 + seconds; */
 
     this.timerId = setInterval(() => {
       countDownTime--;
@@ -62,17 +56,16 @@ export class Timer extends Component {
 
   startCountUp(): void {
     this.stopTimer();
-    let secondsPassed = 0;
+    this.currentTime = 0;
     this.timerId = setInterval(() => {
-      secondsPassed++;
-      this.setTimer(secondsPassed);
+      this.currentTime++;
+      this.setTimer(this.currentTime);
     }, 1000);
   }
 
   stopTimer(): void {
     clearInterval(this.timerId);
     this.blinkTimer();
-    this.element.dispatchEvent(new CustomEvent('timerstop'));
   }
 
   /* blink effect after timer stops */
