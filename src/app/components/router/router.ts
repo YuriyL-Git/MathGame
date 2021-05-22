@@ -33,6 +33,14 @@ export class Router {
       },
     },
     {
+      name: 'game',
+      render: () => {
+        this.hideAll();
+        this.app.showGame();
+        // this.app.header.highlightLink('Settings');
+      },
+    },
+    {
       name: 'default',
       render: () => {
         this.hideAll();

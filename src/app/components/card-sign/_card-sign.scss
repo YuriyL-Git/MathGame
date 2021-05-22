@@ -17,7 +17,7 @@
   opacity: 0;
   background: #fff;
   animation-duration: .7s;
-  animation-delay: .2s;
+  animation-delay: .1s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
@@ -28,18 +28,6 @@
   content: "";
   position: absolute;
   background: inherit;
-}
-
-.circle__sign::after {
-  left: 100%;
-  top: 0%;
-  width: 500%;
-  height: 95%;
-  transform: translateY(4%) rotate(0deg);
-  border-radius: 0;
-  opacity: 0;
-  animation: set-shaddow 0s 0.7s ease-in-out forwards;
-  z-index: -1;
 }
 
 /* ------------------ sign success -----------------------------------*/

@@ -32,8 +32,8 @@ export class FormRegister extends Component {
     this.inputs = this.element.querySelectorAll('.register__input');
     this.canvas = this.element.querySelector('canvas');
     this.validator = new Validator();
-    this.db = db;
     this.imageHandler = new ImageHandler(this.canvas);
+    this.db = db;
     this.start();
     this.hide();
   }
@@ -70,11 +70,11 @@ export class FormRegister extends Component {
     this.btnAdd?.addEventListener('click', (event: Event) => {
       if (event) event.preventDefault();
       Settings.user = this.getUser();
-      this.db.addRecord(Settings.user, this.informResult.bind(this));
+      this.db.addRecord(Settings.user, this.dbResult.bind(this));
       this.element.dispatchEvent(new CustomEvent('userAdded'));
-      this.btnCancel?.click();
+      this.hide();
+      window.location.href = '/#game';
     });
-
     this.btnCancel?.addEventListener('click', () => {
       this.inputs.forEach(input => {
         input.style.backgroundColor = '#fff';
@@ -94,7 +94,7 @@ export class FormRegister extends Component {
     };
   }
 
-  informResult(message: string): void {
+  dbResult(message: string): void {
     if (this.messageField) this.messageField.innerHTML = message;
   }
 }
