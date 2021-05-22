@@ -33,7 +33,7 @@ export class Header extends Component {
     );
 
     this.btnStartNewGame.hide();
-    // this.btnRegister.hide();
+    //  this.btnRegister.hide();
 
     btnWrapper.element.append(
       this.btnRegister.element,

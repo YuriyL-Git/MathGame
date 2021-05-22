@@ -3,7 +3,7 @@ import { User } from './models/user';
 class Settings {
   public imagesCategory = 'animals';
 
-  public imagesQuantity = 20;
+  public imagesQuantity = 12;
 
   public cardSize = '';
 

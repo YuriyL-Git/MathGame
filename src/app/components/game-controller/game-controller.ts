@@ -52,6 +52,7 @@ export class GameController extends Component {
         card
           .clickHandler(this.counter, this.gameIsStarted)
           .catch(err => new Error(err));
+        //  if (this.counter.success === this.cards.length) this.userWin();
       }),
     );
 
@@ -67,4 +68,10 @@ export class GameController extends Component {
     this.cardsField.flipCardsToFront();
     this.gameIsStarted = true;
   }
+
+  // private calculateScore(): number {}
+
+  /*  private userWin(): void {
+    console.log('game finished!');
+  } */
 }

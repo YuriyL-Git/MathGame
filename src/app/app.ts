@@ -10,7 +10,7 @@ export class App {
 
   public header: Header;
 
-  public form: FormRegister;
+  public formRegister: FormRegister;
 
   public about: About;
 
@@ -23,14 +23,14 @@ export class App {
     this.game = new GameController();
     this.timer = new Timer();
     this.header = new Header(this.timer);
-    this.form = new FormRegister(this.database);
+    this.formRegister = new FormRegister(this.database);
     this.about = new About();
 
     this.rootElement.append(
       this.header.element,
       this.about.element,
       this.game.element,
-      this.form.element,
+      this.formRegister.element,
     );
 
     /*  this.timer.setTimer('0', '12');
@@ -39,9 +39,9 @@ export class App {
       console.log('stopped');
     }); */
 
-    this.form.start();
+    // this.form.start();
     /* listen until new user is created */
-    this.form.element.addEventListener('userAdded', () => {
+    this.formRegister.element.addEventListener('userAdded', () => {
       this.header.showBtnNewGame();
       this.header.showUser();
       this.hideAll();
@@ -52,7 +52,7 @@ export class App {
       this.game.show();
     });
 
-    this.form.btnCancel?.addEventListener('click', () => {
+    this.formRegister.btnCancel?.addEventListener('click', () => {
       // this.about.show();
     });
 

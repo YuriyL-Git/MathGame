@@ -33,8 +33,8 @@ export class FormRegister extends Component {
     this.canvas = this.element.querySelector('canvas');
     this.validator = new Validator();
     this.db = db;
-
     this.imageHandler = new ImageHandler(this.canvas);
+    this.start();
     this.hide();
   }
 
@@ -44,11 +44,9 @@ export class FormRegister extends Component {
       const message = new Component('div', ['validation-message']);
       input.after(message.element);
       this.messageField = message.element;
-
       input.addEventListener('input', () => {
         message.element.innerText = '';
         input.style.backgroundColor = '#a3f5a3';
-
         if (!this.validator.isValid(input)) {
           message.element.innerText = this.validator.errorMessage;
           if (this.btnAdd) this.btnAdd.disabled = true;
@@ -69,7 +67,6 @@ export class FormRegister extends Component {
 
   setupButtons(): void {
     if (this.btnAdd) this.btnAdd.disabled = true;
-
     this.btnAdd?.addEventListener('click', (event: Event) => {
       if (event) event.preventDefault();
       Settings.user = this.getUser();
@@ -79,6 +76,10 @@ export class FormRegister extends Component {
     });
 
     this.btnCancel?.addEventListener('click', () => {
+      this.inputs.forEach(input => {
+        input.style.backgroundColor = '#fff';
+        if (input.nextElementSibling) input.nextElementSibling.innerHTML = '';
+      });
       this.hide();
     });
   }

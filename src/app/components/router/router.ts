@@ -13,7 +13,7 @@ export class Router {
       name: 'register',
       render: () => {
         this.hideAll();
-        this.app.form.show();
+        this.app.formRegister.show();
       },
     },
     {
