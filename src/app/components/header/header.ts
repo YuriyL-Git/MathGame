@@ -17,6 +17,8 @@ export class Header extends Component {
 
   public timer: Timer;
 
+  private linkTitles: NodeListOf<Element>;
+
   constructor() {
     super('header', ['header']);
     this.timer = new Timer();
@@ -49,6 +51,7 @@ export class Header extends Component {
       this.timer.element,
       btnWrapper.element,
     );
+    this.linkTitles = this.element.querySelectorAll('.header__link-title');
   }
 
   showNewGameOption(): void {
@@ -77,5 +80,15 @@ export class Header extends Component {
     }
 
     this.avatarWrapper.element.append(img);
+  }
+
+  highlightLink(linkText: string): void {
+    this.linkTitles.forEach(title => {
+      title.classList.remove('header__link-selected');
+      if (title.innerHTML === linkText) {
+        console.log(title.innerHTML, ' selected');
+        title.classList.add('header__link-selected');
+      }
+    });
   }
 }

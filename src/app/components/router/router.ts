@@ -7,6 +7,7 @@ export class Router {
       render: () => {
         this.hideAll();
         this.app.about.show();
+        this.app.header.highlightLink('About');
       },
     },
     {
@@ -14,11 +15,30 @@ export class Router {
       render: () => {
         this.hideAll();
         this.app.formRegister.show();
+        this.app.header.highlightLink('none');
+      },
+    },
+    {
+      name: 'score',
+      render: () => {
+        this.hideAll();
+        this.app.header.highlightLink('Best Score');
+      },
+    },
+    {
+      name: 'settings',
+      render: () => {
+        this.hideAll();
+        this.app.header.highlightLink('Settings');
       },
     },
     {
       name: 'default',
-      render: () => this.app.about.show(),
+      render: () => {
+        this.hideAll();
+        this.app.about.show();
+        this.app.header.highlightLink('About');
+      },
     },
   ];
 
@@ -31,6 +51,7 @@ export class Router {
   hideAll(): void {
     this.app.about.hide();
     this.app.game.hide();
+    this.app.formRegister.hide();
   }
 
   start(): void {

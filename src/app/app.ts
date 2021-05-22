@@ -37,10 +37,6 @@ export class App {
       Settings.user = this.formRegister.getUser();
     });
 
-    this.formRegister.btnCancel?.addEventListener('click', () => {
-      this.about.show();
-    });
-
     this.header.btnStartNewGame.element.addEventListener('click', () => {
       this.startGame();
       this.header.showStopGameBtn();

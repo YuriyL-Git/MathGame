@@ -80,7 +80,7 @@ export class FormRegister extends Component {
         input.style.backgroundColor = '#fff';
         if (input.nextElementSibling) input.nextElementSibling.innerHTML = '';
       });
-      this.hide();
+      window.history.back();
     });
   }
 

@@ -7,22 +7,22 @@ const template = `
   </div>
   <nav class="header__nav">
     <ul class="header__nav-list">
-      <li class="header__nav-item item-help">
+      <li class="header__nav-item header__item-selected item-help">
         <a class="header__nav-link" href="#about">
           <img class="header__nav-icon" src="./icons/help.svg" alt="help">
-          <p>About</p>
+          <p class="header__link-title">About</p>
         </a>
       </li>
       <li class="header__nav-item item-score">
         <a class="header__nav-link" href="#score">
           <img class="header__nav-icon" src="./icons/score.svg" alt="help">
-          <p>Best Score</p>
+          <p class="header__link-title">Best Score</p>
         </a>
       </li>
       <li class="header__nav-item item-settings">
         <a class="header__nav-link" href="#settings">
           <img class="header__nav-icon" src="./icons/settings.svg" alt="help">
-          <p>Settings</p>
+          <p class="header__link-title">Settings</p>
         </a>
       </li>
     </ul>
