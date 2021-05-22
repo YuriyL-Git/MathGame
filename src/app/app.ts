@@ -16,15 +16,15 @@ export class App {
 
   public timer: Timer;
 
-  private database: Indexdb;
+  readonly database: Indexdb;
 
   constructor(private readonly rootElement: HTMLElement) {
+    this.about = new About();
     this.database = new Indexdb();
-    this.game = new GameController();
     this.timer = new Timer();
+    this.game = new GameController(this.timer);
     this.header = new Header(this.timer);
     this.formRegister = new FormRegister(this.database);
-    this.about = new About();
 
     this.rootElement.append(
       this.header.element,
@@ -53,7 +53,7 @@ export class App {
     });
 
     this.formRegister.btnCancel?.addEventListener('click', () => {
-      // this.about.show();
+      this.about.show();
     });
 
     this.header.btnStartNewGame.element.addEventListener('click', () => {

@@ -3,6 +3,7 @@ import { Card } from '../card/card';
 import { CardsField } from '../card-field/cards-field';
 import { delay, getImagesList } from '../shared/helper-functions';
 import Settings from '../../settings';
+import { Timer } from '../timer/timer';
 
 const ANIMATION_DELAY = 200;
 
@@ -15,14 +16,17 @@ export class GameController extends Component {
 
   private cards: Array<Card> = [];
 
+  private timer: Timer;
+
   public counter = {
     success: 0,
     fails: 0,
     previousCard: null as Card | null,
   };
 
-  constructor() {
+  constructor(timer: Timer) {
     super('div', ['field-container']);
+    this.timer = timer;
     this.cardsField = new CardsField();
     this.element.appendChild(this.cardsField.element);
   }
@@ -52,7 +56,7 @@ export class GameController extends Component {
         card
           .clickHandler(this.counter, this.gameIsStarted)
           .catch(err => new Error(err));
-        //  if (this.counter.success === this.cards.length) this.userWin();
+        if (this.counter.success === this.cards.length) this.userWin();
       }),
     );
 
@@ -66,12 +70,13 @@ export class GameController extends Component {
     await this.createGame();
     await delay(ANIMATION_DELAY);
     this.cardsField.flipCardsToFront();
+    this.timer.startCountDown(Settings.showTime / 1000);
     this.gameIsStarted = true;
   }
 
   // private calculateScore(): number {}
 
-  /*  private userWin(): void {
-    console.log('game finished!');
-  } */
+  private userWin(): void {
+    this.timer.stopTimer();
+  }
 }

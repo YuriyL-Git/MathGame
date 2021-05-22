@@ -7,7 +7,7 @@ class Settings {
 
   public cardSize = '';
 
-  public showTime = 3000;
+  public showTime = 6000;
 
   public user?: User;
 }
