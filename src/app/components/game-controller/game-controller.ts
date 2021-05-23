@@ -3,9 +3,9 @@ import { Card } from '../card/card';
 import { CardsField } from '../card-field/cards-field';
 import { delay, getImagesList } from '../shared/helper-functions';
 import Settings from '../../settings';
-import { Timer } from '../timer/timer';
 import { Indexdb } from '../indexdb/indexdb';
 import { Header } from '../header/header';
+import { Popup } from '../pop-up/popup';
 
 const ANIMATION_DELAY = 200;
 
@@ -18,8 +18,6 @@ export class GameController extends Component {
 
   private cards: Array<Card> = [];
 
-  private timer: Timer;
-
   public counter = {
     success: 0,
     fails: 0,
@@ -30,10 +28,12 @@ export class GameController extends Component {
 
   private header: Header;
 
-  constructor(header: Header, db: Indexdb) {
+  private popup: Popup;
+
+  constructor(header: Header, popup: Popup, db: Indexdb) {
     super('div', ['field-container']);
     this.header = header;
-    this.timer = header.timer;
+    this.popup = popup;
     this.db = db;
     this.cardsField = new CardsField();
     this.element.appendChild(this.cardsField.element);
@@ -54,7 +54,6 @@ export class GameController extends Component {
       fails: 0,
       previousCard: null as Card | null,
     };
-
     this.cards = this.imageList.map(
       image => new Card(image, Settings.cardSize),
     );
@@ -64,10 +63,10 @@ export class GameController extends Component {
         card
           .clickHandler(this.counter, this.gameIsStarted)
           .catch(err => new Error(err));
-        if (this.counter.success === this.cards.length) this.userWin();
+        if (this.counter.success === this.cards.length && this.gameIsStarted)
+          this.userWin();
       }),
     );
-
     this.cardsField.addCards(this.cards);
   }
 
@@ -77,18 +76,21 @@ export class GameController extends Component {
     await this.createGame();
     await delay(ANIMATION_DELAY);
     this.cardsField.flipCardsToFront();
-    this.timer.startCountDown(Settings.showTime / 1000);
+    this.header.timer.startCountDown(Settings.showTime / 1000);
     this.gameIsStarted = true;
   }
 
   private getScore(): number {
-    // TODO update formula
-    return this.counter.success * 100 - this.timer.currentTime * 10;
+    const res =
+      (this.counter.success - this.counter.fails / 5) * 100 -
+      this.header.timer.currentTime * 10;
+    return res > 0 ? Math.ceil(res / 10) * 10 : 0;
   }
 
   private userWin(): void {
-    // TODO show pop up window
-    this.timer.stopTimer();
+    this.gameIsStarted = false;
+    this.popup.showPopup(this.getScore());
+    this.header.timer.stopTimer();
     this.header.showNewGameBtn();
     if (Settings.user && this.getScore() > Settings.user.score) {
       Settings.user.score = this.getScore();

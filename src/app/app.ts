@@ -4,6 +4,7 @@ import { FormRegister } from './components/form-register/form-register';
 import { About } from './components/about-page/about';
 import { Indexdb } from './components/indexdb/indexdb';
 import Settings from './settings';
+import { Popup } from './components/pop-up/popup';
 
 export class App {
   public readonly game: GameController;
@@ -16,11 +17,14 @@ export class App {
 
   readonly db: Indexdb;
 
+  private popup: Popup;
+
   constructor(private readonly rootElement: HTMLElement) {
     this.about = new About();
     this.db = new Indexdb();
     this.header = new Header();
-    this.game = new GameController(this.header, this.db);
+    this.popup = new Popup();
+    this.game = new GameController(this.header, this.popup, this.db);
     this.formRegister = new FormRegister(this.db);
 
     this.rootElement.append(
@@ -28,6 +32,7 @@ export class App {
       this.about.element,
       this.game.element,
       this.formRegister.element,
+      this.popup.element,
     );
 
     /* wait until new user is created */
