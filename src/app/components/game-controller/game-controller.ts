@@ -49,11 +49,6 @@ export class GameController extends Component {
   async createGame(): Promise<void> {
     await this.updateImageList();
     this.cardsField.setupField();
-    this.counter = {
-      success: 0,
-      fails: 0,
-      previousCard: null as Card | null,
-    };
     this.cards = this.imageList.map(
       image => new Card(image, Settings.cardSize),
     );
@@ -71,6 +66,11 @@ export class GameController extends Component {
   }
 
   async startGame(): Promise<void> {
+    this.counter = {
+      success: 0,
+      fails: 0,
+      previousCard: null as Card | null,
+    };
     this.cardsField.flipCardsToBack();
     await delay(ANIMATION_DELAY);
     await this.createGame();

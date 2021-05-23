@@ -62,7 +62,7 @@
   &__link-selected {
     color: orange;
   }
-  
+
   &__nav-item:active {
     transform: scale(0.99);
   }
@@ -93,6 +93,7 @@
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
     font-size: 1.3rem;
+    font-weight: 500;
     background: linear-gradient(80deg, #ebca1a 0%, #f53803 100%);
     outline: none;
     border: 1px solid rgb(200, 147, 30);
@@ -105,12 +106,21 @@
     display: grid;
     place-items: center;
 
+
     &:hover {
       background: linear-gradient(0deg, #ebca1a 0%, #f53803 120%);
     }
 
     &:active {
       transform: scale(0.97);
+    }
+
+    &--red {
+      background: red;
+
+      &:hover {
+        background: rgb(232 86 86);
+      }
     }
   }
 
