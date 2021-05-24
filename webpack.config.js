@@ -44,7 +44,7 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
   entry: {
-    main: ['@babel/polyfill', './index.ts'],
+    main: ['@babel/polyfill', './main.ts'],
   },
   resolve: {
     extensions: ['.ts', '.js', '.png'],

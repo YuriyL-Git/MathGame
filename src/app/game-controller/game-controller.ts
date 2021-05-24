@@ -1,11 +1,11 @@
-import { Component } from '../shared/component';
-import { Card } from '../card/card';
-import { CardsField } from '../card-field/cards-field';
-import { delay, getImagesList } from '../shared/helper-functions';
-import Settings from '../../settings';
-import { Indexdb } from '../indexdb/indexdb';
-import { Header } from '../header/header';
-import { Popup } from '../pop-up/popup';
+import { Component } from '../components/shared/component';
+import { Card } from '../components/card/card';
+import { CardsField } from '../components/card-field/cards-field';
+import { delay, getImagesList } from '../utils/helper-functions';
+import Settings from '../settings/settings';
+import { Indexdb } from '../servises/indexdb/indexdb';
+import { Header } from '../components/header/header';
+import { Popup } from '../components/pop-up/popup';
 
 const ANIMATION_DELAY = 200;
 

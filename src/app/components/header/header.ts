@@ -4,7 +4,7 @@ import { headerTemplate } from './header-template';
 import { Timer } from '../timer/timer';
 import { ButtonLink } from '../shared/button-link';
 import { Button } from '../shared/button';
-import Settings from '../../settings';
+import Settings from '../../settings/settings';
 
 export class Header extends Component {
   private readonly btnRegister: ButtonLink;

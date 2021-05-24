@@ -1,11 +1,11 @@
-import { GameController } from './components/game-controller/game-controller';
+import { GameController } from './game-controller/game-controller';
 import { Header } from './components/header/header';
 import { FormRegister } from './components/form-register/form-register';
-import { About } from './components/about-page/about';
-import { Indexdb } from './components/indexdb/indexdb';
-import Settings from './settings';
+import { About } from './pages/about/about';
+import { Indexdb } from './servises/indexdb/indexdb';
+import Settings from './settings/settings';
 import { Popup } from './components/pop-up/popup';
-import { BestscorePage } from './components/bestscore-page/bestscore';
+import { BestscorePage } from './pages/bestscore/bestscore';
 
 export class App {
   public game: GameController;

@@ -1,7 +1,7 @@
 import { Component } from '../shared/component';
 import './_cards-field.scss';
 import { Card } from '../card/card';
-import Settings from '../../settings';
+import Settings from '../../settings/settings';
 
 export class CardsField extends Component {
   private cards: Card[] = [];

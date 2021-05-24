@@ -2,10 +2,10 @@ import { formTemplate } from './form-template';
 import './_form-register.scss';
 import { Component } from '../shared/component';
 import { Validator } from './validator';
-import { Indexdb } from '../indexdb/indexdb';
+import { Indexdb } from '../../servises/indexdb/indexdb';
 import { User } from '../../models/user';
 import { ImageHandler } from './image-handler';
-import Settings from '../../settings';
+import Settings from '../../settings/settings';
 
 export class FormRegister extends Component {
   private readonly btnAdd: HTMLButtonElement | null;

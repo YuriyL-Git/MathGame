@@ -98,7 +98,7 @@
     "./**/*.ts"
   ],
   "files": [
-    "src/index.ts",
+    "src/main.ts",
     "./declarations.d.ts"
   ]
 }

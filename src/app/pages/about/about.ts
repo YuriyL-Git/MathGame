@@ -1,5 +1,5 @@
 import './_about.scss';
-import { Component } from '../shared/component';
+import { Component } from '../../components/shared/component';
 import { aboutTemplate } from './about-template';
 
 export class About extends Component {

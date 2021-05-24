@@ -1,9 +1,10 @@
-import './assets/SCSS/style.scss';
+import './assets/scss/style.scss';
 import { App } from './app/app';
-import { Router } from './app/components/router/router';
+import { Router } from './app/servises/router/router';
+
+const appBody = document.body;
 
 window.onload = () => {
-  const appBody = document.body;
   const app = new App(appBody);
   const router = new Router(app);
   router.start();

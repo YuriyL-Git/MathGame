@@ -1,6 +1,6 @@
 import { Component } from '../shared/component';
 import './_card.scss';
-import { delay } from '../shared/helper-functions';
+import { delay } from '../../utils/helper-functions';
 import { CardSign } from '../card-sign/card-sign';
 
 interface Counter {

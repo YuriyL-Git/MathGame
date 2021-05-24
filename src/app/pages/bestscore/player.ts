@@ -1,4 +1,4 @@
-import { Component } from '../shared/component';
+import { Component } from '../../components/shared/component';
 import { User } from '../../models/user';
 
 export class Player extends Component {
