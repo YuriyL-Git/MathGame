@@ -115,11 +115,20 @@
       transform: scale(0.97);
     }
 
-    &--red {
-      background: red;
+    &--green {
+      background: linear-gradient(191deg, #177120 0%, #51ce1c 74%);
 
       &:hover {
-        background: rgb(232 86 86);
+        background: linear-gradient(160deg, #177120 0%, #51ce1c 74%);
+      }
+    }
+
+    &--red {
+      background-image: linear-gradient(140deg, #d4af8e 0%, #f3465e 74%);
+
+      &:hover {
+        background-image: linear-gradient(10deg, #d4af8e 0%, #f3465e 74%);
+
       }
     }
   }

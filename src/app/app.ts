@@ -5,9 +5,10 @@ import { About } from './components/about-page/about';
 import { Indexdb } from './components/indexdb/indexdb';
 import Settings from './settings';
 import { Popup } from './components/pop-up/popup';
+import { BestscorePage } from './components/bestscore-page/bestscore';
 
 export class App {
-  public readonly game: GameController;
+  public game: GameController;
 
   public header: Header;
 
@@ -15,9 +16,11 @@ export class App {
 
   public about: About;
 
-  readonly db: Indexdb;
+  public db: Indexdb;
 
-  private popup: Popup;
+  public bestscore: BestscorePage;
+
+  private readonly popup: Popup;
 
   constructor(private readonly rootElement: HTMLElement) {
     this.about = new About();
@@ -26,6 +29,7 @@ export class App {
     this.popup = new Popup();
     this.game = new GameController(this.header, this.popup, this.db);
     this.formRegister = new FormRegister(this.db);
+    this.bestscore = new BestscorePage(this.db);
 
     this.rootElement.append(
       this.header.element,
@@ -33,6 +37,7 @@ export class App {
       this.game.element,
       this.formRegister.element,
       this.popup.element,
+      this.bestscore.element,
     );
 
     /* wait until new user is created */
@@ -50,6 +55,7 @@ export class App {
     this.header.btnStopGame.element.addEventListener('click', () => {
       this.header.timer.stopTimer();
       this.game.cardsField.flipCardsToBack();
+      this.game.gameIsStarted = false;
       this.header.showNewGameBtn();
     });
   }

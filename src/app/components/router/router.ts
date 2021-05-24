@@ -1,4 +1,5 @@
 import { App } from '../../app';
+import Settings from '../../settings';
 
 export class Router {
   private readonly routing = [
@@ -19,9 +20,11 @@ export class Router {
       },
     },
     {
-      name: 'score',
+      name: 'bestscore',
       render: () => {
         this.hideAll();
+        this.app.bestscore.show();
+        this.app.bestscore.refreshPlayers();
         this.app.header.highlightLink('Best Score');
       },
     },
@@ -35,9 +38,11 @@ export class Router {
     {
       name: 'game',
       render: () => {
-        this.hideAll();
-        this.app.showGame();
-        // this.app.header.highlightLink('Settings');
+        if (Settings.user) {
+          this.hideAll();
+          this.app.showGame();
+          this.app.header.highlightLink('none');
+        }
       },
     },
     {
@@ -60,6 +65,7 @@ export class Router {
     this.app.about.hide();
     this.app.game.hide();
     this.app.formRegister.hide();
+    this.app.bestscore.hide();
   }
 
   start(): void {

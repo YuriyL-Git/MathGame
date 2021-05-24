@@ -12,7 +12,7 @@ const ANIMATION_DELAY = 200;
 export class GameController extends Component {
   public cardsField: CardsField;
 
-  private gameIsStarted = false;
+  public gameIsStarted = false;
 
   private imageList: Array<string> = [];
 

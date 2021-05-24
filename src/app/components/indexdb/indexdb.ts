@@ -1,5 +1,7 @@
 import { User } from '../../models/user';
 
+const TOP_PLAYERS_QTY = 10;
+
 interface Transaction {
   transaction: IDBTransaction | undefined;
   objectStore: IDBObjectStore | undefined;
@@ -68,7 +70,7 @@ export class Indexdb {
         resolve(
           playersRequest?.result
             .sort((a: User, b: User) => b.score - a.score)
-            .slice(0, 10),
+            .slice(0, TOP_PLAYERS_QTY),
         );
       });
 

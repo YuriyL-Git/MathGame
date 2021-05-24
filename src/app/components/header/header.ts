@@ -33,7 +33,10 @@ export class Header extends Component {
       '#register',
     );
 
-    this.btnStartNewGame = new Button(['header__btn'], 'NEW GAME');
+    this.btnStartNewGame = new Button(
+      ['header__btn', 'header__btn--green'],
+      'NEW GAME',
+    );
     this.btnStopGame = new Button(
       ['header__btn', 'header__btn--red'],
       'STOP GAME',

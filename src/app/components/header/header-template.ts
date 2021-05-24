@@ -14,7 +14,7 @@ const template = `
         </a>
       </li>
       <li class="header__nav-item item-score">
-        <a class="header__nav-link" href="#score">
+        <a class="header__nav-link" href="#bestscore">
           <img class="header__nav-icon" src="./icons/score.svg" alt="help">
           <p class="header__link-title">Best Score</p>
         </a>
