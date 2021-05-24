@@ -144,7 +144,7 @@ module.exports = {
         test: /\.ts$/,
         exclude: /node_modules/,
         use: jsLoaders('@babel/preset-typescript'),
-      },
+      }
     ],
   },
 };

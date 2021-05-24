@@ -19,7 +19,7 @@
   background-image: linear-gradient(315deg, #20bf558c 0%, #01baef87 74%);
   border-radius: 20px;
   display: grid;
-  grid-template-rows: 75px repeat(9, 1fr);
+  grid-template-rows: 75px repeat(10, 1fr);
   align-items: flex-start;
   justify-items: center;
   padding-bottom: 1rem;
@@ -30,6 +30,24 @@
     font-weight: 500;
     color: hsl(228, 91%, 22%);
     padding-bottom: 1rem;
+  }
+
+  &__mocks {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-30%);
+    font-style: italic;
+    font-weight: 300;
+    color: #000000d6;
+
+    &:before {
+      content: '*';
+      color: black;
+      position: absolute;
+      left: -1.9%;
+      top: -26%;
+    }
   }
 }
 

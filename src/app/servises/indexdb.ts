@@ -1,4 +1,5 @@
 import { User } from '../models/user';
+import Mock from '../mock/mock.json';
 
 const TOP_PLAYERS_QTY = 10;
 
@@ -16,11 +17,9 @@ export class Indexdb {
 
   constructor() {
     this.DBOpenReq = indexedDB.open('YuriyL-Git', 1);
-
     this.DBOpenReq.addEventListener('success', () => {
       this.db = this.DBOpenReq.result;
     });
-
     this.DBOpenReq.addEventListener('upgradeneeded', () => {
       this.db = this.DBOpenReq.result;
       if (!this.db.objectStoreNames.contains('MathGameStore')) {
@@ -77,6 +76,14 @@ export class Indexdb {
       transaction?.addEventListener('error', error => {
         reject(error);
       });
+    });
+  }
+
+  loadMockData(): void {
+    const { objectStore } = this.getTransaction();
+    const users = Mock as Array<User>;
+    users.forEach(user => {
+      objectStore?.add(user);
     });
   }
 }
