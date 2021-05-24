@@ -8,6 +8,7 @@ import { Header } from '../components/header/header';
 import { Popup } from '../components/pop-up/popup';
 
 const ANIMATION_DELAY = 200;
+const MILLISECONDS_IN_SECOND = 1000;
 
 export class GameController extends Component {
   public cardsField: CardsField;
@@ -48,11 +49,11 @@ export class GameController extends Component {
 
   async createGame(): Promise<void> {
     await this.updateImageList();
+
     this.cardsField.setupField();
     this.cards = this.imageList.map(
       image => new Card(image, Settings.cardSize),
     );
-
     this.cards.forEach(card =>
       card.element.addEventListener('click', () => {
         card
@@ -72,11 +73,16 @@ export class GameController extends Component {
       previousCard: null as Card | null,
     };
     this.cardsField.flipCardsToBack();
+
     await delay(ANIMATION_DELAY);
     await this.createGame();
+
     await delay(ANIMATION_DELAY);
     this.cardsField.flipCardsToFront();
-    this.header.timer.startCountDown(Settings.showTime / 1000);
+
+    this.header.timer.startCountDown(
+      Settings.showTime / MILLISECONDS_IN_SECOND,
+    );
     this.gameIsStarted = true;
   }
 

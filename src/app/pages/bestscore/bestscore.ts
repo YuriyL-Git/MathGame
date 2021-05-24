@@ -1,7 +1,7 @@
 import './_bestscore.scss';
 import { Component } from '../../components/shared/component';
 import { Indexdb } from '../../servises/indexdb';
-import { Player } from './player';
+import { TopPlayer } from '../../components/top-player/top-player';
 import { User } from '../../models/user';
 
 const TITLE_HEIGHT = 120;
@@ -50,13 +50,13 @@ export class BestscorePage extends Component {
       .getTopPlayers()
       .then(players => {
         if (players.length === 0) {
-          const emptyPlayer = new Player(EMPTY_PLAYER, 1);
+          const emptyPlayer = new TopPlayer(EMPTY_PLAYER, 1);
           this.page.element.append(emptyPlayer.element);
         }
         let position = 0;
         players.forEach(player => {
           position++;
-          const playerComponent = new Player(player, position);
+          const playerComponent = new TopPlayer(player, position);
           this.page.element.append(playerComponent.element);
         });
       })

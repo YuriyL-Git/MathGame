@@ -1,6 +1,14 @@
 import './_timer.scss';
 import { Component } from '../shared/component';
 
+const MILLISECONDS_IN_SECOND = 1000;
+const SECONDS_IN_MINUTE = 60;
+
+const BLINK_HIDE_TIME = 250;
+const BLINK_SHOW_TIME = 500;
+const TIMER_BLINKS_QTY = 2;
+const DEFAULT_TIME = 0;
+
 export class Timer extends Component {
   private minutes: Component;
 
@@ -30,12 +38,12 @@ export class Timer extends Component {
       secondsSection.element,
     );
 
-    this.setTimer(10);
+    this.setTimer(DEFAULT_TIME);
   }
 
   setTimer(seconds: number): void {
-    const minutesValue = Math.floor(seconds / 60);
-    const secondsValue = seconds - 60 * minutesValue;
+    const minutesValue = Math.floor(seconds / SECONDS_IN_MINUTE);
+    const secondsValue = seconds - SECONDS_IN_MINUTE * minutesValue;
 
     this.minutes.element.innerText = `0${minutesValue}`;
     this.seconds.element.innerText =
@@ -51,7 +59,7 @@ export class Timer extends Component {
       countDownTime--;
       if (countDownTime === 0) this.startCountUp();
       this.setTimer(countDownTime);
-    }, 1000);
+    }, MILLISECONDS_IN_SECOND);
   }
 
   startCountUp(): void {
@@ -60,7 +68,7 @@ export class Timer extends Component {
     this.timerId = setInterval(() => {
       this.currentTime++;
       this.setTimer(this.currentTime);
-    }, 1000);
+    }, MILLISECONDS_IN_SECOND);
   }
 
   stopTimer(): void {
@@ -74,16 +82,16 @@ export class Timer extends Component {
     const hideTimer = setInterval(() => {
       this.minutes.hide();
       this.seconds.hide();
-    }, 250);
+    }, BLINK_HIDE_TIME);
 
     const showTimer = setInterval(() => {
       i++;
-      if (i > 2) {
+      if (i > TIMER_BLINKS_QTY) {
         clearInterval(hideTimer);
         clearInterval(showTimer);
       }
       this.minutes.show();
       this.seconds.show();
-    }, 500);
+    }, BLINK_SHOW_TIME);
   }
 }

@@ -1,12 +1,13 @@
-import { Component } from '../../components/shared/component';
+import { Component } from '../shared/component';
 import { User } from '../../models/user';
+import './_top-player.scss';
 
-export class Player extends Component {
+export class TopPlayer extends Component {
   constructor(user: User, positionNumber: number) {
     super('div', ['player__wrapper']);
 
     const position = new Component('div', ['player__position']);
-    position.element.innerText = `${positionNumber}.`;
+    position.element.innerText = `${positionNumber}`;
 
     const avatar = document.createElement('img');
     avatar.classList.add('player__avatar');
