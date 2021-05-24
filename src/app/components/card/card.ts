@@ -26,12 +26,14 @@ export class Card extends Component {
 
   constructor(readonly image: string, size = '10rem') {
     super('div', ['card-container', FLIP_TO_BACK_CLASS]);
+
     this.element.innerHTML = `
      <div class="card" style="height: ${size}; width: ${size}">
        <div class="card__front" style="background-image: url('${image}')"></div>
        <div class="card__back"></div>
      </div>
     `;
+
     this.signSuccess = new CardSign('success');
     this.signFail = new CardSign('fail');
     this.element.append(this.signSuccess.element, this.signFail.element);
@@ -54,12 +56,11 @@ export class Card extends Component {
     gameIsStarted: boolean,
   ): Promise<void> {
     if (!gameIsStarted) return;
-
     if (!this.backIsShown || this.animationInProcess) return;
     if (counter.previousCard?.isSecondOpened) return;
     if (counter.previousCard === this) return;
-    this.flipToFront();
 
+    this.flipToFront();
     if (!counter.previousCard) {
       counter.previousCard = this;
       return;
@@ -68,18 +69,22 @@ export class Card extends Component {
 
     if (this.image !== counter.previousCard.image) {
       const previous = counter.previousCard;
+
       previous.animationInProcess = true;
       this.animationInProcess = true;
+
       this.signFail.show();
       previous.signFail.show();
 
       await delay(FLIP_BACK_DELAY);
+
       previous.flipToBack(previous.animationEnd.bind(previous));
       this.flipToBack(this.animationEnd.bind(this));
       counter.fails += 2;
     } else {
       this.signSuccess.show();
       counter.previousCard.signSuccess.show();
+
       this.isSecondOpened = false;
       counter.success += 2;
     }

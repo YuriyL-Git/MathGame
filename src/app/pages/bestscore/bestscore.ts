@@ -1,6 +1,6 @@
 import './_bestscore.scss';
 import { Component } from '../../components/shared/component';
-import { Indexdb } from '../../servises/indexdb/indexdb';
+import { Indexdb } from '../../servises/indexdb';
 import { Player } from './player';
 import { User } from '../../models/user';
 

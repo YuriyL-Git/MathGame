@@ -1,6 +1,6 @@
 import './assets/scss/style.scss';
 import { App } from './app/app';
-import { Router } from './app/servises/router/router';
+import { Router } from './app/servises/router';
 
 const appBody = document.body;
 

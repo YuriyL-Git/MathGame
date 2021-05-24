@@ -1,5 +1,5 @@
-import { App } from '../../app';
-import Settings from '../../settings/settings';
+import { App } from '../app';
+import Settings from '../settings/settings';
 
 export class Router {
   private readonly routing = [

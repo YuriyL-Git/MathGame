@@ -3,7 +3,7 @@ import { Card } from '../components/card/card';
 import { CardsField } from '../components/card-field/cards-field';
 import { delay, getImagesList } from '../utils/helper-functions';
 import Settings from '../settings/settings';
-import { Indexdb } from '../servises/indexdb/indexdb';
+import { Indexdb } from '../servises/indexdb';
 import { Header } from '../components/header/header';
 import { Popup } from '../components/pop-up/popup';
 
@@ -92,6 +92,7 @@ export class GameController extends Component {
     this.popup.showPopup(this.getScore());
     this.header.timer.stopTimer();
     this.header.showNewGameBtn();
+
     if (Settings.user && this.getScore() > Settings.user.score) {
       Settings.user.score = this.getScore();
       this.db.updateRecord(Settings.user);

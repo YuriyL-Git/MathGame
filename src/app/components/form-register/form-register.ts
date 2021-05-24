@@ -2,7 +2,7 @@ import { formTemplate } from './form-template';
 import './_form-register.scss';
 import { Component } from '../shared/component';
 import { Validator } from './validator';
-import { Indexdb } from '../../servises/indexdb/indexdb';
+import { Indexdb } from '../../servises/indexdb';
 import { User } from '../../models/user';
 import { ImageHandler } from './image-handler';
 import Settings from '../../settings/settings';
@@ -27,12 +27,15 @@ export class FormRegister extends Component {
   constructor(db: Indexdb) {
     super('div', ['form-wrapper']);
     this.element.append(formTemplate());
+
     this.btnAdd = this.element.querySelector('.register__btn--add');
     this.btnCancel = this.element.querySelector('.register__btn--cancel');
     this.inputs = this.element.querySelectorAll('.register__input');
     this.canvas = this.element.querySelector('canvas');
+
     this.validator = new Validator();
     this.imageHandler = new ImageHandler(this.canvas);
+
     this.db = db;
     this.start();
     this.hide();
@@ -40,13 +43,16 @@ export class FormRegister extends Component {
 
   start(): void {
     this.setupButtons();
+
     this.inputs.forEach(input => {
       const message = new Component('div', ['validation-message']);
       input.after(message.element);
       this.messageField = message.element;
+
       input.addEventListener('input', () => {
         message.element.innerText = '';
         input.style.backgroundColor = '#a3f5a3';
+
         if (!this.validator.isValid(input)) {
           message.element.innerText = this.validator.errorMessage;
           if (this.btnAdd) this.btnAdd.disabled = true;
@@ -67,14 +73,17 @@ export class FormRegister extends Component {
 
   setupButtons(): void {
     if (this.btnAdd) this.btnAdd.disabled = true;
+
     this.btnAdd?.addEventListener('click', (event: Event) => {
       if (event) event.preventDefault();
+
       Settings.user = this.getUser();
       this.db.addRecord(Settings.user, this.dbResult.bind(this));
       this.element.dispatchEvent(new CustomEvent('userAdded'));
       this.hide();
       window.location.href = '/#game';
     });
+
     this.btnCancel?.addEventListener('click', () => {
       this.inputs.forEach(input => {
         input.style.backgroundColor = '#fff';

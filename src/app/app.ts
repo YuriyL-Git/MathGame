@@ -2,7 +2,7 @@ import { GameController } from './game-controller/game-controller';
 import { Header } from './components/header/header';
 import { FormRegister } from './components/form-register/form-register';
 import { About } from './pages/about/about';
-import { Indexdb } from './servises/indexdb/indexdb';
+import { Indexdb } from './servises/indexdb';
 import Settings from './settings/settings';
 import { Popup } from './components/pop-up/popup';
 import { BestscorePage } from './pages/bestscore/bestscore';

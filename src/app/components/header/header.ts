@@ -79,6 +79,7 @@ export class Header extends Component {
   showUser(): void {
     const img = new Image();
     img.classList.add('header__avatar');
+
     if (Settings.user?.avatar !== 'none' && Settings.user?.avatar) {
       img.src = Settings.user?.avatar;
     } else {
@@ -91,8 +92,8 @@ export class Header extends Component {
   highlightLink(linkText: string): void {
     this.linkTitles.forEach(title => {
       title.classList.remove('header__link-selected');
+
       if (title.innerHTML === linkText) {
-        console.log(title.innerHTML, ' selected');
         title.classList.add('header__link-selected');
       }
     });
