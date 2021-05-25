@@ -7,6 +7,8 @@ import { User } from '../../models/user';
 import { ImageHandler } from './image-handler';
 import Settings from '../../settings/settings';
 
+const DB_ERROR_MESSAGE = 'Email is already present in the base!';
+
 export class FormRegister extends Component {
   private readonly btnAdd: HTMLButtonElement | null;
 
@@ -78,17 +80,24 @@ export class FormRegister extends Component {
       if (event) event.preventDefault();
 
       Settings.user = this.getUser();
-      this.db.addRecord(Settings.user, this.dbResult.bind(this));
-      this.element.dispatchEvent(new CustomEvent('userAdded'));
-      this.hide();
-      window.location.href = '/#game';
+      this.db
+        .addRecord(Settings.user)
+        .then(result => {
+          if (!result) {
+            if (this.messageField)
+              this.messageField.innerHTML = DB_ERROR_MESSAGE;
+          } else {
+            this.clearInputs();
+            this.element.dispatchEvent(new CustomEvent('userAdded'));
+            this.hide();
+            window.location.href = '/#game';
+          }
+        })
+        .catch(error => new Error(error));
     });
 
     this.btnCancel?.addEventListener('click', () => {
-      this.inputs.forEach(input => {
-        input.style.backgroundColor = '#fff';
-        if (input.nextElementSibling) input.nextElementSibling.innerHTML = '';
-      });
+      this.clearInputs();
       window.history.back();
     });
   }
@@ -103,7 +112,13 @@ export class FormRegister extends Component {
     };
   }
 
-  dbResult(message: string): void {
-    if (this.messageField) this.messageField.innerHTML = message;
+  clearInputs(): void {
+    if (this.messageField) this.messageField.innerHTML = '';
+
+    this.inputs.forEach(input => {
+      input.innerText = '';
+      input.style.backgroundColor = '#fff';
+      if (input.nextElementSibling) input.nextElementSibling.innerHTML = '';
+    });
   }
 }

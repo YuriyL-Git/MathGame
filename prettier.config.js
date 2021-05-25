@@ -1,4 +1,4 @@
-// Some settings are automatically inherited from .editorconfig
+// Some settings-page are automatically inherited from .editorconfig
 
 module.exports = {
   overrides: [

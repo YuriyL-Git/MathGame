@@ -7,8 +7,25 @@ export class Router {
       name: 'about',
       render: () => {
         this.hideAll();
-        this.app.about.show();
+        this.app.aboutPage.show();
         this.app.header.highlightLink('About');
+      },
+    },
+    {
+      name: 'bestscore',
+      render: () => {
+        this.hideAll();
+        this.app.bestscorePage.show();
+        this.app.bestscorePage.refreshPlayers();
+        this.app.header.highlightLink('Best Score');
+      },
+    },
+    {
+      name: 'settings',
+      render: () => {
+        this.hideAll();
+        this.app.settingsPage.show();
+        this.app.header.highlightLink('Settings');
       },
     },
     {
@@ -17,22 +34,6 @@ export class Router {
         this.hideAll();
         this.app.formRegister.show();
         this.app.header.highlightLink('none');
-      },
-    },
-    {
-      name: 'bestscore',
-      render: () => {
-        this.hideAll();
-        this.app.bestscore.show();
-        this.app.bestscore.refreshPlayers();
-        this.app.header.highlightLink('Best Score');
-      },
-    },
-    {
-      name: 'settings',
-      render: () => {
-        this.hideAll();
-        this.app.header.highlightLink('Settings');
       },
     },
     {
@@ -49,7 +50,7 @@ export class Router {
       name: 'default',
       render: () => {
         this.hideAll();
-        this.app.about.show();
+        this.app.aboutPage.show();
         this.app.header.highlightLink('About');
       },
     },
@@ -62,10 +63,12 @@ export class Router {
   }
 
   hideAll(): void {
-    this.app.about.hide();
+    this.app.aboutPage.hide();
+    this.app.bestscorePage.hide();
+    this.app.settingsPage.hide();
+
     this.app.game.hide();
     this.app.formRegister.hide();
-    this.app.bestscore.hide();
   }
 
   start(): void {

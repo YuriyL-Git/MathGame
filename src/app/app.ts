@@ -1,11 +1,12 @@
 import { GameController } from './game-controller/game-controller';
 import { Header } from './components/header/header';
 import { FormRegister } from './components/form-register/form-register';
-import { About } from './pages/about/about';
+import { AboutPage } from './pages/about-page/about-page';
 import { Indexdb } from './servises/indexdb';
 import Settings from './settings/settings';
 import { Popup } from './components/pop-up/popup';
-import { BestscorePage } from './pages/bestscore/bestscore';
+import { BestscorePage } from './pages/bestscore-page/bestscore-page';
+import { SettingsPage } from './pages/settings-page/settings-page';
 
 export class App {
   public game: GameController;
@@ -14,30 +15,35 @@ export class App {
 
   public formRegister: FormRegister;
 
-  public about: About;
-
   public db: Indexdb;
 
-  public bestscore: BestscorePage;
+  public bestscorePage: BestscorePage;
+
+  public aboutPage: AboutPage;
+
+  public settingsPage: SettingsPage;
 
   private readonly popup: Popup;
 
   constructor(private readonly rootElement: HTMLElement) {
-    this.about = new About();
     this.db = new Indexdb();
     this.header = new Header();
     this.popup = new Popup();
     this.game = new GameController(this.header, this.popup, this.db);
     this.formRegister = new FormRegister(this.db);
-    this.bestscore = new BestscorePage(this.db);
+
+    this.aboutPage = new AboutPage();
+    this.bestscorePage = new BestscorePage(this.db);
+    this.settingsPage = new SettingsPage(this.db);
 
     this.rootElement.append(
       this.header.element,
-      this.about.element,
+      this.aboutPage.element,
       this.game.element,
       this.formRegister.element,
       this.popup.element,
-      this.bestscore.element,
+      this.bestscorePage.element,
+      this.settingsPage.element,
     );
 
     /* wait until new user is created */
@@ -60,25 +66,25 @@ export class App {
     });
   }
 
-  hideAll(): void {
-    this.about.hide();
-  }
+  /*  hideAll(): void {
+    this.aboutPage.hide();
+  } */
 
   startGame(): void {
-    this.hideAll();
+    // this.hideAll();
     this.game.show();
     this.game
       .startGame()
       .then()
-      .catch(err => new Error(err));
+      .catch(error => new Error(error));
   }
 
   showGame(): void {
-    this.hideAll();
+    // this.hideAll();
     this.game.show();
     this.game
       .createGame()
       .then()
-      .catch(err => new Error(err));
+      .catch(error => new Error(error));
   }
 }

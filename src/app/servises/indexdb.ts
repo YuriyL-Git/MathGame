@@ -37,17 +37,20 @@ export class Indexdb {
     return { transaction, objectStore };
   }
 
-  addRecord(value: User, callbackResult: (m: string) => void): void {
-    const { transaction, objectStore } = this.getTransaction();
-    const request = objectStore?.add(value);
+  addRecord(user: User): Promise<boolean> {
+    return new Promise(resolve => {
+      const { transaction, objectStore } = this.getTransaction();
+      const request = objectStore?.add(user);
 
-    request?.addEventListener('success', () => {
-      callbackResult('');
-    });
+      request?.addEventListener('success', () => {
+        resolve(true);
+      });
 
-    transaction?.addEventListener('error', event => {
-      event.preventDefault();
-      callbackResult('Email is already present in the base!');
+      transaction?.addEventListener('error', event => {
+        event.preventDefault();
+        resolve(false);
+        throw new Error('Error adding user to db!');
+      });
     });
   }
 
@@ -80,10 +83,9 @@ export class Indexdb {
   }
 
   loadMockData(): void {
-    const { objectStore } = this.getTransaction();
     const users = Mock as Array<User>;
     users.forEach(user => {
-      objectStore?.add(user);
+      this.updateRecord(user);
     });
   }
 }

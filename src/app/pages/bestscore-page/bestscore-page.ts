@@ -1,4 +1,4 @@
-import './_bestscore.scss';
+import './_bestscore-page.scss';
 import { Component } from '../../components/shared/component';
 import { Indexdb } from '../../servises/indexdb';
 import { TopPlayer } from '../../components/top-player/top-player';
@@ -10,7 +10,7 @@ const TITLE = 'Top players';
 const NO_PLAYERS_TITLE = 'There is no one to show yet';
 const NO_PLAYERS_MESSAGE = 'Register and start playing to be the first!';
 
-const MOCK_MESSAGE = 'To load mock users for testing purposes click on the ';
+const MOCK_MESSAGE = 'To load mock users for testing click on the ';
 
 const EMPTY_PLAYER: User = {
   avatar: 'none',
@@ -31,7 +31,7 @@ export class BestscorePage extends Component {
 
   constructor(db: Indexdb) {
     super('div', ['bestscore__wrapper']);
-    this.page = new Component('div', ['bestscore']);
+    this.page = new Component('div', ['bestscore__page']);
     this.title = new Component('div', ['bestscore__title']);
 
     this.page.element.append(this.title.element);
