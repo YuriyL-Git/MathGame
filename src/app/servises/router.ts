@@ -1,8 +1,13 @@
 import { App } from '../app';
 import Settings from '../settings/settings';
 
+interface Route {
+  name: string;
+  render: () => void;
+}
+
 export class Router {
-  private readonly routing = [
+  private readonly routes: Array<Route> = [
     {
       name: 'about',
       render: () => {
@@ -46,15 +51,16 @@ export class Router {
         }
       },
     },
-    {
-      name: 'default',
-      render: () => {
-        this.hideAll();
-        this.app.aboutPage.show();
-        this.app.header.highlightLink('About');
-      },
-    },
   ];
+
+  private defaultRoute: Route = {
+    name: 'default',
+    render: () => {
+      this.hideAll();
+      this.app.aboutPage.show();
+      this.app.header.highlightLink('About');
+    },
+  };
 
   private app: App;
 
@@ -72,13 +78,19 @@ export class Router {
   }
 
   start(): void {
+    this.defaultRoute.render();
+
     window.onpopstate = () => {
-      const getRoute = window.location.hash.slice(1);
-      let currentRoute = this.routing.find(route => route.name === getRoute);
-      if (!currentRoute)
-        currentRoute = this.routing.find(route => route.name === 'default');
-      if (currentRoute) currentRoute.render();
+      this.getRoute().render();
     };
-    this.routing[0].render();
+  }
+
+  getRoute(): Route {
+    const routeName = window.location.hash.slice(1);
+
+    let currentRoute = this.routes.find(route => route.name === routeName);
+    if (!currentRoute) currentRoute = this.defaultRoute;
+
+    return currentRoute;
   }
 }
