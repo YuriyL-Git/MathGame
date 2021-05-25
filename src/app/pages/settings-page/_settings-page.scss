@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,400;0,500;0,600;1,300&display=swap');
+
 .settings {
   &__wrapper {
     width: 100%;
@@ -15,13 +17,33 @@
     background-image: linear-gradient(200deg, #20bf558c 0%, #01baef87 74%);
     border-radius: 20px;
     display: grid;
-    grid-template-rows: 75px repeat(10, 1fr);
-    align-items: flex-start;
     justify-items: center;
-    padding-bottom: 1rem;
   }
 
-  &__title{
+  &__title-wrapper {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 8rem;
+    border-bottom: 1px solid hsl(228, 91%, 22%);
 
+  }
+
+  &__title {
+    font-size: 4rem;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    color: hsl(228, 91%, 22%);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+  }
+
+  &__icon {
+    width: 5rem;
+    height: 5rem;
+    background-image: url('../../../assets/img/settings.png');
+    transform: rotate(-135deg);
+    background-size: cover;
   }
 }

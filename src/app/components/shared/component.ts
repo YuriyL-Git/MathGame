@@ -6,7 +6,7 @@ export class Component {
     classes: string[] = [],
   ) {
     this.element = document.createElement(tag);
-    this.element.classList.add(...classes);
+    if (classes.length > 0) this.element.classList.add(...classes);
   }
 
   hide(): void {

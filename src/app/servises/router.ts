@@ -87,7 +87,6 @@ export class Router {
 
   getRoute(): Route {
     const routeName = window.location.hash.slice(1);
-
     let currentRoute = this.routes.find(route => route.name === routeName);
     if (!currentRoute) currentRoute = this.defaultRoute;
 

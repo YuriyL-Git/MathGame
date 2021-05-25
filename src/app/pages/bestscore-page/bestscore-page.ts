@@ -9,7 +9,6 @@ const PLAYERS_TO_SHOW = 10;
 const TITLE = 'Top players';
 const NO_PLAYERS_TITLE = 'There is no one to show yet';
 const NO_PLAYERS_MESSAGE = 'Register and start playing to be the first!';
-
 const MOCK_MESSAGE = 'To load mock users for testing click on the ';
 
 const EMPTY_PLAYER: User = {
@@ -68,6 +67,7 @@ export class BestscorePage extends Component {
           this.showMockMessage();
           this.loadMocksOnClick();
         }
+
         let position = 0;
         players.forEach(player => {
           position++;

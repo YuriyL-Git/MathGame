@@ -95,7 +95,9 @@
     /* Disallow inconsistently-cased references to the same file. */
   },
   "include": [
-    "./**/*.ts"
+    "./**/*.ts",
+    "src",
+    "./declarations.d.ts"
   ],
   "files": [
     "src/main.ts",
