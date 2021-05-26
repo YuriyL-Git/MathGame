@@ -24,13 +24,17 @@ export class Card extends Component {
 
   public signFail: CardSign;
 
-  constructor(readonly image: string, size = '10rem') {
+  constructor(
+    readonly frontImage: string,
+    readonly backImage: string,
+    size = '10rem',
+  ) {
     super('div', ['card-container', FLIP_TO_BACK_CLASS]);
 
     this.element.innerHTML = `
      <div class="card" style="height: ${size}; width: ${size}">
-       <div class="card__front" style="background-image: url('${image}')"></div>
-       <div class="card__back"></div>
+       <div class="card__front" style="background-image: url('${frontImage}')"></div>
+       <div class="card__back" style="background-image: url('${backImage}')"></div>
      </div>
     `;
 
@@ -67,7 +71,7 @@ export class Card extends Component {
     }
     counter.previousCard.isSecondOpened = true;
 
-    if (this.image !== counter.previousCard.image) {
+    if (this.frontImage !== counter.previousCard.frontImage) {
       const previous = counter.previousCard;
 
       previous.animationInProcess = true;

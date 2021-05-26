@@ -7,16 +7,21 @@ function shuffleArray(array: string[]) {
   }
 }
 
-export async function getImageData(): Promise<ImageCategory[]> {
+export async function getImagesNames(): Promise<ImageCategory[]> {
   const res = await fetch('./card-images/images.json');
   return (await res.json()) as ImageCategory[];
+}
+
+export async function getCoversNames(): Promise<Array<string>> {
+  const res = await fetch('./card-covers/covers.json');
+  return (await res.json()) as Array<string>;
 }
 
 async function getImagesList(
   category: string,
   quantity: number,
 ): Promise<string[]> {
-  const categories = await getImageData();
+  const categories = await getImagesNames();
   const currentCategory = categories.find(cat => cat.categoryName === category);
   if (!currentCategory) throw new Error('Category is not found!');
   let images = currentCategory.images.map(

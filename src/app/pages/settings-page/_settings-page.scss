@@ -18,7 +18,7 @@
     border-radius: 20px;
     display: grid;
     justify-items: center;
-    grid-template-rows: 15% 13% 29% 1fr;
+    grid-template-rows: 15% 13% 33% 1fr;
   }
 
   &__title-wrapper {
@@ -38,6 +38,7 @@
     color: hsl(228, 91%, 22%);
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
+    user-select: none;
   }
 
   &__icon {
@@ -68,6 +69,7 @@
     font-size: 3vh;
     color: hsl(228, 91%, 22%);
     font-weight: 500;
+    user-select: none;
   }
 
   &__item {
@@ -100,24 +102,23 @@
     font-size: 3vh;
     color: hsl(228, 91%, 22%);
     font-weight: 500;
+    user-select: none;
   }
 }
 
 .slider-category{
  justify-self: center;
-}
 
-.slider-category__screen {
-  border-radius: 5px;
+  &__screen {
+    border-radius: 5px;
+  }
 }
-
 
 .image-category {
   &__item-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-radius: 20px;
   }
 
   &__item {
@@ -137,4 +138,34 @@
     color: white;
   }
 }
+
+// -- card cover option section
+.slider-card-cover{
+  justify-self: center;
+
+  &__screen {
+    border-radius: 5px;
+  }
+
+}
+.card-cover-option{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  width: 88%;
+  height: 25vh;
+
+  &__item{
+    background-size: cover;
+    justify-self: center;
+  }
+
+  &__title{
+    font-size: 3vh;
+    color: hsl(228, 91%, 22%);
+    font-weight: 500;
+    user-select: none;
+  }
+}
+
 

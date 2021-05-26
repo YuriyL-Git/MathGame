@@ -5,18 +5,29 @@ import { Indexdb } from '../../servises/indexdb';
 import { settingsTemplate } from './settings-template';
 import { Slider, SliderOptions } from '../../components/slider/slider';
 import {
-  getCardFileSizeOptions,
-  getCardCategoryOptions,
+  getCardFileSizeItems,
+  getCardCategoryItems,
+  getCardCoversItems,
 } from './settings-options';
+
+const SLIDER_FIELD_SIZE_HEIGHT = 70;
+const SLIDER_FIELD_SIZE_WIDTH = 150;
+const SLIDER_FIELD_SIZE_BTN_RATIO = 0.25;
+
+const SLIDER_CAT_HEIGHT_RATIO = 2.5;
+const SLIDER_CAT_WIDTH_RATIO = 1.7;
+const SLIDER_CAT_BTN_RATIO = 0.2;
 
 export class SettingsPage extends Component {
   private db: Indexdb;
 
-  private sliderFieldSize: Slider;
-
   private page: Component;
 
-  private sliderCategoryOptions: Slider | undefined;
+  private sliderCategoryOption: Slider | undefined;
+
+  private sliderCardCoversOption: Slider | undefined;
+
+  private sliderFieldSizeOption: Slider;
 
   constructor(db: Indexdb) {
     super('div', ['settings__wrapper']);
@@ -26,42 +37,56 @@ export class SettingsPage extends Component {
 
     const fieldSizeOption = this.element.querySelector('.field-size-option');
     const categoryOption = this.element.querySelector('.category-option');
+    const cardCoverOption = this.element.querySelector('.card-cover-option');
 
+    /* -- Field size option --------------------------------------------*/
     const sliderOptions = this.getSliderOptions();
-    this.sliderFieldSize = new Slider(
+    this.sliderFieldSizeOption = new Slider(
       'slider-field-size',
       sliderOptions,
-      getCardFileSizeOptions(),
+      getCardFileSizeItems(),
     );
-    fieldSizeOption?.append(this.sliderFieldSize.element);
+    fieldSizeOption?.append(this.sliderFieldSizeOption.element);
 
-    console.log(window.innerHeight);
-    sliderOptions.width = window.innerHeight / 2.5;
-    sliderOptions.height = sliderOptions.width / 1.7;
-    sliderOptions.buttonRatio = 0.2;
-    getCardCategoryOptions()
-      .then(result => {
-        this.sliderCategoryOptions = new Slider(
+    /* -- Image categories option --------------------------------------*/
+    sliderOptions.width = window.innerHeight / SLIDER_CAT_HEIGHT_RATIO;
+    sliderOptions.height = sliderOptions.width / SLIDER_CAT_WIDTH_RATIO;
+    sliderOptions.buttonRatio = SLIDER_CAT_BTN_RATIO;
+    getCardCategoryItems()
+      .then(items => {
+        this.sliderCategoryOption = new Slider(
           'slider-category',
           sliderOptions,
-          result,
+          items,
         );
-        categoryOption?.append(this.sliderCategoryOptions.element);
+        categoryOption?.append(this.sliderCategoryOption.element);
       })
-      .catch(() => new Error());
+      .catch(err => new Error(err));
+
+    /* -- Card covers option -------------------------------------------*/
+    getCardCoversItems()
+      .then(items => {
+        this.sliderCardCoversOption = new Slider(
+          'slider-card-cover',
+          sliderOptions,
+          items,
+        );
+        cardCoverOption?.append(this.sliderCardCoversOption.element);
+      })
+      .catch(err => new Error(err));
 
     this.db = db;
   }
 
   optionIsChanged(): void {
-    console.log(this.sliderCategoryOptions?.activeItemValue);
+    console.log(this.sliderCategoryOption?.activeItemValue);
   }
 
   getSliderOptions(): SliderOptions {
     return {
-      width: 150,
-      height: 70,
-      buttonRatio: 0.25,
+      width: SLIDER_FIELD_SIZE_WIDTH,
+      height: SLIDER_FIELD_SIZE_HEIGHT,
+      buttonRatio: SLIDER_FIELD_SIZE_BTN_RATIO,
       callback: this.optionIsChanged.bind(this),
       animationSpeed: '0.15s',
       circlingAllowed: false,

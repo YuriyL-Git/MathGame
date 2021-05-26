@@ -9,7 +9,10 @@ const template = `
     <div class="category-option">
       <p class="category-option__title">images category</p>
     </div>
- 
+    <div class="card-cover-option">
+    <p class="card-cover-option__title">card covers</p>
+    </div>
+
 `;
 
 export const settingsTemplate = (): DocumentFragment => {

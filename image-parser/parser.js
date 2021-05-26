@@ -1,27 +1,37 @@
 const fs = require("fs");
 const path = require("path");
 
-const result = [];
+const cardImagesPath = path.join(__dirname, '../src/public/card-images');
+const cardCoversPath = path.join(__dirname, '../src/public/card-covers');
+
 const getDirectories = srcPath => fs.readdirSync(srcPath).filter(file => fs.statSync(path.join(srcPath, file)).isDirectory());
+const cardImagesDirectories = getDirectories(cardImagesPath);
 
-const pathToParse = path.join(__dirname, '../src/public/card-images');
-console.log(pathToParse);
-const directories = getDirectories(pathToParse);
-
-directories.forEach(dir => {
-  const path = pathToParse + '/' + dir;
+const cardImagesResult = [];
+cardImagesDirectories.forEach(dir => {
+  const path = cardImagesPath + '/' + dir;
   const files = fs.readdirSync(path);
   const categoryItem = {};
   categoryItem.categoryName = dir;
   categoryItem.images = files;
-  result.push(categoryItem);
+  cardImagesResult.push(categoryItem);
 });
+const jsonCardImages = JSON.stringify(cardImagesResult);
+fs.writeFile(cardImagesPath + '/images.json', jsonCardImages, 'utf8', cardImageMessage);
 
-const jsonResult = JSON.stringify(result);
+let cardCoversResult = fs.readdirSync(cardCoversPath);
+cardCoversResult = cardCoversResult.filter(element => !element.includes('.json'));
 
-fs.writeFile(pathToParse + '/images.json', jsonResult, 'utf8', callback);
+const jsonCardCovers = JSON.stringify(cardCoversResult);
+fs.writeFile(cardCoversPath + '/covers.json', jsonCardCovers, 'utf8', cardCoverMessage);
 
-function callback() {
-  console.log('JSON file updated');
+console.log(cardCoversResult);
+
+function cardImageMessage() {
+  console.log('Card image JSON file updated');
+}
+
+function cardCoverMessage() {
+  console.log('Card cover JSON file updated');
 }
 

@@ -1,11 +1,9 @@
 import { Component } from '../../components/shared/component';
-import { getImageData } from '../../utils/helper-functions';
-
-export { getCardFileSizeOptions };
+import { getImagesNames, getCoversNames } from '../../utils/helper-functions';
 
 const CARDS_FIELD_SIZES = ['3x4', '4x4', '5x4', '6x5', '6x6'];
 
-const getCardFileSizeOptions = (): Array<Component> => {
+export const getCardFileSizeItems = (): Array<Component> => {
   const result: Array<Component> = [];
   CARDS_FIELD_SIZES.forEach(card_size => {
     const cardSizeItem = new Component('div', ['field-size-option__item']);
@@ -20,9 +18,9 @@ const getCardFileSizeOptions = (): Array<Component> => {
   return result;
 };
 
-export const getCardCategoryOptions = async (): Promise<Array<Component>> => {
+export const getCardCategoryItems = async (): Promise<Array<Component>> => {
   const result: Array<Component> = [];
-  const categories = await getImageData();
+  const categories = await getImagesNames();
   categories.forEach(category => {
     const itemWrapper = new Component('div', ['image-category__item-wrapper']);
 
@@ -37,6 +35,20 @@ export const getCardCategoryOptions = async (): Promise<Array<Component>> => {
 
     itemWrapper.element.append(image.element, imageTitle.element);
     result.push(itemWrapper);
+  });
+  return result;
+};
+
+export const getCardCoversItems = async (): Promise<Array<Component>> => {
+  const result: Array<Component> = [];
+  const covers = await getCoversNames();
+  covers.forEach(cover => {
+    const coverItem = new Component('div', ['card-cover-option__item']);
+    coverItem.element.setAttribute('data-value', cover);
+    const pathToImage = `./card-covers/${cover}`;
+    coverItem.element.style.backgroundImage = `url('${pathToImage}')`;
+
+    result.push(coverItem);
   });
   return result;
 };
