@@ -18,7 +18,7 @@
     border-radius: 20px;
     display: grid;
     justify-items: center;
-    grid-template-rows: 17% 15% 1fr;
+    grid-template-rows: 15% 13% 29% 1fr;
   }
 
   &__title-wrapper {
@@ -48,46 +48,93 @@
     background-size: cover;
   }
 
-  &__field-size-option {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    align-items: center;
-    height: 4vh;
+}
+
+// -- field size option section
+
+.slider-field-size{
+  justify-self: center;
+}
+.field-size-option {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 88%;
+  align-items: center;
+  justify-content: center;
+  height: 8vh;
+  padding-bottom: 4vh;
+
+  &__title {
+    font-size: 3vh;
+    color: hsl(228, 91%, 22%);
+    font-weight: 500;
   }
 
-  &__field-size-title {
+  &__item {
     font-size: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    border-radius: 20px;
+    font-weight: 500;
+    font-style: italic;
+    color: hsl(228, 91%, 22%);
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+// -- image category option section
+.category-option{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  width: 88%;
+  height: 25vh;
+
+  &__title{
+    font-size: 3vh;
     color: hsl(228, 91%, 22%);
     font-weight: 500;
   }
 }
 
-.card-size__item {
-  font-size: 4vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  font-weight: 500;
-
-
-  font-style: italic;
-  color: hsl(228, 91%, 22%);
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.slider-category{
+ justify-self: center;
 }
 
-.image-category-item {
-  background-size: cover;
+.slider-category__screen {
+  border-radius: 5px;
 }
 
-.image-category-title{
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+
+.image-category {
+  &__item-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 20px;
+  }
+
+  &__item {
+    background-size: cover;
+    width: 100%;
+    height: 80%;
+  }
+
+  &__title {
+    height: 20%;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    background-color: rgb(34 202 161);
+    color: white;
+  }
 }
+

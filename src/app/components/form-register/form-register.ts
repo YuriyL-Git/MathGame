@@ -90,7 +90,7 @@ export class FormRegister extends Component {
             this.clearInputs();
             this.element.dispatchEvent(new CustomEvent('userAdded'));
             this.hide();
-            window.location.href = '/#game';
+            window.location.href = '#game';
           }
         })
         .catch(error => new Error(error));

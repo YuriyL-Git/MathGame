@@ -16,37 +16,45 @@ export class SettingsPage extends Component {
 
   private page: Component;
 
+  private sliderCategoryOptions: Slider | undefined;
+
   constructor(db: Indexdb) {
     super('div', ['settings__wrapper']);
     this.page = new Component('div', ['settings__page']);
     this.page.element.append(settingsTemplate());
     this.element.append(this.page.element);
 
+    const fieldSizeOption = this.element.querySelector('.field-size-option');
+    const categoryOption = this.element.querySelector('.category-option');
+
     const sliderOptions = this.getSliderOptions();
     this.sliderFieldSize = new Slider(
-      'slider-card-size',
+      'slider-field-size',
       sliderOptions,
       getCardFileSizeOptions(),
     );
+    fieldSizeOption?.append(this.sliderFieldSize.element);
 
-    const fieldSizeOption = this.element.querySelector(
-      '.settings__field-size-option',
-    );
-
+    console.log(window.innerHeight);
+    sliderOptions.width = window.innerHeight / 2.5;
+    sliderOptions.height = sliderOptions.width / 1.7;
+    sliderOptions.buttonRatio = 0.2;
     getCardCategoryOptions()
-      .then(result =>
-        fieldSizeOption?.append(
-          new Slider('slider-category', sliderOptions, result).element,
-        ),
-      )
+      .then(result => {
+        this.sliderCategoryOptions = new Slider(
+          'slider-category',
+          sliderOptions,
+          result,
+        );
+        categoryOption?.append(this.sliderCategoryOptions.element);
+      })
       .catch(() => new Error());
 
-    fieldSizeOption?.append(this.sliderFieldSize.element);
     this.db = db;
   }
 
   optionIsChanged(): void {
-    console.log(this.sliderFieldSize.activeItemValue);
+    console.log(this.sliderCategoryOptions?.activeItemValue);
   }
 
   getSliderOptions(): SliderOptions {

@@ -8,7 +8,7 @@ const CARDS_FIELD_SIZES = ['3x4', '4x4', '5x4', '6x5', '6x6'];
 const getCardFileSizeOptions = (): Array<Component> => {
   const result: Array<Component> = [];
   CARDS_FIELD_SIZES.forEach(card_size => {
-    const cardSizeItem = new Component('div', ['card-size__item']);
+    const cardSizeItem = new Component('div', ['field-size-option__item']);
     cardSizeItem.element.innerHTML = card_size;
 
     /* get cards quantity value */
@@ -24,14 +24,19 @@ export const getCardCategoryOptions = async (): Promise<Array<Component>> => {
   const result: Array<Component> = [];
   const categories = await getImageData();
   categories.forEach(category => {
-    const imageItem = new Component('div', ['image-category-item']);
-    const imageTitle = new Component('div', ['image-category-title']);
+    const itemWrapper = new Component('div', ['image-category__item-wrapper']);
+
+    const image = new Component('div', ['image-category__item']);
+    image.element.setAttribute('data-value', category.categoryName);
+
+    const imageTitle = new Component('div', ['image-category__title']);
     imageTitle.element.innerHTML = category.categoryName;
 
     const pathToImage = `./card-images/${category.categoryName}/${category.images[0]}`;
-    imageItem.element.style.backgroundImage = `url('${pathToImage}')`;
-    imageItem.element.append(imageTitle.element);
-    result.push(imageItem);
+    image.element.style.backgroundImage = `url('${pathToImage}')`;
+
+    itemWrapper.element.append(image.element, imageTitle.element);
+    result.push(itemWrapper);
   });
   return result;
 };

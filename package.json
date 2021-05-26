@@ -5,10 +5,10 @@
   "private": true,
   "typings": "main.d.ts",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack --mode development",
-    "build": "cross-env NODE_ENV=production tsc && webpack --mode production",
+    "dev": "node image-parser/parser.js  && cross-env NODE_ENV=development webpack --mode development",
+    "build": "node image-parser/parser.js  && cross-env NODE_ENV=production tsc && webpack --mode production",
     "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
-    "start": "cross-env NODE_ENV=development webpack serve --mode development",
+    "start": "node image-parser/parser.js  && cross-env NODE_ENV=development webpack serve --mode development",
     "lint": "eslint src --ext .ts"
   },
   "browserslist": [

@@ -66,10 +66,6 @@ export class App {
     });
   }
 
-  /*  hideAll(): void {
-    this.aboutPage.hide();
-  } */
-
   startGame(): void {
     // this.hideAll();
     this.game.show();

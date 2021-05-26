@@ -3,10 +3,13 @@ const template = `
       <h2 class="settings__title">Settings</h2>
       <div class="settings__icon"></div>
     </div>
-    <div class="settings__field-size-option">
-    <p class="settings__field-size-title">field size</p>
+    <div class="field-size-option">
+      <p class="field-size-option__title">field size</p>
     </div>
-  
+    <div class="category-option">
+      <p class="category-option__title">images category</p>
+    </div>
+ 
 `;
 
 export const settingsTemplate = (): DocumentFragment => {
