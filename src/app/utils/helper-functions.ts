@@ -7,18 +7,22 @@ function shuffleArray(array: string[]) {
   }
 }
 
+export async function getImageData(): Promise<ImageCategory[]> {
+  const res = await fetch('./card-images/images.json');
+  return (await res.json()) as ImageCategory[];
+}
+
 async function getImagesList(
   category: string,
   quantity: number,
 ): Promise<string[]> {
-  const res = await fetch('./card-images/images.json');
-  const categories: ImageCategory[] = (await res.json()) as ImageCategory[];
-  const currentCategory = categories.find(cat => cat.category === category);
-
+  const categories = await getImageData();
+  const currentCategory = categories.find(cat => cat.categoryName === category);
   if (!currentCategory) throw new Error('Category is not found!');
   let images = currentCategory.images.map(
-    name => `./card-images/${currentCategory.category}/${name}`,
+    name => `./card-images/${currentCategory.categoryName}/${name}`,
   );
+  shuffleArray(images);
   if (images.length > quantity / 2) images = images.slice(0, quantity / 2);
 
   const reversed = [...images].reverse();

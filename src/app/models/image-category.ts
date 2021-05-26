@@ -1,4 +1,4 @@
 export interface ImageCategory {
-  category: string;
+  categoryName: string;
   images: string[];
 }

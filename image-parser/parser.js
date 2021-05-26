@@ -12,7 +12,7 @@ directories.forEach(dir => {
   const path = pathToParse + '/' + dir;
   const files = fs.readdirSync(path);
   const categoryItem = {};
-  categoryItem.category = dir;
+  categoryItem.categoryName = dir;
   categoryItem.images = files;
   result.push(categoryItem);
 });
@@ -22,6 +22,6 @@ const jsonResult = JSON.stringify(result);
 fs.writeFile(pathToParse + '/images.json', jsonResult, 'utf8', callback);
 
 function callback() {
-  console.log('success');
+  console.log('JSON file updated');
 }
 

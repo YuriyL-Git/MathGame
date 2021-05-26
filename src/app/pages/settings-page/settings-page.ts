@@ -4,7 +4,10 @@ import { Component } from '../../components/shared/component';
 import { Indexdb } from '../../servises/indexdb';
 import { settingsTemplate } from './settings-template';
 import { Slider, SliderOptions } from '../../components/slider/slider';
-import { getCardFileSizeOptions } from './settings-options';
+import {
+  getCardFileSizeOptions,
+  getCardCategoryOptions,
+} from './settings-options';
 
 export class SettingsPage extends Component {
   private db: Indexdb;
@@ -29,6 +32,15 @@ export class SettingsPage extends Component {
     const fieldSizeOption = this.element.querySelector(
       '.settings__field-size-option',
     );
+
+    getCardCategoryOptions()
+      .then(result =>
+        fieldSizeOption?.append(
+          new Slider('slider-category', sliderOptions, result).element,
+        ),
+      )
+      .catch(() => new Error());
+
     fieldSizeOption?.append(this.sliderFieldSize.element);
     this.db = db;
   }
