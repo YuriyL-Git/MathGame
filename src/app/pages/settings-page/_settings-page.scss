@@ -18,6 +18,7 @@
     border-radius: 20px;
     display: grid;
     justify-items: center;
+    grid-template-rows: 17% 15% 1fr;
   }
 
   &__title-wrapper {
@@ -25,13 +26,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 8rem;
+    height: 10vh;
     border-bottom: 1px solid hsl(228, 91%, 22%);
 
   }
 
   &__title {
-    font-size: 4rem;
+    font-size: 5vh;
     margin-top: 2rem;
     margin-left: 2rem;
     color: hsl(228, 91%, 22%);
@@ -40,10 +41,42 @@
   }
 
   &__icon {
-    width: 5rem;
-    height: 5rem;
+    width: 6vh;
+    height: 6vh;
     background-image: url('../../../assets/img/settings.png');
     transform: rotate(-135deg);
     background-size: cover;
   }
+
+  &__field-size-option{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    align-items: center;
+    height: 4vh;
+  }
+
+  &__field-size-title{
+    font-size: 4vh;
+    color: hsl(228, 91%, 22%);
+    font-weight: 500;
+  }
+}
+
+.card-size__item {
+  font-size: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-weight: 500;
+
+
+  font-style: italic;
+  color: hsl(228, 91%, 22%);
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

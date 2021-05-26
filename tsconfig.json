@@ -99,6 +99,9 @@
     "src",
     "./declarations.d.ts"
   ],
+  "exclude": [
+    "image-parser"
+  ],
   "files": [
     "src/main.ts",
     "./declarations.d.ts"

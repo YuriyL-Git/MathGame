@@ -1,0 +1,7 @@
+{
+  "name": "Math-game-parcer",
+  "version": "1.0.0",
+  "devDependencies": {
+    "jsonfile": "^6.1.0"
+  }
+}

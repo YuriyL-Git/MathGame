@@ -1,5 +1,5 @@
-import arrowLeft from './arrow-images/arrow-left.png';
-import arrowRight from './arrow-images/arrow-right.png';
+import arrowLeft from './arrow-icons/arrow-left.png';
+import arrowRight from './arrow-icons/arrow-right.png';
 import { Component } from '../shared/component';
 import {
   getSliderStyles,
@@ -10,11 +10,16 @@ import {
 
 import './_slider.scss';
 
-const BTN_RATIO_SIZE = 0.25;
+/* -- proportion of buttons size to the slider width -- */
 
-interface Size {
+export interface SliderOptions {
   width: number;
   height: number;
+  buttonRatio: number;
+  callback: () => void;
+  /* expected value format '0.2s' */
+  animationSpeed: string;
+  circlingAllowed: boolean;
 }
 
 function createBtn(
@@ -50,51 +55,79 @@ export class Slider extends Component {
 
   private itemFollowingClass: string;
 
+  private options: SliderOptions;
+
+  public activeItemValue: string | null = '';
+
   constructor(
     sliderName: string,
-    sliderSize: Size,
+    sliderOptions: SliderOptions,
     sliderItems: Array<Component>,
   ) {
     super('section', [sliderName]);
     this.stylesheet = document.createElement(`style`);
+    this.options = sliderOptions;
 
+    /* -- create slider components -- */
     this.screen = new Component('div', [`${sliderName}__screen`]);
     this.btnLeft = createBtn(sliderName, 'left', arrowLeft as string);
     this.btnRight = createBtn(sliderName, 'right', arrowRight as string);
 
+    /* -- create slider items classes -- */
     this.itemActiveClass = `${sliderName}__item-active`;
     this.itemFollowingClass = `${sliderName}__item-following`;
 
-    this.items = sliderItems;
+    /* to restore correct order of elements in slider */
+    this.items = sliderItems.reverse();
+    const lastItem = this.items.pop();
+    if (lastItem) this.items.unshift(lastItem);
+
+    /* -- apply classes to items and insert items inside screen component -- */
     this.items.forEach((item, index) => {
       item.element.classList.add(`${sliderName}__item`);
       if (index === 0) item.element.classList.add(`${sliderName}__item-active`);
       this.screen.element.append(item.element);
     });
+
+    /* -- add all components to the slider -- */
     this.element.append(this.btnLeft, this.screen.element, this.btnRight);
 
-    const btnWidth = Math.floor(sliderSize.width * BTN_RATIO_SIZE);
+    const btnWidth = Math.floor(sliderOptions.width * this.options.buttonRatio);
+
+    /* -- compute slider styles -- */
     this.styles =
       getBtnStyles(sliderName, btnWidth) +
-      getSliderStyles(sliderName, sliderSize.width, sliderSize.height) +
+      getSliderStyles(sliderName, sliderOptions.width, sliderOptions.height) +
       getScreenStyles(sliderName) +
       getItemsStyles(sliderName);
 
+    /* -- append styles to the page -- */
     this.stylesheet.innerHTML = this.styles;
     document.head.appendChild(this.stylesheet);
 
+    /* -- set slider animation speed -- */
+    document.documentElement.style.setProperty(
+      '--animation-speed',
+      this.options.animationSpeed,
+    );
+
+    /* setup starting values */
     this.animationInProcess = false;
     this.currentIndex = 0;
-
     this.setupButtons();
   }
 
   setupButtons(): void {
+    if (!this.options.circlingAllowed) this.controlFlow();
+
     this.btnLeft.addEventListener('click', () => {
       if (!this.animationInProcess) {
         this.hideCurrent('to-left', this.currentIndex);
         this.currentIndex = this.getFollowingIndex(this.currentIndex + 1);
         this.showFollowing('from-right', this.currentIndex);
+        if (!this.options.circlingAllowed) this.controlFlow();
+
+        this.options.callback();
       }
     });
 
@@ -103,6 +136,9 @@ export class Slider extends Component {
         this.hideCurrent('to-right', this.currentIndex);
         this.currentIndex = this.getFollowingIndex(this.currentIndex - 1);
         this.showFollowing('from-left', this.currentIndex);
+        if (!this.options.circlingAllowed) this.controlFlow();
+
+        this.options.callback();
       }
     });
   }
@@ -132,5 +168,28 @@ export class Slider extends Component {
       );
       this.items[index].element.classList.add(this.itemActiveClass);
     });
+  }
+
+  controlFlow(): void {
+    this.btnLeft.disabled = false;
+    this.btnRight.disabled = false;
+    this.btnLeft.style.pointerEvents = 'auto';
+    this.btnRight.style.pointerEvents = 'auto';
+
+    this.activeItemValue = this.items[this.currentIndex].element.getAttribute(
+      'data-value',
+    );
+
+    if (
+      this.getFollowingIndex(this.currentIndex - 1) ===
+      this.items.length - 1
+    ) {
+      this.btnLeft.disabled = true;
+      this.btnLeft.style.pointerEvents = 'none';
+    }
+    if (this.getFollowingIndex(this.currentIndex - 1) === 0) {
+      this.btnRight.disabled = true;
+      this.btnRight.style.pointerEvents = 'none';
+    }
   }
 }

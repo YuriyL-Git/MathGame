@@ -1,7 +1,7 @@
 import { User } from '../models/user';
 
 class Settings {
-  public imagesCategory = 'animals';
+  public imagesCategory = 'abstract';
 
   public imagesQuantity = 12;
 

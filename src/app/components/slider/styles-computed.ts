@@ -22,7 +22,6 @@ const getScreenStyles = (sliderName: string): string => {
   .${sliderName}__screen{
     width: 80%;
     height: 100%;
-    background-color: blue;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -52,12 +51,19 @@ const getItemsStyles = (sliderName: string): string => {
 const getBtnStyles = (sliderName: string, width: number): string => {
   return `
   .${sliderName}__btn{
-    background-color: orange;
     width: ${width}px;
     height: auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
   }
   .${sliderName}__btn:hover{
-    transform: scale(1.2);
+    transform: scale(1.05);
+    filter: hue-rotate(25deg);
+  }
+  .${sliderName}__btn:active{
+    transform: scale(0.95);
   }
   `;
 };
