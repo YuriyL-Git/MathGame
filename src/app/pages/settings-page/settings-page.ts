@@ -11,6 +11,8 @@ import {
 } from './settings-options';
 import { GameController } from '../../game-controller/game-controller';
 
+const SHOW_TIME_OFFSET = 6;
+
 const SLIDER_FIELD_SIZE_HEIGHT = 70;
 const SLIDER_FIELD_SIZE_WIDTH = 150;
 const SLIDER_FIELD_SIZE_BTN_RATIO = 0.25;
@@ -93,6 +95,7 @@ export class SettingsPage extends Component {
     if (this.sliderCardCoversOption) {
       Settings.cardCoverImage = `./card-covers/${this.sliderCardCoversOption.activeItemValue}`;
     }
+    Settings.showTime = (Settings.imagesQuantity - SHOW_TIME_OFFSET) * 1000;
     Settings.createNewGame = true;
   }
 

@@ -92,7 +92,7 @@ export class GameController extends Component {
   }
 
   public stopGame(): void {
-    this.header.timer.stopTimer();
+    this.header.timer.resetTimer();
     this.header.showNewGameBtn();
     this.resetValues();
     this.cardsField.flipCardsToBack();

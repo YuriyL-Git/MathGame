@@ -9,8 +9,13 @@ const BLINK_SHOW_TIME = 500;
 const TIMER_BLINKS_QTY = 2;
 const DEFAULT_TIME = 0;
 
+const BLUE_COLOR = '#1839cd';
+const RED_COLOR = '#ec3d3d';
+
 export class Timer extends Component {
   private minutes: Component;
+
+  private semicolon: Component;
 
   private seconds: Component;
 
@@ -29,12 +34,12 @@ export class Timer extends Component {
     this.seconds = new Component('span', ['seconds']);
     secondsSection.element.append(this.seconds.element);
 
-    const semicolon = new Component('div', []);
-    semicolon.element.append(':');
+    this.semicolon = new Component('div', []);
+    this.semicolon.element.append(':');
 
     this.element.append(
       minutesSection.element,
-      semicolon.element,
+      this.semicolon.element,
       secondsSection.element,
     );
 
@@ -54,6 +59,7 @@ export class Timer extends Component {
     clearInterval(this.timerId);
     let countDownTime = countDown;
     this.setTimer(countDownTime);
+    this.changeColorTo(RED_COLOR);
 
     this.timerId = setInterval(() => {
       countDownTime--;
@@ -72,8 +78,21 @@ export class Timer extends Component {
   }
 
   stopTimer(): void {
+    this.changeColorTo(BLUE_COLOR);
     clearInterval(this.timerId);
     this.blinkTimer();
+  }
+
+  resetTimer(): void {
+    this.changeColorTo(BLUE_COLOR);
+    clearInterval(this.timerId);
+    this.setTimer(DEFAULT_TIME);
+  }
+
+  changeColorTo(color: string): void {
+    this.minutes.element.style.color = color;
+    this.seconds.element.style.color = color;
+    this.semicolon.element.style.color = color;
   }
 
   /* blink effect after timer stops */

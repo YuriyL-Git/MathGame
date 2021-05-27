@@ -31,6 +31,18 @@ function createBtn(
   return btn;
 }
 
+function disableBtn(btn: HTMLInputElement) {
+  btn.disabled = true;
+  btn.style.pointerEvents = 'none';
+  btn.style.filter = 'grayscale(0.8)';
+}
+
+function enableBtn(btn: HTMLInputElement) {
+  btn.disabled = false;
+  btn.style.pointerEvents = 'auto';
+  btn.style.filter = '';
+}
+
 export class Slider extends Component {
   private btnLeft: HTMLInputElement;
 
@@ -176,23 +188,19 @@ export class Slider extends Component {
   }
 
   controlFlow(): void {
-    this.btnLeft.disabled = false;
-    this.btnRight.disabled = false;
-    this.btnLeft.style.pointerEvents = 'auto';
-    this.btnRight.style.pointerEvents = 'auto';
+    enableBtn(this.btnLeft);
+    enableBtn(this.btnRight);
     this.updateItemActiveValue();
 
     if (
       this.getFollowingIndex(this.currentIndex - 1) ===
       this.items.length - 1
     ) {
-      this.btnLeft.disabled = true;
-      this.btnLeft.style.pointerEvents = 'none';
+      disableBtn(this.btnLeft);
     }
 
     if (this.getFollowingIndex(this.currentIndex - 1) === 0) {
-      this.btnRight.disabled = true;
-      this.btnRight.style.pointerEvents = 'none';
+      disableBtn(this.btnRight);
     }
   }
 }
