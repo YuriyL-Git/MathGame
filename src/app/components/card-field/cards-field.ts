@@ -6,6 +6,8 @@ import Settings from '../../settings/settings';
 export class CardsField extends Component {
   private cards: Card[] = [];
 
+  private showCardsTimer = 0;
+
   constructor() {
     super('section', ['cards-field']);
   }
@@ -43,12 +45,16 @@ export class CardsField extends Component {
 
   flipCardsToFront(): void {
     this.cards.map(card => card.flipToFront());
-    setTimeout(() => {
+    this.showCardsTimer = setTimeout(() => {
       this.flipCardsToBack();
     }, Settings.showTime);
   }
 
   flipCardsToBack(): void {
     this.cards.map(card => card.flipToBack(() => {}));
+  }
+
+  clearShowCardsTimer(): void {
+    clearTimeout(this.showCardsTimer);
   }
 }

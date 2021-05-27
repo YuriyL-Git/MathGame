@@ -5,7 +5,6 @@
   display: grid;
   grid-template-columns: 25rem 1fr 1fr 0.6fr;
 
-
   &__logo {
     padding-left: 1rem;
     padding-right: 0.6rem;
@@ -53,7 +52,6 @@
   }
 
   &__nav-item {
-
     &:hover {
       transform: scale(1.07);
     }
@@ -128,13 +126,8 @@
 
       &:hover {
         background-image: linear-gradient(10deg, #d4af8e 0%, #f3465e 74%);
-
       }
     }
-  }
-
-  &__avatar-wrapper {
-
   }
 
   &__avatar {

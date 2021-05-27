@@ -81,6 +81,7 @@ export class GameController extends Component {
 
     await delay(ANIMATION_DELAY);
     await this.createGame();
+
     await delay(ANIMATION_DELAY);
     this.cardsField.flipCardsToFront();
 
@@ -95,6 +96,7 @@ export class GameController extends Component {
     this.header.showNewGameBtn();
     this.resetValues();
     this.cardsField.flipCardsToBack();
+    this.cardsField.clearShowCardsTimer();
     this.gameIsStarted = false;
   }
 

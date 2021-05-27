@@ -35,7 +35,6 @@ export class Popup extends Component {
     this.element.append(this.popup.element);
 
     this.hide();
-
     this.start();
   }
 

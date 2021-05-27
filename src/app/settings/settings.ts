@@ -7,7 +7,7 @@ class Settings {
 
   public cardSize = '';
 
-  public showTime = 5000;
+  public showTime = 15000;
 
   public cardCoverImage = './card-covers/abstract-orange.jpg';
 
