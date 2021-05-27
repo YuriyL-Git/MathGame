@@ -25,6 +25,12 @@ const template = `
           <p class="header__link-title">Settings</p>
         </a>
       </li>
+      <li class="header__nav-item item-game">
+        <a class="header__nav-link" href="#game">
+          <img class="header__nav-icon" src="./icons/game.svg" alt="help">
+          <p class="header__link-title">Game</p>
+        </a>
+      </li>
     </ul>
   </nav>
 `;

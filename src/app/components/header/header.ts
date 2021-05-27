@@ -19,6 +19,10 @@ export class Header extends Component {
 
   private linkTitles: NodeListOf<Element>;
 
+  private gameLink: HTMLElement | null;
+
+  private navList: HTMLElement | null;
+
   constructor() {
     super('header', ['header']);
     this.timer = new Timer();
@@ -58,6 +62,10 @@ export class Header extends Component {
       btnWrapper.element,
     );
     this.linkTitles = this.element.querySelectorAll('.header__link-title');
+    this.navList = this.element.querySelector(
+      '.header__nav-list',
+    ) as HTMLElement;
+    this.gameLink = this.element.querySelector('.item-game') as HTMLElement;
   }
 
   showNewGameOption(): void {
@@ -74,6 +82,11 @@ export class Header extends Component {
   showStopGameBtn(): void {
     this.btnStartNewGame.hide();
     this.btnStopGame.show();
+  }
+
+  showGameLink(): void {
+    if (this.gameLink) this.gameLink.style.display = 'block';
+    if (this.navList) this.navList.style.maxWidth = '35rem';
   }
 
   showUser(): void {

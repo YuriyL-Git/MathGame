@@ -9,6 +9,7 @@ import {
   getCardCategoryItems,
   getCardCoversItems,
 } from './settings-options';
+import { GameController } from '../../game-controller/game-controller';
 
 const SLIDER_FIELD_SIZE_HEIGHT = 70;
 const SLIDER_FIELD_SIZE_WIDTH = 150;
@@ -29,7 +30,11 @@ export class SettingsPage extends Component {
 
   private sliderFieldSizeOption: Slider;
 
-  constructor(db: Indexdb) {
+  private game: GameController;
+
+  public settingsUpdated = true;
+
+  constructor(game: GameController, db: Indexdb) {
     super('div', ['settings__wrapper']);
     this.page = new Component('div', ['settings__page']);
     this.page.element.append(settingsTemplate());
@@ -72,13 +77,15 @@ export class SettingsPage extends Component {
           items,
         );
         cardCoverOption?.append(this.sliderCardCoversOption.element);
+        this.optionIsChanged();
       })
       .catch(err => new Error(err));
 
+    this.game = game;
     this.db = db;
   }
 
-  updateSettings(): void {
+  optionIsChanged(): void {
     Settings.imagesQuantity = +this.sliderFieldSizeOption.activeItemValue;
     if (this.sliderCategoryOption) {
       Settings.currentCategory = this.sliderCategoryOption.activeItemValue;
@@ -86,11 +93,7 @@ export class SettingsPage extends Component {
     if (this.sliderCardCoversOption) {
       Settings.cardCoverImage = `./card-covers/${this.sliderCardCoversOption.activeItemValue}`;
     }
-  }
-
-  optionIsChanged(): void {
-    this.updateSettings();
-    console.log(Settings);
+    Settings.createNewGame = true;
   }
 
   getSliderOptions(): SliderOptions {

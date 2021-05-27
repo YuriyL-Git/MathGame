@@ -49,6 +49,7 @@ export class GameController extends Component {
 
   async createGame(): Promise<void> {
     await this.updateImageList();
+    this.resetValues();
 
     this.cardsField.setupField();
     this.cards = this.imageList.map(
@@ -64,15 +65,19 @@ export class GameController extends Component {
       }),
     );
     this.cardsField.addCards(this.cards);
+    this.gameIsStarted = false;
   }
 
-  async startGame(): Promise<void> {
+  resetValues(): void {
     this.counter = {
       success: 0,
       fails: 0,
       previousCard: null as Card | null,
     };
-    this.cardsField.flipCardsToBack();
+  }
+
+  async startNewGame(): Promise<void> {
+    this.stopGame();
 
     await delay(ANIMATION_DELAY);
     await this.createGame();
@@ -84,6 +89,14 @@ export class GameController extends Component {
       Settings.showTime / MILLISECONDS_IN_SECOND,
     );
     this.gameIsStarted = true;
+  }
+
+  public stopGame(): void {
+    this.header.timer.stopTimer();
+    this.header.showNewGameBtn();
+    this.resetValues();
+    this.cardsField.flipCardsToBack();
+    this.gameIsStarted = false;
   }
 
   private getScore(): number {

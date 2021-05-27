@@ -44,11 +44,19 @@ export class Router {
     {
       name: 'game',
       render: () => {
-        if (Settings.user) {
-          this.hideAll();
-          this.app.game.show();
-          this.app.header.highlightLink('none');
+        if (!Settings.user) return;
+        this.hideAll();
+        this.app.game.show();
+        if (Settings.createNewGame) {
+          this.app.game.stopGame();
+          this.app.game
+            .createGame()
+            .then()
+            .catch(() => new Error());
+          Settings.createNewGame = false;
         }
+
+        this.app.header.highlightLink('Game');
       },
     },
   ];

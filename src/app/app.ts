@@ -34,7 +34,7 @@ export class App {
 
     this.aboutPage = new AboutPage();
     this.bestscorePage = new BestscorePage(this.db);
-    this.settingsPage = new SettingsPage(this.db);
+    this.settingsPage = new SettingsPage(this.game, this.db);
 
     this.rootElement.append(
       this.header.element,
@@ -46,39 +46,42 @@ export class App {
       this.settingsPage.element,
     );
 
+    // NEEDS TOP BE REMOVED AFTER TESTING
+    /*    this.header.showNewGameOption();
+    this.header.showGameLink();
+    this.showGame();
+    Settings.user = {
+      score: 0,
+      firstName: 'f',
+      lastName: 'fs',
+      email: 'd',
+      avatar: '',
+    }; */
+
     /* wait until new user is created */
     this.formRegister.element.addEventListener('userAdded', () => {
       this.header.showNewGameOption();
-      this.showGame();
+      this.header.showGameLink();
       Settings.user = this.formRegister.getUser();
+      window.location.href = '#game';
     });
 
     this.header.btnStartNewGame.element.addEventListener('click', () => {
-      this.startGame();
+      this.startNewGame();
       this.header.showStopGameBtn();
     });
 
     this.header.btnStopGame.element.addEventListener('click', () => {
-      this.header.timer.stopTimer();
-      this.game.cardsField.flipCardsToBack();
-      this.game.gameIsStarted = false;
+      this.game.stopGame();
       this.header.showNewGameBtn();
     });
   }
 
-  startGame(): void {
-    // this.hideAll();
+  startNewGame(): void {
     this.game.show();
+    this.header.highlightLink('Game');
     this.game
-      .startGame()
-      .then()
-      .catch(error => new Error(error));
-  }
-
-  showGame(): void {
-    this.game.show();
-    this.game
-      .createGame()
+      .startNewGame()
       .then()
       .catch(error => new Error(error));
   }
