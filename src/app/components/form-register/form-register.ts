@@ -1,10 +1,10 @@
 import { formTemplate } from './form-template';
 import './_form-register.scss';
 import { Component } from '../shared/component';
-import { Validator } from './validator';
+import { FormValidator } from '../../utils/form-validator';
 import { Indexdb } from '../../servises/indexdb';
 import { User } from '../../models/user';
-import { ImageHandler } from './image-handler';
+import { ImageHandler } from '../../utils/image-handler';
 import Settings from '../../settings/settings';
 
 const DB_ERROR_MESSAGE = 'Email is already present in the base!';
@@ -16,7 +16,7 @@ export class FormRegister extends Component {
 
   private inputs: NodeListOf<HTMLInputElement>;
 
-  private validator: Validator;
+  private validator: FormValidator;
 
   private db: Indexdb;
 
@@ -35,7 +35,7 @@ export class FormRegister extends Component {
     this.inputs = this.element.querySelectorAll('.register__input');
     this.canvas = this.element.querySelector('canvas');
 
-    this.validator = new Validator();
+    this.validator = new FormValidator();
     this.imageHandler = new ImageHandler(this.canvas);
 
     this.db = db;

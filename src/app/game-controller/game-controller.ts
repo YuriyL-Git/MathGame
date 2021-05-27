@@ -81,7 +81,6 @@ export class GameController extends Component {
 
     await delay(ANIMATION_DELAY);
     await this.createGame();
-
     await delay(ANIMATION_DELAY);
     this.cardsField.flipCardsToFront();
 

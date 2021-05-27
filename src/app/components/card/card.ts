@@ -10,7 +10,6 @@ interface Counter {
 }
 
 const FLIP_TO_BACK_CLASS = 'card-container__card-on-back';
-
 const FLIP_BACK_DELAY = 600;
 
 export class Card extends Component {
@@ -76,12 +75,10 @@ export class Card extends Component {
 
       previous.animationInProcess = true;
       this.animationInProcess = true;
-
       this.signFail.show();
       previous.signFail.show();
 
       await delay(FLIP_BACK_DELAY);
-
       previous.flipToBack(previous.animationEnd.bind(previous));
       this.flipToBack(this.animationEnd.bind(this));
       counter.fails += 2;

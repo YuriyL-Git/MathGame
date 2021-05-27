@@ -1,4 +1,4 @@
-export class Validator {
+export class FormValidator {
   public errorMessage = '';
 
   private value = '';
@@ -59,7 +59,6 @@ export class Validator {
       return false;
     }
 
-    // const localWithoutQuotes = local.replace(/(["'])(?:(?=(\\?))\2.)*?\1/, '');
     if (local[0] !== '"' || local[local.length - 1] !== '"') {
       specialChars.forEach(char => {
         if (local.indexOf(char) !== -1) {

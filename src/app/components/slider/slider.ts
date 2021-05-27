@@ -7,10 +7,7 @@ import {
   getBtnStyles,
   getItemsStyles,
 } from './styles-computed';
-
 import './_slider.scss';
-
-/* -- proportion of buttons size to the slider width -- */
 
 export interface SliderOptions {
   width: number;
@@ -184,6 +181,7 @@ export class Slider extends Component {
     this.btnLeft.style.pointerEvents = 'auto';
     this.btnRight.style.pointerEvents = 'auto';
     this.updateItemActiveValue();
+
     if (
       this.getFollowingIndex(this.currentIndex - 1) ===
       this.items.length - 1
@@ -191,6 +189,7 @@ export class Slider extends Component {
       this.btnLeft.disabled = true;
       this.btnLeft.style.pointerEvents = 'none';
     }
+
     if (this.getFollowingIndex(this.currentIndex - 1) === 0) {
       this.btnRight.disabled = true;
       this.btnRight.style.pointerEvents = 'none';
