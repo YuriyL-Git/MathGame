@@ -1,7 +1,7 @@
 import { User } from '../models/user';
 
 class Settings {
-  public currentCategory = 'auto';
+  public currentCategory = 'animals';
 
   public imagesQuantity = 20;
 
@@ -9,7 +9,7 @@ class Settings {
 
   public showTime = 15000;
 
-  public cardBackImage = './card-covers/card-cover1.jpg';
+  public cardCoverImage = './card-covers/abstract-orange.jpg';
 
   public user?: User;
 }

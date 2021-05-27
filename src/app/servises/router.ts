@@ -46,7 +46,7 @@ export class Router {
       render: () => {
         if (Settings.user) {
           this.hideAll();
-          this.app.showGame();
+          this.app.game.show();
           this.app.header.highlightLink('none');
         }
       },

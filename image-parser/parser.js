@@ -25,8 +25,6 @@ cardCoversResult = cardCoversResult.filter(element => !element.includes('.json')
 const jsonCardCovers = JSON.stringify(cardCoversResult);
 fs.writeFile(cardCoversPath + '/covers.json', jsonCardCovers, 'utf8', cardCoverMessage);
 
-console.log(cardCoversResult);
-
 function cardImageMessage() {
   console.log('Card image JSON file updated');
 }

@@ -7,10 +7,10 @@ const template = `
       <p class="field-size-option__title">field size</p>
     </div>
     <div class="category-option">
-      <p class="category-option__title">images category</p>
+      <p class="category-option__title">category</p>
     </div>
     <div class="card-cover-option">
-    <p class="card-cover-option__title">card covers</p>
+    <p class="card-cover-option__title">card cover</p>
     </div>
 
 `;

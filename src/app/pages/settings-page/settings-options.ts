@@ -23,13 +23,11 @@ export const getCardCategoryItems = async (): Promise<Array<Component>> => {
   const categories = await getImagesNames();
   categories.forEach(category => {
     const itemWrapper = new Component('div', ['image-category__item-wrapper']);
+    itemWrapper.element.setAttribute('data-value', category.categoryName);
 
     const image = new Component('div', ['image-category__item']);
-    image.element.setAttribute('data-value', category.categoryName);
-
     const imageTitle = new Component('div', ['image-category__title']);
     imageTitle.element.innerHTML = category.categoryName;
-
     const pathToImage = `./card-images/${category.categoryName}/${category.images[0]}`;
     image.element.style.backgroundImage = `url('${pathToImage}')`;
 

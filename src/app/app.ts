@@ -76,7 +76,6 @@ export class App {
   }
 
   showGame(): void {
-    // this.hideAll();
     this.game.show();
     this.game
       .createGame()

@@ -57,7 +57,7 @@ export class Slider extends Component {
 
   private options: SliderOptions;
 
-  public activeItemValue: string | null = '';
+  public activeItemValue = '';
 
   constructor(
     sliderName: string,
@@ -115,6 +115,7 @@ export class Slider extends Component {
     this.animationInProcess = false;
     this.currentIndex = 0;
     this.setupButtons();
+    this.updateItemActiveValue();
   }
 
   setupButtons(): void {
@@ -170,16 +171,19 @@ export class Slider extends Component {
     });
   }
 
+  updateItemActiveValue(): void {
+    const activeValue = this.items[this.currentIndex].element.getAttribute(
+      'data-value',
+    );
+    if (activeValue) this.activeItemValue = activeValue;
+  }
+
   controlFlow(): void {
     this.btnLeft.disabled = false;
     this.btnRight.disabled = false;
     this.btnLeft.style.pointerEvents = 'auto';
     this.btnRight.style.pointerEvents = 'auto';
-
-    this.activeItemValue = this.items[this.currentIndex].element.getAttribute(
-      'data-value',
-    );
-
+    this.updateItemActiveValue();
     if (
       this.getFollowingIndex(this.currentIndex - 1) ===
       this.items.length - 1

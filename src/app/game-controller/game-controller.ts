@@ -52,7 +52,7 @@ export class GameController extends Component {
 
     this.cardsField.setupField();
     this.cards = this.imageList.map(
-      image => new Card(image, Settings.cardBackImage, Settings.cardSize),
+      image => new Card(image, Settings.cardCoverImage, Settings.cardSize),
     );
     this.cards.forEach(card =>
       card.element.addEventListener('click', () => {

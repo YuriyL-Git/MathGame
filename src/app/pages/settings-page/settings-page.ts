@@ -78,8 +78,19 @@ export class SettingsPage extends Component {
     this.db = db;
   }
 
+  updateSettings(): void {
+    Settings.imagesQuantity = +this.sliderFieldSizeOption.activeItemValue;
+    if (this.sliderCategoryOption) {
+      Settings.currentCategory = this.sliderCategoryOption.activeItemValue;
+    }
+    if (this.sliderCardCoversOption) {
+      Settings.cardCoverImage = `./card-covers/${this.sliderCardCoversOption.activeItemValue}`;
+    }
+  }
+
   optionIsChanged(): void {
-    console.log(this.sliderCategoryOption?.activeItemValue);
+    this.updateSettings();
+    console.log(Settings);
   }
 
   getSliderOptions(): SliderOptions {
