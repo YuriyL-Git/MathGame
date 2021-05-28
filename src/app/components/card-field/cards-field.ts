@@ -3,6 +3,10 @@ import './_cards-field.scss';
 import { Card } from '../card/card';
 import Settings from '../../settings/settings';
 
+const MAXIMUM_CARDS = 40;
+const COLUMNS_FOR_MAX_CARDS = 8;
+const FIELD_MARGIN = 20;
+
 export class CardsField extends Component {
   private cards: Card[] = [];
 
@@ -19,14 +23,20 @@ export class CardsField extends Component {
 
   setupField(): void {
     this.clearField();
-    const gridColumns = Math.ceil(Math.sqrt(Settings.imagesQuantity));
-    const gridRows = Settings.imagesQuantity / gridColumns;
+    let gridColumns = Math.ceil(Math.sqrt(Settings.cardsQty));
+    /* to optimize field size for big cards quantity */
+    if (Settings.cardsQty === MAXIMUM_CARDS) {
+      gridColumns = COLUMNS_FOR_MAX_CARDS;
+    }
 
+    const gridRows = Settings.cardsQty / gridColumns;
     const fieldHeight = this.element.clientHeight;
-    const cardSize = (fieldHeight - gridRows * (20 - gridRows)) / gridRows;
+    const cardSize =
+      (fieldHeight - gridRows * (FIELD_MARGIN - gridRows)) / gridRows;
 
-    const rowGap = (fieldHeight - cardSize * gridRows) / (gridRows - 1);
-    const fieldWidth = cardSize * gridColumns + rowGap * (gridColumns - 1) - 20;
+    const rowGap = (fieldHeight - cardSize * gridRows) / gridRows;
+    const fieldWidth =
+      cardSize * gridColumns + rowGap * gridColumns - FIELD_MARGIN;
 
     Settings.cardSize = cardSize;
 

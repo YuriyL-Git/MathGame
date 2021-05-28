@@ -1,7 +1,7 @@
 import { Component } from '../../components/shared/component';
 import { getImagesNames, getCoversNames } from '../../utils/helper-functions';
 
-const CARDS_FIELD_SIZES = ['3x4', '4x4', '5x4', '6x5', '6x6'];
+const CARDS_FIELD_SIZES = ['3x4', '4x4', '5x4', '6x5', '8x5'];
 
 export const getCardFileSizeItems = (): Array<Component> => {
   const result: Array<Component> = [];

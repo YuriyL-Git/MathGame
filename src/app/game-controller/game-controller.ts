@@ -60,7 +60,7 @@ export class GameController extends Component {
   async updateImageList(): Promise<void> {
     this.imageList = await getImagesList(
       Settings.currentCategory,
-      Settings.imagesQuantity,
+      Settings.cardsQty,
     );
   }
 

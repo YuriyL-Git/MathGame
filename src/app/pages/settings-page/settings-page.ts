@@ -88,14 +88,14 @@ export class SettingsPage extends Component {
   }
 
   optionIsChanged(): void {
-    Settings.imagesQuantity = +this.sliderFieldSizeOption.activeItemValue;
+    Settings.cardsQty = +this.sliderFieldSizeOption.activeItemValue;
     if (this.sliderCategoryOption) {
       Settings.currentCategory = this.sliderCategoryOption.activeItemValue;
     }
     if (this.sliderCardCoversOption) {
       Settings.cardCoverImage = `./card-covers/${this.sliderCardCoversOption.activeItemValue}`;
     }
-    Settings.showTime = (Settings.imagesQuantity - SHOW_TIME_OFFSET) * 1000;
+    Settings.showTime = (Settings.cardsQty - SHOW_TIME_OFFSET) * 1000;
     Settings.createNewGame = true;
   }
 
