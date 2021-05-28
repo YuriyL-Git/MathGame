@@ -44,6 +44,7 @@ export class Timer extends Component {
     );
 
     this.setTimer(DEFAULT_TIME);
+    this.hide();
   }
 
   setTimer(seconds: number): void {

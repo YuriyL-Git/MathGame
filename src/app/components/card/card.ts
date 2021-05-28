@@ -26,7 +26,7 @@ export class Card extends Component {
   constructor(
     readonly frontImage: string,
     readonly backImage: string,
-    size = '10rem',
+    size = '',
   ) {
     super('div', ['card-container', FLIP_TO_BACK_CLASS]);
 

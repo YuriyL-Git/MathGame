@@ -71,6 +71,7 @@ export class Header extends Component {
   showNewGameOption(): void {
     this.showUser();
     this.showNewGameBtn();
+    this.timer.show();
   }
 
   showNewGameBtn(): void {

@@ -10,17 +10,17 @@ import { Popup } from '../components/pop-up/popup';
 const ANIMATION_DELAY = 200;
 const MILLISECONDS_IN_SECOND = 1000;
 
-const CALCULATE_SCORE = (
+const CALCULATE_SCORE_FORMULA = (
   successfulCompars: number,
   failCompars: number,
   spentTime: number,
   cardsQty: number,
 ): number => {
-  const failsPenaltyRate = Math.floor(Math.sqrt(cardsQty));
-  const succesOffsetRate = cardsQty / 10;
+  const failPenaltyRate = Math.floor(Math.sqrt(cardsQty));
+  const successOffsetRate = cardsQty / 10;
   const result =
-    (Math.ceil(successfulCompars * succesOffsetRate) -
-      Math.floor(failCompars / failsPenaltyRate)) *
+    (Math.ceil(successfulCompars * successOffsetRate) -
+      Math.floor(failCompars / failPenaltyRate)) *
       100 -
     spentTime * 10;
 
@@ -119,7 +119,7 @@ export class GameController extends Component {
   }
 
   private getScore(): number {
-    return CALCULATE_SCORE(
+    return CALCULATE_SCORE_FORMULA(
       this.counter.success,
       this.counter.fails,
       this.header.timer.currentTime,
