@@ -46,18 +46,6 @@ export class App {
       this.settingsPage.element,
     );
 
-    // NEEDS TOP BE REMOVED AFTER TESTING
-    /*    this.header.showNewGameOption();
-    this.header.showGameLink();
-    this.showGame();
-    Settings.user = {
-      score: 0,
-      firstName: 'f',
-      lastName: 'fs',
-      email: 'd',
-      avatar: '',
-    }; */
-
     /* wait until new user is created */
     this.formRegister.element.addEventListener('userAdded', () => {
       this.header.showNewGameOption();

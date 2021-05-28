@@ -28,7 +28,7 @@ export class CardsField extends Component {
     const rowGap = (fieldHeight - cardSize * gridRows) / (gridRows - 1);
     const fieldWidth = cardSize * gridColumns + rowGap * (gridColumns - 1) - 20;
 
-    Settings.cardSize = `${cardSize}px`;
+    Settings.cardSize = cardSize;
 
     /* setup cards-field width and grid-template columns */
     this.element.style.width = `${fieldWidth}px`;

@@ -23,8 +23,6 @@
 
 .card {
   position: relative;
-  width: 10rem;
-  height: 10rem;
   transform-style: preserve-3d;
   transition: all 0.2s;
   transform-origin: right;
@@ -53,4 +51,6 @@
   &__back {
     transform: rotateY(180deg);
   }
+
 }
+

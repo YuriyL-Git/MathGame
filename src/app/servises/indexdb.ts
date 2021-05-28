@@ -1,5 +1,5 @@
 import { User } from '../models/user';
-import Mock from '../mock/mock.json';
+import Mock from '../mock/mock-users.json';
 
 const TOP_PLAYERS_QTY = 10;
 

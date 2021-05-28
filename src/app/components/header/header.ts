@@ -112,4 +112,11 @@ export class Header extends Component {
       }
     });
   }
+
+  blinkNewGameBtn(): void {
+    this.btnStartNewGame.element.classList.add('btn_blink');
+    this.btnStartNewGame.element.addEventListener('animationend', () => {
+      this.btnStartNewGame.element.classList.remove('btn_blink');
+    });
+  }
 }

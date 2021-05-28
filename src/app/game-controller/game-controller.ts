@@ -72,16 +72,18 @@ export class GameController extends Component {
     this.cards = this.imageList.map(
       image => new Card(image, Settings.cardCoverImage, Settings.cardSize),
     );
-    this.cards.forEach(card =>
+    this.cards.forEach(card => {
       card.element.addEventListener('click', () => {
         card
           .clickHandler(this.counter, this.gameIsStarted)
           .catch(err => new Error(err));
         if (this.counter.success === this.cards.length && this.gameIsStarted)
           this.userWin();
-        console.log('score=', this.getScore());
-      }),
-    );
+      });
+      card.element.addEventListener('blinknewgame', () => {
+        this.header.blinkNewGameBtn();
+      });
+    });
     this.cardsField.addCards(this.cards);
     this.gameIsStarted = false;
   }

@@ -26,12 +26,11 @@ export class Card extends Component {
   constructor(
     readonly frontImage: string,
     readonly backImage: string,
-    size = '',
+    size: number,
   ) {
     super('div', ['card-container', FLIP_TO_BACK_CLASS]);
-
     this.element.innerHTML = `
-     <div class="card" style="height: ${size}; width: ${size}">
+     <div class="card" style="height: ${size}px; width: ${size}px">
        <div class="card__front" style="background-image: url('${frontImage}')"></div>
        <div class="card__back" style="background-image: url('${backImage}')"></div>
      </div>
@@ -39,6 +38,7 @@ export class Card extends Component {
 
     this.signSuccess = new CardSign('success');
     this.signFail = new CardSign('fail');
+
     this.element.append(this.signSuccess.element, this.signFail.element);
   }
 
@@ -58,7 +58,10 @@ export class Card extends Component {
     counter: Counter,
     gameIsStarted: boolean,
   ): Promise<void> {
-    if (!gameIsStarted) return;
+    if (!gameIsStarted) {
+      this.element.dispatchEvent(new CustomEvent('blinknewgame'));
+      return;
+    }
     if (!this.backIsShown || this.animationInProcess) return;
     if (counter.previousCard?.isSecondOpened) return;
     if (counter.previousCard === this) return;

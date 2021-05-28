@@ -5,7 +5,8 @@ class Settings {
 
   public imagesQuantity = 12;
 
-  public cardSize = '';
+  /* card Size in px */
+  public cardSize = 0;
 
   public showTime = 15000;
 
