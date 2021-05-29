@@ -37,7 +37,7 @@ export class Indexdb {
     return { transaction, objectStore };
   }
 
-  addRecord(user: User): Promise<boolean> {
+  addUser(user: User): Promise<boolean> {
     return new Promise(resolve => {
       const { transaction, objectStore } = this.getTransaction();
       const request = objectStore?.add(user);
@@ -73,6 +73,24 @@ export class Indexdb {
           playersRequest?.result
             .sort((a: User, b: User) => b.score - a.score)
             .slice(0, TOP_PLAYERS_QTY),
+        );
+      });
+
+      transaction?.addEventListener('error', error => {
+        reject(error);
+      });
+    });
+  }
+
+  async getUserByEmail(email: string): Promise<User> {
+    return new Promise((resolve, reject) => {
+      const { transaction, objectStore } = this.getTransaction();
+      const playersRequest = objectStore?.getAll();
+      playersRequest?.addEventListener('success', () => {
+        resolve(
+          playersRequest?.result
+            .filter((user: User) => user.email === email)
+            .pop(),
         );
       });
 

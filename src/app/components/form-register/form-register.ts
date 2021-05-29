@@ -1,3 +1,4 @@
+import crypto from 'crypto-js';
 import { formTemplate } from './form-template';
 import './_form-register.scss';
 import { Component } from '../shared/component';
@@ -77,20 +78,19 @@ export class FormRegister extends Component {
     if (this.btnAdd) this.btnAdd.disabled = true;
 
     this.btnAdd?.addEventListener('click', (event: Event) => {
-      if (event) event.preventDefault();
+      event.preventDefault();
 
       Settings.user = this.getUser();
       this.db
-        .addRecord(Settings.user)
+        .addUser(Settings.user)
         .then(result => {
-          if (!result) {
-            if (this.messageField)
-              this.messageField.innerHTML = DB_ERROR_MESSAGE;
+          if (!result && this.messageField) {
+            this.messageField.innerHTML = DB_ERROR_MESSAGE;
           } else {
             this.clearInputs();
-            this.element.dispatchEvent(new CustomEvent('userAdded'));
+            console.log('cleared inputs');
+            document.body.dispatchEvent(new CustomEvent('entersuccess'));
             this.hide();
-            window.location.href = '#game';
           }
         })
         .catch(error => new Error(error));
@@ -108,6 +108,7 @@ export class FormRegister extends Component {
       firstName: this.inputs[0].value,
       lastName: this.inputs[1].value,
       email: this.inputs[2].value,
+      passwordHash: String(crypto.SHA256(this.inputs[3].value)),
       score: 0,
     };
   }
@@ -116,7 +117,7 @@ export class FormRegister extends Component {
     if (this.messageField) this.messageField.innerHTML = '';
 
     this.inputs.forEach(input => {
-      input.innerText = '';
+      input.value = '';
       input.style.backgroundColor = '#fff';
       if (input.nextElementSibling) input.nextElementSibling.innerHTML = '';
     });

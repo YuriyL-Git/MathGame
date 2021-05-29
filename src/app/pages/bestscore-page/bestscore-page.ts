@@ -16,6 +16,7 @@ const EMPTY_PLAYER: User = {
   firstName: NO_PLAYERS_TITLE,
   lastName: '',
   email: NO_PLAYERS_MESSAGE,
+  passwordHash: '',
   score: 0,
 };
 

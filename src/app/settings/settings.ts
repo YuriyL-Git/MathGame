@@ -8,11 +8,11 @@ class Settings {
   /* card Size in px */
   public cardSize = 0;
 
-  public showTime = 15000;
+  public showTime = 0;
 
   public cardCoverImage = './card-covers/abstract-orange.jpg';
 
-  public user?: User;
+  public user: User | null = null;
 
   public createNewGame = true;
 }

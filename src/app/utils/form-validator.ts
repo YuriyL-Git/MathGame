@@ -8,6 +8,7 @@ export class FormValidator {
     this.value = input.value;
     if (input.dataset?.type === 'name') result = this.validateName();
     if (input.dataset?.type === 'email') result = this.validateEmail();
+    if (input.dataset?.type === 'password') result = this.validatePassword();
     return result;
   }
 
@@ -68,9 +69,23 @@ export class FormValidator {
       });
     }
     if (!/^[0-9A-Za-z.-]+$/.test(domain)) {
-      this.errorMessage = `Only numbers, letters, hyphens and periods are allowed in a domain name`;
+      this.errorMessage = `Not allowed characters in the domain name`;
       return false;
     }
+    return result;
+  }
+
+  private validatePassword() {
+    const result = true;
+    if (this.value.length === 0) {
+      this.errorMessage = `Field can't be blank`;
+      return false;
+    }
+    if (this.value.length < 5) {
+      this.errorMessage = `Password should have at least 5 characters`;
+      return false;
+    }
+
     return result;
   }
 }

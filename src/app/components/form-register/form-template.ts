@@ -17,6 +17,11 @@ const template = `
           type="email" placeholder="E-mail" id="email"
           maxlength="30" required autocomplete="off">
         </div>
+        <div class="register__input-wrapper">
+          <input class="register__input register__input-password" data-type="password"
+          type="password" placeholder="Password" id="password"
+          maxlength="30" required autocomplete="off">
+        </div>
       </div>
     </div>
 

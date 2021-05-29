@@ -48,6 +48,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js', '.png'],
+    fallback: {"crypto": false},
     alias: {
       '@Scripts': path.resolve(__dirname, 'src/assets/app'),
       '@': path.resolve(__dirname, 'src'),

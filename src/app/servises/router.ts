@@ -42,6 +42,14 @@ export class Router {
       },
     },
     {
+      name: 'login',
+      render: () => {
+        this.hideAll();
+        this.app.formSingIn.show();
+        this.app.header.highlightLink('none');
+      },
+    },
+    {
       name: 'game',
       render: () => {
         if (!Settings.user) return;
@@ -83,6 +91,7 @@ export class Router {
 
     this.app.game.hide();
     this.app.formRegister.hide();
+    this.app.formSingIn.hide();
   }
 
   start(): void {

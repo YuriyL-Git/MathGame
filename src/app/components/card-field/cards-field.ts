@@ -37,7 +37,6 @@ export class CardsField extends Component {
     const rowGap = (fieldHeight - cardSize * gridRows) / gridRows;
     const fieldWidth =
       cardSize * gridColumns + rowGap * gridColumns - FIELD_MARGIN;
-
     Settings.cardSize = cardSize;
 
     /* setup cards-field width and grid-template columns */

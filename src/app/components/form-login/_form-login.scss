@@ -1,0 +1,115 @@
+.login {
+  position: relative;
+  width: 35rem;
+  height: 25rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg, rgba(0, 212, 255, 1) 0%, rgba(3, 141, 208, 1) 65%);
+  border-radius: 10px;
+  font-family: 'Roboto', sans-serif;
+  display: grid;
+  grid-template-rows: 22% 20% 4% 20% 8% 24%;
+  grid-template-areas:
+      "tl"
+      "em"
+      "."
+      "ps"
+      "ms"
+      "bt";
+
+
+  &__wrapper {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    top: 0;
+    left: 0;
+  }
+
+  &__title {
+    align-self: center;
+    justify-self: center;
+    grid-area: tl;
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: hsl(228, 91%, 22%);
+  }
+
+  &__input {
+    align-self: center;
+    justify-self: center;
+    height: 80%;
+    width: 80%;
+    outline: none;
+    border: none;
+    font-size: 2.3rem;
+    padding-left: 1.5rem;
+    border-radius: 5px;
+
+    &::placeholder {
+      font-size: 2rem;
+    }
+  }
+
+  &__input-email {
+    grid-area: em;
+  }
+
+  &__input-password {
+    grid-area: ps;
+  }
+
+  &__validation-message{
+    grid-area: ms;
+    align-self: center;
+    justify-self: center;
+    color: red;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.9rem;
+  }
+
+  &__buttons-wrapper {
+    align-self: center;
+    justify-self: center;
+    grid-area: bt;
+  }
+
+  &__btn {
+    width: 9rem;
+    height: 4.5rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 1.4em;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:last-child {
+      margin-left: 0.5rem;
+    }
+  }
+
+  &__btn--add {
+    background-color: green;
+
+    &:hover {
+      background-color: lighten(green, 6%)
+    }
+  }
+
+  &__btn--cancel {
+    background-color: red;
+
+    &:hover {
+      background-color: lighten(red, 12%)
+    }
+  }
+}

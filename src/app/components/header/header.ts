@@ -11,7 +11,7 @@ export class Header extends Component {
 
   public btnStartNewGame: Button;
 
-  private avatarWrapper: Component;
+  private userWrapper: Component;
 
   public btnStopGame: Button;
 
@@ -23,18 +23,49 @@ export class Header extends Component {
 
   private navList: HTMLElement | null;
 
+  private btnLogin: ButtonLink;
+
+  private avatar: HTMLImageElement;
+
+  private userName: Component;
+
+  private btnLogout: Button;
+
   constructor() {
     super('header', ['header']);
     this.timer = new Timer();
 
-    /* create header buttons */
-    const btnWrapper = new Component('div', ['header__btn-wrapper']);
-    this.avatarWrapper = new Component('div', ['header__avatar-wrapper']);
+    /* ----------------------- login user data -------------------------------- */
+    this.userWrapper = new Component('div', ['header__user-wrapper']);
+    this.userName = new Component('div', ['header__user-name']);
+    this.avatar = new Image();
+    this.avatar.classList.add('header__avatar');
+    const dropDownWrapper = new Component('div', ['header__drop-down-wrapper']);
+    this.btnLogout = new Button(['header__btn-logout'], 'Log Out');
+    dropDownWrapper.element.append(this.btnLogout.element);
 
+    this.userWrapper.element.append(
+      this.avatar,
+      this.userName.element,
+      dropDownWrapper.element,
+    );
+    this.userWrapper.hide();
+
+    this.btnLogout.element.addEventListener('click', () => {
+      this.showUserLoggedOut();
+    });
+
+    /* -------------  buttons --------------------------------------------------*/
     this.btnRegister = new ButtonLink(
       ['header__btn'],
       'Register new player',
       '#register',
+    );
+
+    this.btnLogin = new ButtonLink(
+      ['header__btn', 'header__btn-login'],
+      'Login',
+      '#login',
     );
 
     this.btnStartNewGame = new Button(
@@ -49,11 +80,13 @@ export class Header extends Component {
     this.btnStartNewGame.hide();
     this.btnStopGame.hide();
 
+    const btnWrapper = new Component('div', ['header__btn-wrapper']);
     btnWrapper.element.append(
+      this.btnLogin.element,
       this.btnRegister.element,
       this.btnStartNewGame.element,
       this.btnStopGame.element,
-      this.avatarWrapper.element,
+      this.userWrapper.element,
     );
 
     this.element.append(
@@ -61,28 +94,45 @@ export class Header extends Component {
       this.timer.element,
       btnWrapper.element,
     );
+
     this.linkTitles = this.element.querySelectorAll('.header__link-title');
-    this.navList = this.element.querySelector(
-      '.header__nav-list',
-    ) as HTMLElement;
+    this.navList = this.element.querySelector('.header__nav-list');
     this.gameLink = this.element.querySelector('.item-game') as HTMLElement;
   }
 
-  showNewGameOption(): void {
+  showUserLoggedIn(): void {
     this.showUser();
     this.showNewGameBtn();
+    this.showGameLink();
     this.timer.show();
   }
 
+  showUserLoggedOut(): void {
+    Settings.user = null;
+    this.userWrapper.hide();
+    this.hideAllButtons();
+    this.timer.hide();
+    this.hideGameLink();
+    this.btnRegister.show();
+    this.btnLogin.show();
+    window.location.href = '#about';
+  }
+
   showNewGameBtn(): void {
+    this.hideAllButtons();
     this.btnStartNewGame.show();
-    this.btnRegister.hide();
-    this.btnStopGame.hide();
   }
 
   showStopGameBtn(): void {
-    this.btnStartNewGame.hide();
+    this.hideAllButtons();
     this.btnStopGame.show();
+  }
+
+  hideAllButtons(): void {
+    this.btnStartNewGame.hide();
+    this.btnRegister.hide();
+    this.btnLogin.hide();
+    this.btnStopGame.hide();
   }
 
   showGameLink(): void {
@@ -90,17 +140,22 @@ export class Header extends Component {
     if (this.navList) this.navList.style.maxWidth = '35rem';
   }
 
-  showUser(): void {
-    const img = new Image();
-    img.classList.add('header__avatar');
+  hideGameLink(): void {
+    if (this.gameLink) this.gameLink.style.display = 'none';
+    if (this.navList) this.navList.style.maxWidth = '30rem';
+  }
 
+  showUser(): void {
     if (Settings.user?.avatar !== 'none' && Settings.user?.avatar) {
-      img.src = Settings.user?.avatar;
+      this.avatar.src = Settings.user?.avatar;
     } else {
-      img.src = './icons/avatar.png';
+      this.avatar.src = './icons/avatar.png';
     }
 
-    this.avatarWrapper.element.append(img);
+    if (Settings.user) {
+      this.userName.element.innerText = `${Settings.user.firstName} ${Settings.user.lastName}`;
+    }
+    this.userWrapper.show();
   }
 
   highlightLink(linkText: string): void {

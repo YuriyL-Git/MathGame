@@ -14,7 +14,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 0%, rgba(9, 9, 121, 1) 0%, rgba(0, 212, 255, 1) 0%, rgba(3, 141, 208, 1) 65%);
+  background: linear-gradient(90deg,  rgba(0, 212, 255, 1) 0%, rgba(3, 141, 208, 1) 65%);
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -22,7 +22,7 @@
   grid-template-areas:
       "tl tl tl tl tl"
       "in in in av av"
-      ". . bt bt bt";
+      "in in in bt bt";
 
   &__title {
     grid-area: tl;
@@ -36,7 +36,7 @@
 
   &__input-section-wrapper {
     width: 100%;
-    height: 100%;
+    height: 86%;
     grid-area: in;
   }
 
@@ -107,8 +107,9 @@
 
   &__avatar {
     cursor: pointer;
-    width: 65%;
-    height: 75%;
+    width: 75%;
+    height: auto;
+    min-height: 85%;
     margin-right: 2.5rem;
     margin-bottom: 1rem;
     background: url('/public/icons/avatar.png') center no-repeat;
@@ -152,8 +153,7 @@
     grid-area: bt;
     display: flex;
     justify-content: space-between;
-    padding-left: 9.5rem;
-    padding-right: 2rem;
+    padding-right: 1rem;
     padding-top: 0.5rem;
   }
 
@@ -214,4 +214,5 @@
   font-size: 1.3rem;
   font-family: 'Roboto', sans-serif;
   width: 24rem;
+  white-space: nowrap;
 }
