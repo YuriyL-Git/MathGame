@@ -16,8 +16,11 @@ const CALCULATE_SCORE_FORMULA = (
   spentTime: number,
   cardsQty: number,
 ): number => {
-  const failPenaltyRate = Math.floor(Math.sqrt(cardsQty));
-  const successOffsetRate = cardsQty / 10;
+  // updated formula
+  // const failPenaltyRate = Math.floor(Math.sqrt(cardsQty));
+  // const successOffsetRate = cardsQty / 10;
+  const failPenaltyRate = 1;
+  const successOffsetRate = 1;
   const result =
     (Math.ceil(successfulCompars * successOffsetRate) -
       Math.floor(failCompars / failPenaltyRate)) *
