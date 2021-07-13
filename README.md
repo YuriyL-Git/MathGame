@@ -1,2 +1,2 @@
 Project could be found by the link:
-[Math-match game](https://yuriyl-git.github.io/rsschool-cv/ "My CV")
+[Math-match game](https://rolling-scopes-school.github.io/yuriyl-git-JSFE2021Q1/math-game "Math-math game")
